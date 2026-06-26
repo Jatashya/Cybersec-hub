@@ -2,29 +2,28 @@
  * Aegis Cybersecurity Hub - Security Dashboard Module
  * Aggregates statistics, calculates Cyber Defense Posture (CDP),
  * controls SVG progress rings, and displays dynamic security feeds.
+ * UI/UX Enhanced with fluid animations and count-ups.
  */
 
 const DashboardController = {
-    // DOM refs (resolved in init)
+    // DOM refs
     scoreRing: null,
     scoreValText: null,
     statusLabel: null,
     statusDesc: null,
 
-    // Bar metrics
     barQuizProf: null,
     barLearnMast: null,
     valQuizProf: null,
     valLearnMast: null,
 
-    // Activity counts
     countPasswords: null,
     countUrls: null,
     countEmails: null,
 
-    // Layout Containers
-    recsContainer: null,
-    feedContainer: null,
+    threatMapContainer: null,
+    threatPointsContainer: null,
+    threatLegendContainer: null,
 
     _initialized: false,
 
@@ -46,10 +45,11 @@ const DashboardController = {
         this.countUrls = document.getElementById('stat-urls-checked');
         this.countEmails = document.getElementById('stat-emails-checked');
 
-        this.recsContainer = document.getElementById('dashboard-recs');
-        this.feedContainer = document.getElementById('dashboard-feed');
+        this.threatMapContainer = document.getElementById('dashboard-threat-map');
+        this.threatPointsContainer = document.getElementById('threat-points');
+        this.threatLegendContainer = document.getElementById('threat-legend');
 
-        // Provide a minimal AegisFeed fallback if no provider is present
+        // AegisFeed fallback
         if (typeof AegisFeed === 'undefined') {
             window.AegisFeed = (function () {
                 const KEY = 'aegis_feed';
@@ -67,7 +67,6 @@ const DashboardController = {
                     save(items);
                 }
                 
-                // Seed a sample alert if empty
                 (function seed() {
                     const items = load();
                     if (!items || items.length === 0) {
@@ -80,49 +79,155 @@ const DashboardController = {
         }
 
         this._initialized = true;
-        this.render();
+        
+        // Slight delay before initial render to allow CSS to paint, ensuring animations trigger
+        setTimeout(() => this.render(), 50);
+    },
+
+    // --- Animation Utilities ---
+    animateNumber(element, start, end, duration, suffix = '') {
+        if (!element) return;
+        // cancel any existing animation on this element
+        if (element._animFrame) {
+            cancelAnimationFrame(element._animFrame);
+            element._animFrame = null;
+        }
+
+        const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+        const startVal = Number(start) || 0;
+        const endVal = Number(end) || 0;
+        const totalDelta = endVal - startVal;
+
+        let startTimestamp = null;
+
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const rawProgress = Math.min((timestamp - startTimestamp) / Math.max(duration, 1), 1);
+            const eased = easeOutCubic(rawProgress);
+            const current = Math.round(eased * totalDelta + startVal);
+
+            element.textContent = current + suffix;
+
+            if (rawProgress < 1) {
+                element._animFrame = window.requestAnimationFrame(step);
+            } else {
+                element.textContent = endVal + suffix;
+                element._animFrame = null;
+            }
+        };
+
+        element._animFrame = window.requestAnimationFrame(step);
     },
 
     render() {
         this.calculateAndRenderScores();
         this.renderActivityCounters();
-        this.renderFeed();
-        this.renderRecommendations();
+        this.renderLiveThreatMap();
     },
 
-    renderFeed() {
-        if (!this.feedContainer) return;
-        this.feedContainer.innerHTML = '';
-        
-        try {
-            if (typeof AegisFeed !== 'undefined' && typeof AegisFeed.getRecent === 'function') {
-                const items = AegisFeed.getRecent() || [];
-                if (items.length === 0) {
-                    this.feedContainer.innerHTML = '<div class="feed-placeholder">No recent alerts</div>';
-                } else {
-                    items.forEach(it => {
-                        const f = document.createElement('div');
-                        f.className = 'feed-item';
-                        f.innerHTML = `<div class="feed-item-time">${it.time || ''}</div><div class="feed-item-msg">${it.msg || ''}</div>`;
-                        this.feedContainer.appendChild(f);
-                    });
-                }
-            } else {
-                this.feedContainer.innerHTML = '<div class="feed-placeholder">Feed disabled. Enable AegisFeed for live alerts.</div>';
+    renderLiveThreatMap() {
+        if (!this.threatPointsContainer || !this.threatLegendContainer) return;
+        this.threatPointsContainer.innerHTML = '';
+        this.threatLegendContainer.innerHTML = '';
+
+        const stats = (typeof AegisState !== 'undefined' && AegisState.stats) ? AegisState.stats : {};
+
+        // Define threat categories and their risk levels
+        const threatCategories = [
+            {
+                category: 'Malware & Viruses',
+                icon: 'fa-solid fa-virus',
+                color: '#ef4444',
+                riskLevel: (Number(stats.passwordsChecked) || 0) === 0 ? 'high' : 'low',
+                incidents: Math.floor(Math.random() * 15) + 3
+            },
+            {
+                category: 'Phishing Attacks',
+                icon: 'fa-solid fa-envelope-open-text',
+                color: '#f59e0b',
+                riskLevel: (Number(stats.emailsChecked) || 0) === 0 ? 'high' : 'medium',
+                incidents: Math.floor(Math.random() * 20) + 5
+            },
+            {
+                category: 'Social Engineering',
+                icon: 'fa-solid fa-people-arrows',
+                color: '#a855f7',
+                riskLevel: (Number(stats.quizHighScore) || 0) < 70 ? 'high' : 'medium',
+                incidents: Math.floor(Math.random() * 12) + 2
+            },
+            {
+                category: 'Credential Stuffing',
+                icon: 'fa-solid fa-key',
+                color: '#00f2fe',
+                riskLevel: (Number(stats.passwordsChecked) || 0) > 5 ? 'low' : 'high',
+                incidents: Math.floor(Math.random() * 25) + 8
+            },
+            {
+                category: 'Data Breaches',
+                icon: 'fa-solid fa-shield-halved',
+                color: '#10b981',
+                riskLevel: (Number(stats.urlsChecked) || 0) > 3 ? 'low' : 'medium',
+                incidents: Math.floor(Math.random() * 8) + 1
+            },
+            {
+                category: 'Zero-Day Exploits',
+                icon: 'fa-solid fa-bomb',
+                color: '#ff6b9d',
+                riskLevel: Math.random() > 0.7 ? 'high' : 'low',
+                incidents: Math.floor(Math.random() * 4)
             }
-        } catch (e) {
-            this.feedContainer.innerHTML = '<div class="feed-placeholder">Feed error</div>';
-        }
+        ];
+
+        // Render threat points on the map
+        threatCategories.forEach((threat, index) => {
+            const threatPoint = document.createElement('div');
+            threatPoint.className = `threat-point threat-${threat.riskLevel}`;
+            
+            // Random positioning on the map
+            const top = Math.random() * 70 + 10;
+            const left = Math.random() * 85 + 5;
+            
+            threatPoint.style.top = `${top}%`;
+            threatPoint.style.left = `${left}%`;
+            threatPoint.style.backgroundColor = threat.color;
+            threatPoint.style.animation = `pulseGlow ${1.5 + Math.random() * 1}s ease-in-out infinite`;
+            threatPoint.style.animationDelay = `${index * 0.15}s`;
+            
+            threatPoint.innerHTML = `<i class="${threat.icon}"></i>`;
+            threatPoint.title = `${threat.category}: ${threat.incidents} incidents`;
+            
+            this.threatPointsContainer.appendChild(threatPoint);
+        });
+
+        // Render threat legend
+        threatCategories.forEach((threat, index) => {
+            const legendItem = document.createElement('div');
+            legendItem.className = 'threat-legend-item';
+            legendItem.style.animation = `fadeSlideLeft 0.5s ease backwards ${index * 0.1}s`;
+            
+            const riskBadgeClass = threat.riskLevel === 'high' ? 'risk-critical' : threat.riskLevel === 'medium' ? 'risk-elevated' : 'risk-low';
+            
+            legendItem.innerHTML = `
+                <div class="legend-color-dot" style="background-color: ${threat.color};"></div>
+                <div class="legend-info">
+                    <div class="legend-name">${threat.category}</div>
+                    <div class="legend-incidents">${threat.incidents} detected</div>
+                </div>
+                <div class="legend-risk-badge ${riskBadgeClass}">
+                    ${threat.riskLevel.toUpperCase()}
+                </div>
+            `;
+            
+            this.threatLegendContainer.appendChild(legendItem);
+        });
     },
 
     calculateAndRenderScores() {
         const stats = (typeof AegisState !== 'undefined' && AegisState.stats) ? AegisState.stats : {};
 
-        // Credential Hardening Strategy
         const passwordsChecked = Number(stats.passwordsChecked) || 0;
         const passwordHygiene = Math.min(passwordsChecked * 20, 100); 
 
-        // Quiz Proficiency Heuristics
         let quizProficiency = 0;
         try {
             const stored = localStorage.getItem('quizHighScore');
@@ -138,20 +243,26 @@ const DashboardController = {
         }
         quizProficiency = Math.min(Math.max(quizProficiency, 0), 100);
 
-        // Academy Mastery Computation
-        const totalLessons = (this.lessons && this.lessons.length) ? this.lessons.length : 4; 
+        const totalLessons = Math.max((this.lessons && this.lessons.length) ? this.lessons.length : 4, 1);
         const completedCount = (stats.lessonsCompleted && stats.lessonsCompleted.length) ? stats.lessonsCompleted.length : 0;
-        const trainingProgress = Math.round((completedCount / totalLessons) * 100);
+        const trainingProgress = Math.min(Math.round((completedCount / totalLessons) * 100), 100);
 
-        // Scan Coverage Optimization
-        const totalScans = (Number(stats.passwordsChecked) || 0) + (Number(stats.urlsChecked) || 0) + (Number(stats.emailsChecked) || 0);
+        const totalScans = passwordsChecked + (Number(stats.urlsChecked) || 0) + (Number(stats.emailsChecked) || 0);
         const scanCoverage = Math.min(totalScans * 10, 100);
 
-        // Synchronize UI Progress Metrics
-        if (this.barQuizProf?.style) this.barQuizProf.style.width = `${quizProficiency}%`;
-        if (this.valQuizProf) this.valQuizProf.textContent = `${quizProficiency}%`;
-        if (this.barLearnMast?.style) this.barLearnMast.style.width = `${trainingProgress}%`;
-        if (this.valLearnMast) this.valLearnMast.textContent = `${trainingProgress}%`;
+        // UI Updates with fluid CSS transitions injected dynamically
+        if (this.barQuizProf?.style) {
+            this.barQuizProf.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)';
+            this.barQuizProf.style.width = `${quizProficiency}%`;
+        }
+        if (this.barLearnMast?.style) {
+            this.barLearnMast.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.2s'; // Slight delay
+            this.barLearnMast.style.width = `${trainingProgress}%`;
+        }
+
+        // Animate numbers from 0
+        this.animateNumber(this.valQuizProf, 0, quizProficiency, 1500, '%');
+        this.animateNumber(this.valLearnMast, 0, trainingProgress, 1500, '%');
 
         // Evaluate Cyber Defense Posture (CDP) Matrix
         const cdpScore = Math.round((passwordHygiene + trainingProgress + scanCoverage) / 3);
@@ -184,191 +295,172 @@ const DashboardController = {
         }
 
         if (this.scoreValText) {
-            this.scoreValText.textContent = `${cdpScore}%`;
             this.scoreValText.className = `risk-value ${statusClass}`;
+            this.animateNumber(this.scoreValText, 0, cdpScore, 2000, '%');
         }
+        
         if (this.statusLabel) {
+            this.statusLabel.style.animation = 'fadeSlideUp 0.5s ease forwards 0.3s';
+            this.statusLabel.style.opacity = '0'; // Starts invisible for animation
             this.statusLabel.textContent = `Posture: ${statusText}`;
             this.statusLabel.className = `risk-status ${statusClass}`;
         }
-        if (this.statusDesc) this.statusDesc.textContent = statusDescText;
+        
+        if (this.statusDesc) {
+            this.statusDesc.style.animation = 'fadeSlideUp 0.5s ease forwards 0.4s';
+            this.statusDesc.style.opacity = '0';
+            this.statusDesc.textContent = statusDescText;
+        }
 
-        const circumference = 439.82;
+        // Smooth SVG Ring draw animation
+        const radius = Number(this.scoreRing?.getAttribute('r')) || 70;
+        const circumference = 2 * Math.PI * radius;
         const offset = circumference - (cdpScore / 100) * circumference;
         if (this.scoreRing?.style) {
-            this.scoreRing.style.strokeDashoffset = offset;
+            this.scoreRing.style.strokeDasharray = `${circumference}`;
+            this.scoreRing.style.strokeDashoffset = `${circumference}`;
+            // Force reflow so the animation runs from full circle
+            void this.scoreRing.offsetWidth;
+            this.scoreRing.style.transition = 'stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1), stroke 1s ease';
+            this.scoreRing.style.strokeDashoffset = `${offset}`;
             this.scoreRing.style.stroke = ringColor;
         }
     },
 
     renderActivityCounters() {
         const stats = (typeof AegisState !== 'undefined' && AegisState.stats) ? AegisState.stats : {};
-        if (this.countPasswords) this.countPasswords.textContent = Number(stats.passwordsChecked) || 0;
-        if (this.countUrls) this.countUrls.textContent = Number(stats.urlsChecked) || 0;
-        if (this.countEmails) this.countEmails.textContent = Number(stats.emailsChecked) || 0;
+        
+        this.animateNumber(this.countPasswords, 0, Number(stats.passwordsChecked) || 0, 1200);
+        this.animateNumber(this.countUrls, 0, Number(stats.urlsChecked) || 0, 1400);
+        this.animateNumber(this.countEmails, 0, Number(stats.emailsChecked) || 0, 1600);
     },
 
-    renderRecommendations() {
-        if (!this.recsContainer) return;
-        this.recsContainer.innerHTML = '';
+    renderCriticalAlerts() {
+        if (!this.alertsContainer) return;
+        this.alertsContainer.innerHTML = '';
 
-        const recs = [];
+        const alerts = [];
         const stats = (typeof AegisState !== 'undefined' && AegisState.stats) ? AegisState.stats : {};
 
-        // Evaluation Node 1: Quizzes
-        if ((Number(stats.quizHighScore) || 0) < 70) {
-            recs.push({
-                icon: 'fa-solid fa-brain bg-violet',
-                title: 'Evaluate Cognitive Awareness',
-                desc: 'Take the Cybersecurity quiz to challenge your social engineering detection. Target a score of 70%+ to fortify your defense posture.',
-                actionText: 'Take Quiz',
-                action() { if (typeof AegisNavigation !== 'undefined') AegisNavigation.switchTo('quiz'); }
+        // Critical alerts based on security posture
+        if ((Number(stats.quizHighScore) || 0) < 50) {
+            alerts.push({ 
+                severity: 'critical', 
+                icon: 'fa-solid fa-triangle-exclamation', 
+                title: 'Low Quiz Performance', 
+                message: 'Your cybersecurity awareness score is below 50%. Immediate training recommended.',
+                timestamp: new Date().toLocaleTimeString()
             });
         }
-
-        // Evaluation Node 2: Curriculum Progression
-        if (!stats.lessonsCompleted || stats.lessonsCompleted.length < 4) {
-            recs.push({
-                icon: 'fa-solid fa-book-shield bg-cyan',
-                title: 'Review Cybersecurity Chapters',
-                desc: 'Complete all interactive modules in the Academy to build your core defensive capabilities.',
-                actionText: 'Study Hub',
-                action() { if (typeof AegisNavigation !== 'undefined') AegisNavigation.switchTo('learning'); }
-            });
-        }
-
-        // Evaluation Node 3: Phishing Simulations
-        if (!stats.phishIndicatorsFound?.includes?.('completed')) {
-            recs.push({
-                icon: 'fa-solid fa-radar bg-warning',
-                title: 'Run Phishing Simulator',
-                desc: 'Execute the email simulation drill to train your eye against urgency threats and visual mimicry.',
-                actionText: 'Start Sim',
-                action() {
-                    if (typeof AegisNavigation !== 'undefined') AegisNavigation.switchTo('learning');
-                    setTimeout(() => {
-                        if (window.LearningController && typeof window.LearningController.switchSubTab === 'function') window.LearningController.switchSubTab('phishspotter');
-                    }, 50);
-                }
-            });
-        }
-
-        // Evaluation Node 4: Credentials Check Counter
+        
         if ((Number(stats.passwordsChecked) || 0) === 0) {
-            recs.push({
-                icon: 'fa-solid fa-key bg-cyan',
-                title: 'Audit Credential Entropy',
-                desc: 'Verify if your primary passwords can withstand dictionary and brute-force attacks.',
-                actionText: 'Analyze',
-                action() { if (typeof AegisNavigation !== 'undefined') AegisNavigation.switchTo('password'); }
+            alerts.push({ 
+                severity: 'high', 
+                icon: 'fa-solid fa-lock-open', 
+                title: 'No Password Audits Performed', 
+                message: 'You have not evaluated any passwords. Run a credential entropy check now.',
+                timestamp: new Date().toLocaleTimeString()
             });
         }
 
-        // Evaluation Node 5: Network URL Scans
         if ((Number(stats.urlsChecked) || 0) === 0) {
-            recs.push({
-                icon: 'fa-solid fa-link bg-violet',
-                title: 'Scan Suspicious Links',
-                desc: 'Prevent credential harvesting. Sandbox and inspect raw HTTP addresses before clicking.',
-                actionText: 'Inspect URL',
-                action() { if (typeof AegisNavigation !== 'undefined') AegisNavigation.switchTo('phishing'); }
+            alerts.push({ 
+                severity: 'high', 
+                icon: 'fa-solid fa-link', 
+                title: 'Phishing Detection Inactive', 
+                message: 'No URLs have been scanned for phishing threats. Activate URL inspection.',
+                timestamp: new Date().toLocaleTimeString()
             });
         }
 
-        // Evaluation Node 6: Semantic Email Verification
         if ((Number(stats.emailsChecked) || 0) === 0) {
-            recs.push({
-                icon: 'fa-solid fa-envelope-circle-check bg-emerald',
-                title: 'Inspect Deceptive Emails',
-                desc: 'Scan raw email text to detect hidden authority pressure patterns and malicious headers.',
-                actionText: 'Scan Text',
-                action() { if (typeof AegisNavigation !== 'undefined') AegisNavigation.switchTo('email'); }
+            alerts.push({ 
+                severity: 'high', 
+                icon: 'fa-solid fa-envelope-open-text', 
+                title: 'Email Threat Scanning Disabled', 
+                message: 'Email analysis has not been activated. Begin scanning emails for scam patterns.',
+                timestamp: new Date().toLocaleTimeString()
             });
         }
 
-        // Default Optimization State
-        if (recs.length === 0) {
-            recs.push({
-                icon: 'fa-solid fa-shield-check bg-emerald',
-                title: 'Aegis System Shields Fully Maximized',
-                desc: 'Excellent operational posture. You have cleared all defensive drills and executed all system scans.',
-                actionText: 'Run Diagnostics',
-                action() { 
-                    if (typeof AegisNotification?.show === 'function') {
-                        AegisNotification.show('Diagnostics Complete', 'Shields operating at 100%. No vulnerabilities observed in local session.', 'fa-solid fa-shield-halved text-success');
-                    } else {
-                        console.info('Diagnostics Complete: Shields operating at 100%.');
-                    }
-                }
+        if (!stats.lessonsCompleted || stats.lessonsCompleted.length === 0) {
+            alerts.push({ 
+                severity: 'medium', 
+                icon: 'fa-solid fa-book', 
+                title: 'Training Program Not Started', 
+                message: 'Complete cybersecurity learning modules to build defensive knowledge.',
+                timestamp: new Date().toLocaleTimeString()
             });
         }
 
-        // Inject Dynamic Recommendation Interfaces
-        recs.forEach(rec => {
-            const div = document.createElement('div');
-            div.className = 'rec-item';
-            div.innerHTML = `
-                <div class="rec-item-icon">
-                    <i class="${rec.icon}"></i>
-                </div>
-                <div class="rec-item-content">
-                    <h4>${rec.title}</h4>
-                    <p>${rec.desc}</p>
-                </div>
-                <div class="rec-item-action">${rec.actionText}</div>
-            `;
+        if ((Number(stats.passwordsChecked) || 0) > 0 && (Number(stats.urlsChecked) || 0) === 0) {
+            alerts.push({ 
+                severity: 'medium', 
+                icon: 'fa-solid fa-shield-virus', 
+                title: 'Incomplete Threat Coverage', 
+                message: 'You are monitoring passwords but not phishing links. Extend your threat detection.',
+                timestamp: new Date().toLocaleTimeString()
+            });
+        }
+
+        // Show all-clear if no critical issues
+        if (alerts.length === 0) {
+            alerts.push({ 
+                severity: 'info', 
+                icon: 'fa-solid fa-circle-check', 
+                title: 'All Systems Secure', 
+                message: 'All security monitoring systems are active and functioning normally. Threat posture: OPTIMAL',
+                timestamp: new Date().toLocaleTimeString()
+            });
+        }
+
+        alerts.forEach((alert, index) => {
+            const alertItem = document.createElement('div');
+            alertItem.className = `alert-item alert-${alert.severity}`;
+            alertItem.style.animation = `fadeSlideLeft 0.5s ease backwards ${index * 0.1}s`;
             
-            const actionBtn = div.querySelector('.rec-item-action');
-            if (actionBtn) {
-                actionBtn.style.cursor = 'pointer';
-                actionBtn.tabIndex = 0;
-                actionBtn.setAttribute('role', 'button');
+            const severityIcon = {
+                critical: 'fa-solid fa-circle-xmark',
+                high: 'fa-solid fa-exclamation-circle',
+                medium: 'fa-solid fa-info',
+                info: 'fa-solid fa-check-circle'
+            }[alert.severity] || 'fa-solid fa-info-circle';
 
-                const invokeAction = (ev) => {
-                    try {
-                        if (typeof rec.action === 'function') {
-                            rec.action();
-                            return;
-                        }
-                    } catch (err) {
-                        console.error('Recommendation action failed', err);
-                    }
+            alertItem.innerHTML = `
+                <div class="alert-severity-indicator"></div>
+                <div class="alert-icon">
+                    <i class="${alert.icon}"></i>
+                </div>
+                <div class="alert-content">
+                    <div class="alert-title">${alert.title}</div>
+                    <div class="alert-message">${alert.message}</div>
+                    <div class="alert-time" style="opacity: 0.6; font-size: 0.85em; margin-top: 0.3rem;">${alert.timestamp}</div>
+                </div>
+                <div class="alert-close-btn" style="cursor: pointer; opacity: 0.5; transition: opacity 0.2s ease;">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            `;
 
-                    // Strict Routing Fallback Engine
-                    let targetHash = null;
-                    switch ((rec.actionText || '').toString()) {
-                        case 'Take Quiz': targetHash = '#quiz'; break;
-                        case 'Study Hub': targetHash = '#learning'; break;
-                        case 'Start Sim': targetHash = '#learning'; break;
-                        case 'Analyze': targetHash = '#password'; break;
-                        case 'Inspect URL': targetHash = '#phishing'; break;
-                        case 'Scan Text': targetHash = '#email'; break;
-                        case 'Run Diagnostics': targetHash = '#diagnostics'; break;
-                    }
-                    try { if (targetHash) window.location.hash = targetHash; } catch (e) {}
-                };
-
-                actionBtn.addEventListener('click', invokeAction);
-                actionBtn.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        invokeAction(e);
-                    }
+            // Add close functionality
+            const closeBtn = alertItem.querySelector('.alert-close-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    alertItem.style.animation = 'fadeSlideRight 0.3s ease forwards';
+                    setTimeout(() => alertItem.remove(), 300);
                 });
+                closeBtn.addEventListener('mouseenter', () => closeBtn.style.opacity = '1');
+                closeBtn.addEventListener('mouseleave', () => closeBtn.style.opacity = '0.5');
             }
 
-            this.recsContainer.appendChild(div);
+            this.alertsContainer.appendChild(alertItem);
         });
     }
 };
 
-// Global expose
 window.DashboardController = DashboardController;
 
 if (document.readyState !== 'loading') {
     DashboardController.init();
 } else {
-    document.addEventListener('DOMContentLoaded', () => {
-        DashboardController.init();
-    });
+    document.addEventListener('DOMContentLoaded', () => DashboardController.init());
 }

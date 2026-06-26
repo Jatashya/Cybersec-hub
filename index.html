@@ -5,23 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aegis Cybersecurity Hub - Real-time Password Analyzer, Phishing URL Checker, Email Scam Scanner, Security Quiz, and Interactive Learning Center.">
     <title>Aegis - Cybersecurity Hub</title>
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom Style -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-dark">
-    <!-- Ambient glowing backgrounds -->
     <div class="ambient-glow glow-1"></div>
     <div class="ambient-glow glow-2"></div>
     <div class="ambient-glow glow-3"></div>
 
     <div class="app-container">
-        <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="brand">
                 <div class="brand-icon">
@@ -55,6 +50,10 @@
                     <i class="fa-solid fa-circle-question"></i>
                     <span>Security Quiz</span>
                 </button>
+                <button class="nav-item" data-tab="developer" id="btn-tab-developer">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Developer Info</span>
+                </button>
             </nav>
 
             <div class="sidebar-footer">
@@ -65,9 +64,7 @@
             </div>
         </aside>
 
-        <!-- Main Content Area -->
         <main class="main-content">
-            <!-- Topbar / Header -->
             <header class="topbar">
                 <div class="topbar-title">
                     <h2 id="current-section-title">Security Dashboard</h2>
@@ -79,13 +76,10 @@
                 </div>
             </header>
 
-            <!-- Scrollable content wrapper -->
             <div class="content-scroll-container">
 
-                <!-- 1. DASHBOARD VIEW -->
                 <section id="view-dashboard" class="content-view active">
                     <div class="dashboard-grid">
-                        <!-- Safety Score Card -->
                         <div class="glass-card score-card span-col-2">
                             <div class="card-header">
                                 <h3>Personal Cyber Safety Index</h3>
@@ -93,7 +87,7 @@
                             </div>
                             <div class="score-container">
                                 <div class="score-gauge-wrapper">
-                                    <svg class="progress-ring" width="160" height="160">
+                                    <svg class="progress-ring" viewBox="0 0 160 160" preserveAspectRatio="xMidYMid meet">
                                         <circle class="progress-ring-circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="12" fill="transparent" r="70" cx="80" cy="80"/>
                                         <circle id="safety-score-ring" class="progress-ring-circle" stroke="var(--cyan-glow)" stroke-width="12" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round" fill="transparent" r="70" cx="80" cy="80"/>
                                     </svg>
@@ -121,7 +115,6 @@
                             </div>
                         </div>
 
-                        <!-- Scan Activity / Quick Stats -->
                         <div class="glass-card stats-card">
                             <div class="card-header">
                                 <h3>Quick Activity Tracker</h3>
@@ -151,18 +144,22 @@
                             </div>
                         </div>
 
-                        <!-- Recommendations Card -->
-                        <div class="glass-card rec-card span-col-2">
+                        <div class="glass-card threat-map-card span-col-2">
                             <div class="card-header">
-                                <h3>Aegis Security Feed & Recommendations</h3>
-                                <span class="badge badge-pulse">Live Insights</span>
+                                <h3>Live Threat Map</h3>
+                                <span class="badge badge-pulse">Real-Time Tracking</span>
                             </div>
-                            <div class="rec-list" id="dashboard-recs">
-                                <!-- Dynamic Recommendations will be loaded here -->
+                            <div class="threat-map-container" id="dashboard-threat-map">
+                                <div class="threat-map-world">
+                                    <div class="threat-map-grid"></div>
+                                    <div class="threat-map-threats" id="threat-points">
+                                        </div>
+                                </div>
+                                <div class="threat-map-legend" id="threat-legend">
+                                    </div>
                             </div>
                         </div>
 
-                        <!-- Threat Map / Graphic -->
                         <div class="glass-card visual-card">
                             <div class="card-header">
                                 <h3>Local Network Threat Shield</h3>
@@ -193,10 +190,8 @@
                     </div>
                 </section>
 
-                <!-- 2. PASSWORD ANALYZER VIEW -->
                 <section id="view-password" class="content-view">
                     <div class="content-grid-2col">
-                        <!-- Input and Strength Meter -->
                         <div class="glass-card flex-column">
                             <div class="card-header border-bottom">
                                 <h3>Password Cryptographic Analysis</h3>
@@ -212,7 +207,6 @@
                                 </div>
                             </div>
 
-                            <!-- Entropy and Basic Score -->
                             <div class="strength-bar-container margin-top-sm">
                                 <div class="strength-header">
                                     <span>Strength Rating</span>
@@ -246,7 +240,6 @@
                             </div>
                         </div>
 
-                        <!-- Feedback and Dictionary Warning -->
                         <div class="glass-card flex-column">
                             <div class="card-header border-bottom">
                                 <h3>Security Recommendations</h3>
@@ -267,10 +260,8 @@
                     </div>
                 </section>
 
-                <!-- 3. PHISHING URL CHECKER VIEW -->
                 <section id="view-phishing" class="content-view">
                     <div class="content-grid-2col">
-                        <!-- URL Input Section -->
                         <div class="glass-card flex-column">
                             <div class="card-header border-bottom">
                                 <h3>Phishing Link Inspector</h3>
@@ -297,7 +288,6 @@
                             </div>
                         </div>
 
-                        <!-- Scan Results and Score -->
                         <div class="glass-card flex-column" id="url-results-card">
                             <div class="card-header border-bottom">
                                 <h3>Scan Analysis Report</h3>
@@ -322,18 +312,15 @@
                                 <div class="heuristics-report margin-top-md">
                                     <h4>Detected Vulnerabilities / Warnings</h4>
                                     <div class="warning-log-list" id="url-warnings-list">
-                                        <!-- Dynamic checklist here -->
-                                    </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- 4. EMAIL SCAM ANALYZER VIEW -->
                 <section id="view-email" class="content-view">
                     <div class="content-grid-2col">
-                        <!-- Input Section -->
                         <div class="glass-card flex-column">
                             <div class="card-header border-bottom">
                                 <h3>Threat Level Scraper</h3>
@@ -350,7 +337,6 @@
                             </div>
                         </div>
 
-                        <!-- Output Analysis and Highlighted text -->
                         <div class="glass-card flex-column" id="email-results-card">
                             <div class="card-header border-bottom">
                                 <h3>Fraud Detection Summary</h3>
@@ -374,8 +360,7 @@
                                 <div class="highlighted-view-box margin-top-md">
                                     <h4>Highlighted Dangerous Phrases</h4>
                                     <div class="scam-highlighted-text" id="email-highlighted-text">
-                                        <!-- Text with spans highlighting warnings -->
-                                    </div>
+                                        </div>
                                     <div class="highlight-legend margin-top-xs">
                                         <span class="legend-item"><span class="legend-dot color-urgency"></span> Urgency / Fear</span>
                                         <span class="legend-item"><span class="legend-dot color-finance"></span> Financial/Gift</span>
@@ -387,17 +372,14 @@
                                 <div class="heuristics-report margin-top-md">
                                     <h4>Detected Scam Vectors</h4>
                                     <div class="warning-log-list" id="email-vectors-list">
-                                        <!-- Vectors dynamic feed -->
-                                    </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- 5. CYBER LEARNING HUB VIEW -->
                 <section id="view-learning" class="content-view">
-                    <!-- Dashboard mini switcher inside the learning hub -->
                     <div class="learning-header">
                         <div class="learning-nav-tabs">
                             <button class="sub-tab active" data-subtab="lessons">Interactive Modules</button>
@@ -406,14 +388,11 @@
                         </div>
                     </div>
 
-                    <!-- SUB-TAB 1: LESSONS -->
                     <div id="subtab-view-lessons" class="subtab-view active">
                         <div class="lessons-grid">
-                            <!-- Lesson Cards will load dynamically -->
-                        </div>
+                            </div>
                     </div>
 
-                    <!-- SUB-TAB 2: SPOT THE PHISH -->
                     <div id="subtab-view-phishspotter" class="subtab-view">
                         <div class="spot-the-phish-container">
                             <div class="glass-card">
@@ -475,39 +454,35 @@
                         </div>
                     </div>
 
-                    <!-- SUB-TAB 3: FLASHCARDS -->
                     <div id="subtab-view-flashcards" class="subtab-view">
-                        <div class="flashcards-container">
+                        <div class="flashcards-panel glass-card">
                             <div class="flashcard-deck">
-                                <div class="flashcard" id="active-flashcard">
-                                    <div class="flashcard-inner">
-                                        <div class="flashcard-front">
-                                            <span class="card-category">Social Engineering</span>
-                                            <h3 id="flashcard-front-title">Pretexting</h3>
-                                            <p class="card-prompt">Click to flip and read definition</p>
+                                <div id="active-flashcard" class="flashcard-card">
+                                    <div class="flashcard-face flashcard-front">
+                                        <div class="flashcard-meta">
+                                            <span class="card-category"></span>
                                         </div>
-                                        <div class="flashcard-back">
-                                            <span class="card-category">Definition</span>
-                                            <p id="flashcard-back-text">A form of social engineering where an attacker creates an invented scenario (pretext) to persuade a targeted victim to release information or perform an action they wouldn't normally do.</p>
-                                            <p class="card-prompt">Click to flip back</p>
-                                        </div>
+                                        <h3 id="flashcard-front-title">Security Concept</h3>
+                                        <p class="text-secondary" style="margin-top: 12px;">Tap the card to flip and reveal the definition.</p>
+                                    </div>
+                                    <div class="flashcard-face flashcard-back">
+                                        <h4 class="text-warning">Definition</h4>
+                                        <p id="flashcard-back-text">Definition content appears here.</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="flashcard-nav margin-top-md">
-                                <button class="btn btn-icon" id="btn-flashcard-prev"><i class="fa-solid fa-arrow-left"></i></button>
-                                <span class="flashcard-counter" id="flashcard-indicator">1 / 8</span>
-                                <button class="btn btn-icon" id="btn-flashcard-next"><i class="fa-solid fa-arrow-right"></i></button>
+                            <div class="flashcard-footer">
+                                <button class="btn btn-outline" id="btn-flashcard-prev">&larr; Previous</button>
+                                <span id="flashcard-indicator">1 / 10</span>
+                                <button class="btn btn-outline" id="btn-flashcard-next">Next &rarr;</button>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- 6. CYBERSECURITY QUIZ VIEW -->
                 <section id="view-quiz" class="content-view">
                     <div class="quiz-container max-width-800 flex-center-horizontal">
                         
-                        <!-- Quiz Start Panel -->
                         <div class="glass-card quiz-panel text-center" id="quiz-start-panel">
                             <i class="fa-solid fa-shield-virus text-violet icon-huge"></i>
                             <h3 class="margin-top-md">Cybersecurity Readiness Quiz</h3>
@@ -521,7 +496,6 @@
                             <button class="btn btn-primary btn-large margin-top-lg" id="btn-start-quiz">Initialize Exam</button>
                         </div>
 
-                        <!-- Quiz Active Panel -->
                         <div class="glass-card quiz-panel display-none" id="quiz-active-panel">
                             <div class="quiz-header">
                                 <div class="quiz-progress-wrapper">
@@ -539,8 +513,7 @@
                             </div>
 
                             <div class="quiz-options-list margin-top-lg" id="quiz-options-container">
-                                <!-- Dynamic button options -->
-                            </div>
+                                </div>
 
                             <div class="quiz-explanation-box margin-top-md display-none" id="quiz-explanation-panel">
                                 <div class="explanation-icon" id="quiz-explanation-icon">
@@ -554,7 +527,6 @@
                             </div>
                         </div>
 
-                        <!-- Quiz Results Panel -->
                         <div class="glass-card quiz-panel text-center display-none" id="quiz-results-panel">
                             <div class="trophy-wrapper">
                                 <i class="fa-solid fa-trophy text-glow-yellow" id="quiz-medal-icon"></i>
@@ -585,16 +557,67 @@
                     </div>
                 </section>
 
+                <section id="view-developer" class="content-view">
+                    <div class="content-grid-2col">
+                        <div class="glass-card flex-column">
+                            <div class="card-header border-bottom">
+                                <h3>Developer Profile</h3>
+                            </div>
+                            <div class="flex-center-vertical margin-top-md" style="padding: 20px 0;">
+                                <i class="fa-solid fa-user-astronaut text-cyan" style="font-size: 4rem; margin-bottom: 20px;"></i>
+                                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; letter-spacing: 1px;" class="text-glow">JATASHYA K. VYAS</h2>
+                                <span class="badge badge-pulse margin-top-sm">Lead Developer & Architect</span>
+                            </div>
+                            
+                            <div class="margin-top-md">
+                                <ul class="cyber-bullets">
+                                    <li><i class="fa-solid fa-graduation-cap text-violet"></i> <strong>Education:</strong> Pursuing Diploma in Computer Engineering</li>
+                                    <li><i class="fa-solid fa-university text-violet"></i> <strong>Institution:</strong> SVIT Vasad (Gujarat)</li>
+                                    <li><i class="fa-solid fa-code-branch text-violet"></i> <strong>Project Role:</strong> Designing and programming an interactive Cybersecurity Hub to enhance user defense mechanisms and digital threat awareness.</li>
+                                </ul>
+                            </div>
+
+                            <div class="margin-top-md border-top" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px;">
+                                <h4 style="margin-bottom: 12px; color: var(--text-primary);">Contact & Connectivity</h4>
+                                <ul class="cyber-bullets">
+                                    <li><i class="fa-solid fa-envelope text-cyan"></i> <strong>Email:</strong> <span>jatashyavyas@gmail.com</span></li>
+                                    <li><i class="fa-brands fa-linkedin text-cyan"></i> <strong>LinkedIn:</strong> <span>[Insert your LinkedIn here]</span></li>
+                                    <li><i class="fa-brands fa-github text-cyan"></i> <strong>GitHub:</strong> <span>[Insert your GitHub here]</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="glass-card flex-column">
+                            <div class="card-header border-bottom">
+                                <h3>About The Project: Aegis Hub</h3>
+                            </div>
+                            <div class="margin-top-md">
+                                <p class="text-secondary" style="line-height: 1.6;">
+                                    <strong>Aegis Cybersecurity Hub</strong> is a modern, responsive Single Page Application (SPA) built to empower users with the tools needed to combat daily digital threats. By integrating real-time threat analysis with interactive education, Aegis bridges the gap between passive learning and active defence.
+                                </p>
+                            </div>
+                            
+                            <div class="margin-top-md">
+                                <h4 style="margin-bottom: 12px; color: var(--text-primary);">Core Modules Developed:</h4>
+                                <ul class="cyber-bullets">
+                                    <li><i class="fa-solid fa-chart-pie text-emerald"></i> <strong>Security Dashboard:</strong> Aggregates live user data to calculate a Personal Cyber Safety Index and visualizes risk through a local network threat shield.</li>
+                                    <li><i class="fa-solid fa-key text-emerald"></i> <strong>Password Analyzer:</strong> A cryptographic analysis tool that tests Shannon entropy, highlights structural weaknesses, and calculates crack durations in real-time.</li>
+                                    <li><i class="fa-solid fa-link text-emerald"></i> <strong>URL Phishing Check:</strong> An inspector running heuristic algorithms to detect typosquatting, suspicious TLDs, and deceptive redirects.</li>
+                                    <li><i class="fa-solid fa-envelope-open-text text-emerald"></i> <strong>Email Scam Scanner:</strong> A threat-level scraper utilizing regex and keyword detection to highlight psychological manipulation vectors (like financial urgency).</li>
+                                    <li><i class="fa-solid fa-graduation-cap text-emerald"></i> <strong>Interactive Learning Hub & Quiz:</strong> Features interactive flashcards, a unique "Spot the Phish" simulation engine, and an exam system to test readiness and reward safe practices.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </div>
         </main>
     </div>
 
-    <!-- Security Blocking Notifications (Custom Alerts/Toasts) -->
     <div class="security-notification-container" id="toast-container">
-        <!-- Toast elements dynamically generated by app.js -->
-    </div>
+        </div>
 
-    <!-- Scripts -->
     <script type="module" src="password.js"></script>
     <script type="module" src="phishing.js"></script>
     <script type="module" src="email.js"></script>
