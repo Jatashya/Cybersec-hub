@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aegis Cybersecurity Hub - Real-time Password Analyzer, Phishing URL Checker, Email Scam Scanner, Security Quiz, and Interactive Learning Center.">
+    <title>Aegis - Cybersecurity Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h1 class="brand-name">AEGIS</h1>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" data-tab="dashboard" id="btn-tab-dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-tab="password" id="btn-tab-password">
+                    <i class="fa-solid fa-key"></i>
+                    <span>Password Analyzer</span>
+                </button>
+                <button class="nav-item" data-tab="phishing" id="btn-tab-phishing">
+                    <i class="fa-solid fa-link"></i>
+                    <span>URL Phishing Check</span>
+                </button>
+                <button class="nav-item" data-tab="email" id="btn-tab-email">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <span>Email Scam Scan</span>
+                </button>
+                <button class="nav-item" data-tab="learning" id="btn-tab-learning">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Learning Hub</span>
+                </button>
+                <button class="nav-item" data-tab="quiz" id="btn-tab-quiz">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Security Quiz</span>
+                </button>
+                <button class="nav-item" data-tab="developer" id="btn-tab-developer">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Developer Info</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="security-status">
+                    <i class="fa-solid fa-lock text-success"></i>
+                    <span>Offline Secure Mode</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-title">
+                    <h2 id="current-section-title">Security Dashboard</h2>
+                    <p id="current-section-subtitle">Real-time cyber protection analytics and alerts</p>
+                </div>
+                <div class="system-time">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="live-timer">--:--:--</span>
+                </div>
+            </header>
+
+            <div class="content-scroll-container">
+
+                <section id="view-dashboard" class="content-view active">
+                    <div class="dashboard-grid">
+                        <div class="glass-card score-card span-col-2">
+                            <div class="card-header">
+                                <h3>Personal Cyber Safety Index</h3>
+                                <i class="fa-solid fa-circle-info tooltip-trigger" title="Calculated based on your scans, quiz scores, and learning progress."></i>
+                            </div>
+                            <div class="score-container">
+                                <div class="score-gauge-wrapper">
+                                    <svg class="progress-ring" viewBox="0 0 160 160" preserveAspectRatio="xMidYMid meet">
+                                        <circle class="progress-ring-circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="12" fill="transparent" r="70" cx="80" cy="80"/>
+                                        <circle id="safety-score-ring" class="progress-ring-circle" stroke="var(--cyan-glow)" stroke-width="12" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round" fill="transparent" r="70" cx="80" cy="80"/>
+                                    </svg>
+                                    <div class="score-display">
+                                        <span id="safety-score-val">0</span>
+                                        <span class="score-max">/100</span>
+                                    </div>
+                                </div>
+                                <div class="score-details">
+                                    <h4 id="safety-status-label" class="text-warning">Calculating Security Index...</h4>
+                                    <p id="safety-status-desc">Complete quizzes, analyze passwords, and read security modules to raise your safety score.</p>
+                                    <div class="safety-bars">
+                                        <div class="safety-bar-item">
+                                            <span>Quiz Proficiency</span>
+                                            <div class="mini-progress-bar"><div id="bar-quiz-prof" class="fill" style="width: 0%"></div></div>
+                                            <span id="val-quiz-prof">0%</span>
+                                        </div>
+                                        <div class="safety-bar-item">
+                                            <span>Learning Mastery</span>
+                                            <div class="mini-progress-bar"><div id="bar-learn-mast" class="fill" style="width: 0%"></div></div>
+                                            <span id="val-learn-mast">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card stats-card">
+                            <div class="card-header">
+                                <h3>Quick Activity Tracker</h3>
+                            </div>
+                            <div class="activity-stats">
+                                <div class="stat-item">
+                                    <div class="stat-icon bg-cyan"><i class="fa-solid fa-key"></i></div>
+                                    <div class="stat-info">
+                                        <span class="stat-count" id="stat-passwords-checked">0</span>
+                                        <span class="stat-label">Passwords Evaluated</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon bg-violet"><i class="fa-solid fa-link"></i></div>
+                                    <div class="stat-info">
+                                        <span class="stat-count" id="stat-urls-checked">0</span>
+                                        <span class="stat-label">Phishing URLs Scanned</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon bg-emerald"><i class="fa-solid fa-envelope"></i></div>
+                                    <div class="stat-info">
+                                        <span class="stat-count" id="stat-emails-checked">0</span>
+                                        <span class="stat-label">Emails Analyzed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card threat-map-card span-col-2">
+                            <div class="card-header">
+                                <h3>Live Threat Map</h3>
+                                <span class="badge badge-pulse">Real-Time Tracking</span>
+                            </div>
+                            <div class="threat-map-container" id="dashboard-threat-map">
+                                <div class="threat-map-world">
+                                    <div class="threat-map-grid"></div>
+                                    <div class="threat-map-threats" id="threat-points">
+                                        </div>
+                                </div>
+                                <div class="threat-map-legend" id="threat-legend">
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card visual-card">
+                            <div class="card-header">
+                                <h3>Local Network Threat Shield</h3>
+                            </div>
+                            <div class="shield-container">
+                                <div class="shield-wrapper">
+                                    <div class="shield-halo"></div>
+                                    <div class="shield-core">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                    </div>
+                                </div>
+                                <div class="shield-data">
+                                    <div class="shield-row">
+                                        <span>Right-Click Guard</span>
+                                        <span class="status-pill active">ACTIVE</span>
+                                    </div>
+                                    <div class="shield-row">
+                                        <span>Data Exfiltration Intercept</span>
+                                        <span class="status-pill active">ACTIVE</span>
+                                    </div>
+                                    <div class="shield-row">
+                                        <span>Clipboard Shield</span>
+                                        <span class="status-pill active">ACTIVE</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-password" class="content-view">
+                    <div class="content-grid-2col">
+                        <div class="glass-card flex-column">
+                            <div class="card-header border-bottom">
+                                <h3>Password Cryptographic Analysis</h3>
+                            </div>
+                            
+                            <div class="form-group margin-top-md">
+                                <label for="password-input">Enter Password to Analyze</label>
+                                <div class="input-wrapper-icon">
+                                    <input type="password" id="password-input" placeholder="Type a password..." autocomplete="off">
+                                    <button class="toggle-password-visibility" id="btn-toggle-pass">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="strength-bar-container margin-top-sm">
+                                <div class="strength-header">
+                                    <span>Strength Rating</span>
+                                    <span id="password-rating-label" class="strength-label-text text-danger">Empty</span>
+                                </div>
+                                <div class="progress-bar-glow">
+                                    <div id="password-strength-bar" class="fill bg-danger" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="grid-2col margin-top-md">
+                                <div class="stat-box">
+                                    <span class="stat-box-label">Shannon Entropy</span>
+                                    <span class="stat-box-value" id="password-entropy-val">0 <span class="unit">bits</span></span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-box-label">Crack Duration</span>
+                                    <span class="stat-box-value text-glow" id="password-crack-time">Instant</span>
+                                </div>
+                            </div>
+
+                            <div class="character-checkpoints margin-top-md">
+                                <h4>Character Breakdown</h4>
+                                <div class="checkpoint-grid">
+                                    <div class="checkpoint" id="chk-len"><i class="fa-regular fa-circle-xmark text-danger"></i> 12+ Characters</div>
+                                    <div class="checkpoint" id="chk-upper"><i class="fa-regular fa-circle-xmark text-danger"></i> Uppercase Letters</div>
+                                    <div class="checkpoint" id="chk-lower"><i class="fa-regular fa-circle-xmark text-danger"></i> Lowercase Letters</div>
+                                    <div class="checkpoint" id="chk-num"><i class="fa-regular fa-circle-xmark text-danger"></i> Numbers</div>
+                                    <div class="checkpoint" id="chk-spec"><i class="fa-regular fa-circle-xmark text-danger"></i> Symbols</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card flex-column">
+                            <div class="card-header border-bottom">
+                                <h3>Security Recommendations</h3>
+                            </div>
+                            <div class="recommendations-box margin-top-md flex-grow">
+                                <div id="password-feedback-container" class="feedback-list">
+                                    <div class="feedback-placeholder">
+                                        <i class="fa-solid fa-key"></i>
+                                        <p>Type a password to receive custom structural and architectural security improvements.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info-notice info-violet margin-top-md">
+                                <i class="fa-solid fa-lightbulb"></i>
+                                <span><strong>Tip:</strong> Avoid using names, years, pet names, keyboard patterns (like "qwerty"), or words from dictionary. Cryptographic security relies on high entropy.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-phishing" class="content-view">
+                    <div class="content-grid-2col">
+                        <div class="glass-card flex-column">
+                            <div class="card-header border-bottom">
+                                <h3>Phishing Link Inspector</h3>
+                            </div>
+
+                            <div class="form-group margin-top-md">
+                                <label for="url-input">Target URL (Web Address)</label>
+                                <div class="input-wrapper-btn">
+                                    <input type="text" id="url-input" placeholder="e.g. http://paypal-verify-secure.com" autocomplete="off">
+                                    <button class="btn btn-primary" id="btn-scan-url">Scan Link</button>
+                                </div>
+                            </div>
+
+                            <div class="url-guide-box margin-top-md">
+                                <h4>Common Heuristics Searched:</h4>
+                                <ul class="cyber-bullets">
+                                    <li><i class="fa-solid fa-check"></i> Typosquatting (mimicking `google.com` as `goog1e.com`)</li>
+                                    <li><i class="fa-solid fa-check"></i> Deceptive subdomains and high subdomain density</li>
+                                    <li><i class="fa-solid fa-check"></i> Deceptive keywords in host path</li>
+                                    <li><i class="fa-solid fa-check"></i> Non-standard or high-risk TLDs</li>
+                                    <li><i class="fa-solid fa-check"></i> Raw IP address hosting instead of registered domains</li>
+                                    <li><i class="fa-solid fa-check"></i> URL redirection protocols inside query strings</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="glass-card flex-column" id="url-results-card">
+                            <div class="card-header border-bottom">
+                                <h3>Scan Analysis Report</h3>
+                            </div>
+                            <div class="scan-result-body flex-grow flex-center-vertical" id="url-empty-state">
+                                <i class="fa-solid fa-radar-screen text-dim icon-huge"></i>
+                                <p class="text-dim">Enter a URL and click 'Scan Link' to run heuristics engine.</p>
+                            </div>
+                            <div class="scan-result-body flex-column display-none" id="url-active-state">
+                                <div class="risk-gauge-container">
+                                    <div class="risk-score-badge" id="url-risk-badge">
+                                        <span class="risk-label">RISK LEVEL</span>
+                                        <span class="risk-value" id="url-risk-score">0%</span>
+                                        <span class="risk-status" id="url-risk-status">SAFE</span>
+                                    </div>
+                                    <svg class="risk-ring" width="120" height="120">
+                                        <circle class="progress-ring-circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                                        <circle id="url-risk-ring" class="progress-ring-circle" stroke="var(--emerald-glow)" stroke-width="8" stroke-dasharray="314.15" stroke-dashoffset="314.15" stroke-linecap="round" fill="transparent" r="50" cx="60" cy="60"/>
+                                    </svg>
+                                </div>
+
+                                <div class="heuristics-report margin-top-md">
+                                    <h4>Detected Vulnerabilities / Warnings</h4>
+                                    <div class="warning-log-list" id="url-warnings-list">
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-email" class="content-view">
+                    <div class="content-grid-2col">
+                        <div class="glass-card flex-column">
+                            <div class="card-header border-bottom">
+                                <h3>Threat Level Scraper</h3>
+                            </div>
+
+                            <div class="form-group margin-top-md flex-grow flex-column">
+                                <label for="email-content-input">Paste Email Body Content</label>
+                                <textarea id="email-content-input" class="flex-grow flex-textarea" placeholder="Paste the text of the suspicious email here... (e.g. 'URGENT: Your account has been suspended. Please click here to verify your identity within 24 hours.')" autocomplete="off"></textarea>
+                            </div>
+
+                            <div class="form-actions margin-top-sm">
+                                <button class="btn btn-primary" id="btn-scan-email">Scan Email Content</button>
+                                <button class="btn btn-outline" id="btn-clear-email">Clear</button>
+                            </div>
+                        </div>
+
+                        <div class="glass-card flex-column" id="email-results-card">
+                            <div class="card-header border-bottom">
+                                <h3>Fraud Detection Summary</h3>
+                            </div>
+                            <div class="scan-result-body flex-grow flex-center-vertical" id="email-empty-state">
+                                <i class="fa-solid fa-envelope-shield text-dim icon-huge"></i>
+                                <p class="text-dim">Paste email text and scan to analyze for manipulation and scam triggers.</p>
+                            </div>
+                            <div class="scan-result-body flex-column display-none" id="email-active-state">
+                                <div class="grid-2col">
+                                    <div class="stat-box">
+                                        <span class="stat-box-label">Scam Probability</span>
+                                        <span class="stat-box-value text-danger text-glow" id="email-risk-percentage">0%</span>
+                                    </div>
+                                    <div class="stat-box">
+                                        <span class="stat-box-label">Threat Classification</span>
+                                        <span class="stat-box-value" id="email-threat-level">UNKNOWN</span>
+                                    </div>
+                                </div>
+
+                                <div class="highlighted-view-box margin-top-md">
+                                    <h4>Highlighted Dangerous Phrases</h4>
+                                    <div class="scam-highlighted-text" id="email-highlighted-text">
+                                        </div>
+                                    <div class="highlight-legend margin-top-xs">
+                                        <span class="legend-item"><span class="legend-dot color-urgency"></span> Urgency / Fear</span>
+                                        <span class="legend-item"><span class="legend-dot color-finance"></span> Financial/Gift</span>
+                                        <span class="legend-item"><span class="legend-dot color-authority"></span> Impersonation</span>
+                                        <span class="legend-item"><span class="legend-dot color-generic"></span> Deceptive links</span>
+                                    </div>
+                                </div>
+
+                                <div class="heuristics-report margin-top-md">
+                                    <h4>Detected Scam Vectors</h4>
+                                    <div class="warning-log-list" id="email-vectors-list">
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-learning" class="content-view">
+                    <div class="learning-header">
+                        <div class="learning-nav-tabs">
+                            <button class="sub-tab active" data-subtab="lessons">Interactive Modules</button>
+                            <button class="sub-tab" data-subtab="phishspotter">Spot the Phish</button>
+                            <button class="sub-tab" data-subtab="flashcards">Security Flashcards</button>
+                        </div>
+                    </div>
+
+                    <div id="subtab-view-lessons" class="subtab-view active">
+                        <div class="lessons-grid">
+                            </div>
+                    </div>
+
+                    <div id="subtab-view-phishspotter" class="subtab-view">
+                        <div class="spot-the-phish-container">
+                            <div class="glass-card">
+                                <div class="card-header border-bottom">
+                                    <h3>Spot The Phish Interactive Simulator</h3>
+                                    <span class="instructions-pill">Click on the suspicious elements in the email below</span>
+                                </div>
+                                <div class="phish-simulator-interface margin-top-md">
+                                    <div class="sim-browser-bar">
+                                        <span class="bullet red"></span>
+                                        <span class="bullet yellow"></span>
+                                        <span class="bullet green"></span>
+                                        <div class="sim-url-field" id="sim-browser-url">
+                                            <i class="fa-solid fa-lock text-success"></i> <span id="sim-url-text">https://secure.paypal-billing-verify.com/login</span>
+                                        </div>
+                                    </div>
+                                    <div class="sim-email-client">
+                                        <div class="email-meta-header">
+                                            <div class="meta-row">
+                                                <span class="meta-label">From:</span>
+                                                <span class="meta-value phish-trigger" id="sim-email-sender" data-id="sender">PaypaI Alert &lt;security@paypaI-updates-support.net&gt;</span>
+                                            </div>
+                                            <div class="meta-row">
+                                                <span class="meta-label">Subject:</span>
+                                                <span class="meta-value phish-trigger" id="sim-email-subject" data-id="subject">URGENT: Temporary Account Hold - Immediate Actions Required!</span>
+                                            </div>
+                                            <div class="meta-row">
+                                                <span class="meta-label">To:</span>
+                                                <span class="meta-value">valuable-customer@user.com</span>
+                                            </div>
+                                        </div>
+                                        <div class="email-body-content">
+                                            <p class="phish-trigger" data-id="greeting">Dear Customer,</p>
+                                            <p>Our automated systems detected multiple unauthorized login attempts on your account from a suspicious IP address located in Moscow, Russia. To ensure security, we have placed a temporary limitation on your access.</p>
+                                            
+                                            <p class="phish-trigger font-weight-bold text-danger" data-id="urgency">IMPORTANT: You must resolve this issue within 24 hours. Failure to verify will lead to permanent deletion of your account and asset liquidation.</p>
+                                            
+                                            <div class="email-button-container">
+                                                <a href="#" class="btn btn-danger phish-trigger" data-id="link" onclick="return false;">Verify Account Information Immediately</a>
+                                            </div>
+                                            
+                                            <p class="margin-top-md">Sincerely,<br>
+                                            <span class="phish-trigger" data-id="signoff">The Paypal Executive Operations and Fraud Control Team Inc.</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sim-controls margin-top-md">
+                                    <div class="sim-stats">
+                                        <span>Suspicious Indicators Found: <strong id="sim-found-count">0</strong> / <strong id="sim-total-count">5</strong></span>
+                                        <div class="mini-progress-bar max-width-200"><div id="sim-progress-bar" class="fill bg-cyan" style="width: 0%"></div></div>
+                                    </div>
+                                    <button class="btn btn-outline" id="btn-reset-simulator">Reset Scenario</button>
+                                </div>
+                                <div class="sim-explanation-box margin-top-md display-none" id="sim-explanation-card">
+                                    <h4 class="text-success"><i class="fa-solid fa-circle-check"></i> Threat Detected!</h4>
+                                    <p id="sim-explanation-text">Explanation goes here...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="subtab-view-flashcards" class="subtab-view">
+                        <div class="flashcards-panel glass-card">
+                            <div class="flashcard-deck">
+                                <div id="active-flashcard" class="flashcard-card">
+                                    <div class="flashcard-face flashcard-front">
+                                        <div class="flashcard-meta">
+                                            <span class="card-category"></span>
+                                        </div>
+                                        <h3 id="flashcard-front-title">Security Concept</h3>
+                                        <p class="text-secondary" style="margin-top: 12px;">Tap the card to flip and reveal the definition.</p>
+                                    </div>
+                                    <div class="flashcard-face flashcard-back">
+                                        <h4 class="text-warning">Definition</h4>
+                                        <p id="flashcard-back-text">Definition content appears here.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flashcard-footer">
+                                <button class="btn btn-outline" id="btn-flashcard-prev">&larr; Previous</button>
+                                <span id="flashcard-indicator">1 / 10</span>
+                                <button class="btn btn-outline" id="btn-flashcard-next">Next &rarr;</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-quiz" class="content-view">
+                    <div class="quiz-container max-width-800 flex-center-horizontal">
+                        
+                        <div class="glass-card quiz-panel text-center" id="quiz-start-panel">
+                            <i class="fa-solid fa-shield-virus text-violet icon-huge"></i>
+                            <h3 class="margin-top-md">Cybersecurity Readiness Quiz</h3>
+                            <p class="text-dim max-width-600 margin-top-sm">Test your awareness of social engineering, browser safety, passcode patterns, and email fraud vectors. Unlock badges to raise your security index!</p>
+                            <div class="quiz-settings margin-top-md">
+                                <div class="stat-box display-inline-block">
+                                    <span class="stat-box-label">Your Current High Score</span>
+                                    <span class="stat-box-value" id="quiz-high-score">0%</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-large margin-top-lg" id="btn-start-quiz">Initialize Exam</button>
+                        </div>
+
+                        <div class="glass-card quiz-panel display-none" id="quiz-active-panel">
+                            <div class="quiz-header">
+                                <div class="quiz-progress-wrapper">
+                                    <span>Question <strong id="quiz-current-num">1</strong> of <strong id="quiz-total-num">10</strong></span>
+                                    <div class="mini-progress-bar"><div id="quiz-progress-bar" class="fill bg-violet" style="width: 10%"></div></div>
+                                </div>
+                                <div class="quiz-timer">
+                                    <i class="fa-solid fa-stopwatch text-warning"></i>
+                                    <span id="quiz-time-left" class="text-warning">30s</span>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question-box margin-top-md">
+                                <h3 id="quiz-question-text">Question text goes here?</h3>
+                            </div>
+
+                            <div class="quiz-options-list margin-top-lg" id="quiz-options-container">
+                                </div>
+
+                            <div class="quiz-explanation-box margin-top-md display-none" id="quiz-explanation-panel">
+                                <div class="explanation-icon" id="quiz-explanation-icon">
+                                    <i class="fa-solid fa-check-circle text-success"></i>
+                                </div>
+                                <div class="explanation-details">
+                                    <h4 id="quiz-explanation-title">Correct!</h4>
+                                    <p id="quiz-explanation-body">Detailed explanation text goes here.</p>
+                                </div>
+                                <button class="btn btn-primary margin-left-auto" id="btn-next-question">Next Question</button>
+                            </div>
+                        </div>
+
+                        <div class="glass-card quiz-panel text-center display-none" id="quiz-results-panel">
+                            <div class="trophy-wrapper">
+                                <i class="fa-solid fa-trophy text-glow-yellow" id="quiz-medal-icon"></i>
+                            </div>
+                            <h3 class="margin-top-md" id="quiz-results-title">Quiz Completed!</h3>
+                            <p class="text-dim" id="quiz-results-subtitle">You scored 8 out of 10 points.</p>
+                            
+                            <div class="grid-3col margin-top-lg">
+                                <div class="stat-box">
+                                    <span class="stat-box-label">Accuracy</span>
+                                    <span class="stat-box-value" id="quiz-stat-accuracy">80%</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-box-label">Time Spent</span>
+                                    <span class="stat-box-value" id="quiz-stat-time">02:14</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-box-label">Badge Unlocked</span>
+                                    <span class="stat-box-value text-success" id="quiz-stat-badge">Shield Initiate</span>
+                                </div>
+                            </div>
+
+                            <div class="form-actions margin-top-lg flex-center-horizontal">
+                                <button class="btn btn-primary" id="btn-restart-quiz">Retry Exam</button>
+                                <button class="btn btn-outline" id="btn-quiz-go-dashboard">Back to Dashboard</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-developer" class="content-view">
+                    <div class="content-grid-2col">
+                        <div class="glass-card flex-column">
+                            <div class="card-header border-bottom">
+                                <h3>Developer Profile</h3>
+                            </div>
+                            <div class="flex-center-vertical margin-top-md" style="padding: 20px 0;">
+                                <i class="fa-solid fa-user-astronaut text-cyan" style="font-size: 4rem; margin-bottom: 20px;"></i>
+                                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; letter-spacing: 1px;" class="text-glow">JATASHYA K. VYAS</h2>
+                                <span class="badge badge-pulse margin-top-sm">Lead Developer & Architect</span>
+                            </div>
+                            
+                            <div class="margin-top-md">
+                                <ul class="cyber-bullets">
+                                    <li><i class="fa-solid fa-graduation-cap text-violet"></i> <strong>Education:</strong> Pursuing Diploma in Computer Engineering</li>
+                                    <li><i class="fa-solid fa-university text-violet"></i> <strong>Institution:</strong> SVIT Vasad (Gujarat)</li>
+                                    <li><i class="fa-solid fa-code-branch text-violet"></i> <strong>Project Role:</strong> Designing and programming an interactive Cybersecurity Hub to enhance user defense mechanisms and digital threat awareness.</li>
+                                </ul>
+                            </div>
+
+                            <div class="margin-top-md border-top" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px;">
+                                <h4 style="margin-bottom: 12px; color: var(--text-primary);">Contact & Connectivity</h4>
+                                <ul class="cyber-bullets">
+                                    <li><i class="fa-solid fa-envelope text-cyan"></i> <strong>Email:</strong> <span>jatashyavyas@gmail.com</span></li>
+                                    <li><i class="fa-brands fa-linkedin text-cyan"></i> <strong>LinkedIn:</strong> <span>[Insert your LinkedIn here]</span></li>
+                                    <li><i class="fa-brands fa-github text-cyan"></i> <strong>GitHub:</strong> <span>[Insert your GitHub here]</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="glass-card flex-column">
+                            <div class="card-header border-bottom">
+                                <h3>About The Project: Aegis Hub</h3>
+                            </div>
+                            <div class="margin-top-md">
+                                <p class="text-secondary" style="line-height: 1.6;">
+                                    <strong>Aegis Cybersecurity Hub</strong> is a modern, responsive Single Page Application (SPA) built to empower users with the tools needed to combat daily digital threats. By integrating real-time threat analysis with interactive education, Aegis bridges the gap between passive learning and active defence.
+                                </p>
+                            </div>
+                            
+                            <div class="margin-top-md">
+                                <h4 style="margin-bottom: 12px; color: var(--text-primary);">Core Modules Developed:</h4>
+                                <ul class="cyber-bullets">
+                                    <li><i class="fa-solid fa-chart-pie text-emerald"></i> <strong>Security Dashboard:</strong> Aggregates live user data to calculate a Personal Cyber Safety Index and visualizes risk through a local network threat shield.</li>
+                                    <li><i class="fa-solid fa-key text-emerald"></i> <strong>Password Analyzer:</strong> A cryptographic analysis tool that tests Shannon entropy, highlights structural weaknesses, and calculates crack durations in real-time.</li>
+                                    <li><i class="fa-solid fa-link text-emerald"></i> <strong>URL Phishing Check:</strong> An inspector running heuristic algorithms to detect typosquatting, suspicious TLDs, and deceptive redirects.</li>
+                                    <li><i class="fa-solid fa-envelope-open-text text-emerald"></i> <strong>Email Scam Scanner:</strong> A threat-level scraper utilizing regex and keyword detection to highlight psychological manipulation vectors (like financial urgency).</li>
+                                    <li><i class="fa-solid fa-graduation-cap text-emerald"></i> <strong>Interactive Learning Hub & Quiz:</strong> Features interactive flashcards, a unique "Spot the Phish" simulation engine, and an exam system to test readiness and reward safe practices.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="security-notification-container" id="toast-container">
+        </div>
+
+    <script type="module" src="password.js"></script>
+    <script type="module" src="phishing.js"></script>
+    <script type="module" src="email.js"></script>
+    <script type="module" src="learning.js"></script>
+    <script type="module" src="quiz.js"></script>
+    <script type="module" src="dashboard.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

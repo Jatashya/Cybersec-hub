@@ -1,0 +1,22 @@
+{
+  "name": "aegis-cybersecurity-hub",
+  "version": "1.0.0",
+  "description": "A dynamic cybersecurity analyzer and learning SPA with strict security restrictions.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "cybersecurity",
+    "password-analyzer",
+    "phishing-url-checker",
+    "email-scam-analyzer"
+  ],
+  "author": "Aegis Security",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}
