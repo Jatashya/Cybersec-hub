@@ -251,22 +251,22 @@ code {
    Sidebar Navigation (Apple Desktop Alignment & Magnetic Spring Rail)
    ========================================================================== */
 .sidebar {
-    width: 16rem !important; /* w-64 */
+    width: 16rem;
     min-width: 16rem;
-    height: 100vh !important;
-    max-height: 100vh !important;
+    height: 100vh;
+    max-height: 100vh;
     position: relative;
     top: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
-    background: #090D16 !important;
+    background: #090D16;
     border-right: 1px solid rgba(255, 255, 255, 0.05);
     padding: 0;
     z-index: 10;
     flex-shrink: 0;
-    transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sidebar-scrollable {
@@ -571,9 +571,6 @@ code {
     top: 0;
     z-index: 20;
     width: 100%;
-    height: 56px !important;
-    max-height: 56px !important;
-    padding: 0 38px 0 2rem !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -4650,63 +4647,7 @@ input:focus, textarea:focus {
     }
 }
 
-@media (max-width: 768px) {
-    .dashboard-kpi-ribbon {
-        grid-template-columns: 1fr;
-    }
-    .app-container {
-        flex-direction: column;
-    }
-    .sidebar {
-        width: 100%;
-        height: auto;
-        padding: 1rem 1.25rem;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        border-right: none;
-        border-bottom: 1px solid var(--glass-border-hairline);
-    }
-    .brand {
-        margin-bottom: 0;
-    }
-    .nav-menu {
-        flex-direction: row;
-        overflow-x: auto;
-        flex-grow: 0;
-        gap: 6px;
-    }
-    .nav-item {
-        padding: 8px 12px;
-    }
-    .nav-item span {
-        display: none;
-    }
-    .sidebar-footer {
-        display: none;
-    }
-    .main-content {
-        height: calc(100vh - 72px);
-    }
-    .topbar {
-        padding: 1rem 1.25rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    .topbar-actions {
-        width: 100%;
-        justify-content: space-between;
-    }
-    .content-scroll-container {
-        padding: 1.25rem;
-    }
-    .score-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-}
+/* Legacy mobile overrides replaced with unified mobile drawer architecture at bottom of file */
 
 /* Spacing Helpers */
 .margin-top-xs { margin-top: 0.5rem; }
@@ -5112,17 +5053,19 @@ input:focus, textarea:focus {
    Phase A/B/C Enterprise Dark-Mode System Additions (Linear/Vercel/Cloudflare)
    ========================================================================== */
 
-/* Topbar 56px Fixed & Breadcrumbs */
-.topbar {
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 20 !important;
-    width: 100% !important;
-    height: 56px !important;
-    max-height: 56px !important;
-    padding-left: 2rem !important;
-    padding-right: 32px !important; /* Flush with right cards (2rem matches content-scroll-container) */
-    box-sizing: border-box !important;
+/* Topbar 56px Fixed on Desktop & Breadcrumbs */
+@media (min-width: 1025px) {
+    .topbar {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 20 !important;
+        width: 100% !important;
+        height: 56px !important;
+        max-height: 56px !important;
+        padding-left: 2rem !important;
+        padding-right: 32px !important; /* Flush with right cards (2rem matches content-scroll-container) */
+        box-sizing: border-box !important;
+    }
 }
 
 .topbar-left {
@@ -6073,12 +6016,323 @@ input:focus, textarea:focus {
 .min-w-\[140px\] { min-width: 140px !important; }
 .flex-shrink-0 { flex-shrink: 0 !important; }
 
-/* Responsive Overrides */
-@media (max-width: 1100px) {
-    .email-dashboard-grid {
-        grid-template-columns: 1fr;
+/* ==========================================================================
+   Mobile & Responsive Architecture (Linear/Cloudflare/Datadog Grade)
+   ========================================================================== */
+
+/* Mobile Navigation Drawer & Backdrop */
+.mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: var(--cyan-glow, #00e5ff);
+    font-size: 0.95rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+}
+
+.mobile-menu-btn:hover,
+.mobile-menu-btn:active {
+    background: rgba(0, 229, 255, 0.12);
+    border-color: rgba(0, 229, 255, 0.3);
+    color: #fff;
+}
+
+.mobile-sidebar-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 1.05rem;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-left: auto;
+    transition: all 0.15s ease;
+}
+
+.mobile-sidebar-close:hover,
+.mobile-sidebar-close:active {
+    color: #f1f5f9;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1040;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media (min-width: 1025px) {
+    .mobile-menu-btn {
+        display: none !important;
     }
+    .mobile-sidebar-close {
+        display: none !important;
+    }
+    .sidebar-backdrop {
+        display: none !important;
+    }
+    .app-container {
+        flex-direction: row !important;
+    }
+    .sidebar {
+        transform: none !important;
+        position: relative !important;
+        width: 16rem !important;
+        min-width: 16rem !important;
+        height: 100vh !important;
+        display: flex !important;
+        flex-shrink: 0 !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .app-container {
+        flex-direction: column !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        overflow: hidden !important;
+    }
+
+    /* Off-canvas Slide-out Navigation Drawer */
+    .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        width: 285px !important;
+        max-width: 85vw !important;
+        min-width: 0 !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        z-index: 1050 !important;
+        transform: translateX(-100%) !important;
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        box-shadow: 12px 0 40px rgba(0, 0, 0, 0.85);
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        background: #090D16 !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .sidebar.open {
+        transform: translateX(0) !important;
+    }
+
+    .sidebar.collapsed {
+        width: 285px !important;
+    }
+
+    /* Main Viewport Takes Full Height and Width */
+    .main-content {
+        width: 100vw !important;
+        height: 100vh !important;
+        flex: 1 1 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        min-width: 0 !important;
+    }
+
+    /* Responsive Topbar */
+    .topbar {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 20 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 52px !important;
+        max-height: none !important;
+        padding: 0.6rem 1rem !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 8px !important;
+        box-sizing: border-box !important;
+    }
+
+    .topbar-left {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 10px !important;
+        min-width: 0 !important;
+        flex: 1 !important;
+    }
+
+    .topbar-breadcrumbs {
+        font-size: 0.72rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .topbar-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Responsive Multi-Column Grids -> 1 Column */
+    .soc-dashboard-grid,
+    .pass-dashboard-grid,
+    .phish-dashboard-grid,
+    .email-dashboard-grid,
     .academy-workspace-container {
-        grid-template-columns: 1fr;
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+        width: 100% !important;
+    }
+
+    .soc-main-column, .soc-side-column,
+    .pass-main-column, .pass-side-column,
+    .phish-main-column, .phish-side-column,
+    .email-main-column, .email-side-column {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: auto !important;
+    }
+
+    .content-scroll-container {
+        padding: 1rem 0.85rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* KPI Ribbon Tablet Layout */
+    .dashboard-kpi-ribbon {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .content-scroll-container {
+        padding: 0.85rem 0.6rem !important;
+    }
+
+    .topbar {
+        padding: 0.5rem 0.75rem !important;
+    }
+
+    .topbar-title-sub {
+        display: none !important;
+    }
+
+    .breadcrumb-root,
+    .breadcrumb-sep:first-of-type,
+    .breadcrumb-section {
+        display: none !important;
+    }
+
+    .topbar-status-badge {
+        padding: 4px 6px !important;
+    }
+
+    .topbar-status-badge .status-name,
+    .topbar-status-badge .status-sep {
+        display: none !important;
+    }
+
+    .cmd-palette-btn {
+        padding: 6px 8px !important;
+    }
+
+    .cmd-palette-btn span,
+    .cmd-palette-btn kbd {
+        display: none !important;
+    }
+
+    .system-time {
+        min-width: auto !important;
+        font-size: 0.68rem !important;
+        padding: 4px 6px !important;
+    }
+
+    /* KPI Ribbon Mobile 1 Column */
+    .dashboard-kpi-ribbon {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .soc-surface-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .defense-specs-grid,
+    .phish-probe-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Quick-Triage input stacking */
+    .quick-triage-input-bar {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    .triage-input-wrapper {
+        width: 100% !important;
+    }
+
+    #btn-quick-triage {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .presets-bar {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+
+    .preset-pill {
+        white-space: normal !important;
+        font-size: 0.72rem !important;
+    }
+
+    /* Slideover Drawers Full Screen on Mobile */
+    .slideover-drawer {
+        width: 100vw !important;
+        max-width: 100vw !important;
+    }
+
+    /* Responsive Tables */
+    .soc-table-wrapper,
+    .ledger-table-container {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        width: 100% !important;
+    }
+
+    .soc-table {
+        min-width: 580px;
     }
 }

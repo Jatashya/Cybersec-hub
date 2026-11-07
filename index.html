@@ -13,9 +13,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-dark">
-    <div class="app-container h-screen w-screen overflow-hidden flex bg-[#090D16]">
+    <div class="app-container flex bg-[#090D16]">
+        <!-- Mobile Sidebar Backdrop -->
+        <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
+
         <!-- Sidebar Navigation -->
-        <aside class="sidebar w-64 h-screen flex-shrink-0 flex flex-col justify-between border-r border-white/5 bg-[#090D16]" role="navigation" aria-label="Platform Sidebar Navigation">
+        <aside class="sidebar" id="app-sidebar" role="navigation" aria-label="Platform Sidebar Navigation">
             <!-- Inner scrollable container for navigation groups -->
             <div class="sidebar-scrollable flex-1 overflow-y-auto flex flex-col min-h-0">
                 <div class="brand">
@@ -26,6 +29,9 @@
                         <h1 class="brand-name">AEGIS</h1>
                         <span class="brand-tag">SECURITY INTELLIGENCE</span>
                     </div>
+                    <button class="mobile-sidebar-close" id="btn-close-mobile-sidebar" aria-label="Close navigation menu">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                 </div>
                 
                 <nav class="nav-menu" role="tablist" aria-label="Platform Navigation Views">
@@ -93,6 +99,9 @@
         <main class="main-content flex-1 h-screen overflow-y-auto flex flex-col" role="main">
             <header class="topbar sticky top-0 z-20 w-full flex-shrink-0">
                 <div class="topbar-left">
+                    <button class="mobile-menu-btn" id="btn-mobile-menu" aria-label="Open Navigation Menu" title="Open Navigation Menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
                     <nav class="topbar-breadcrumbs font-mono" id="topbar-breadcrumbs" aria-label="Breadcrumb navigation">
                         <span class="breadcrumb-root">AEGIS</span>
                         <span class="breadcrumb-sep">/</span>

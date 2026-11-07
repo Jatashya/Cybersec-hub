@@ -361,11 +361,21 @@ const AegisNavigation = {
             });
         }
 
-        // Global ESC key closes drawers
+        // Bind Mobile Sidebar Drawer Triggers
+        const mobileMenuBtn = document.getElementById('btn-mobile-menu');
+        const mobileCloseBtn = document.getElementById('btn-close-mobile-sidebar');
+        const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => this.toggleMobileSidebar());
+        if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', () => this.closeMobileSidebar());
+        if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', () => this.closeMobileSidebar());
+
+        // Global ESC key closes drawers and mobile sidebar
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.closeArchDrawer();
                 this.closeLedgerDrawer();
+                this.closeMobileSidebar();
             }
         });
 
@@ -377,6 +387,9 @@ const AegisNavigation = {
     },
 
     switchTo(viewId) {
+        // Auto-close mobile navigation drawer on tab transition
+        this.closeMobileSidebar();
+
         if (viewId === 'developer') {
             this.openArchDrawer();
             return;
@@ -444,6 +457,35 @@ const AegisNavigation = {
         // Slide magnetic frosted nav pill to active item
         if (typeof window.updateMagneticNavPill === 'function') {
             window.updateMagneticNavPill(true);
+        }
+    },
+
+    openMobileSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        const backdrop = document.getElementById('sidebar-backdrop');
+        if (sidebar) sidebar.classList.add('open');
+        if (backdrop) {
+            backdrop.classList.add('open');
+            backdrop.setAttribute('aria-hidden', 'false');
+        }
+    },
+
+    closeMobileSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        const backdrop = document.getElementById('sidebar-backdrop');
+        if (sidebar) sidebar.classList.remove('open');
+        if (backdrop) {
+            backdrop.classList.remove('open');
+            backdrop.setAttribute('aria-hidden', 'true');
+        }
+    },
+
+    toggleMobileSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar && sidebar.classList.contains('open')) {
+            this.closeMobileSidebar();
+        } else {
+            this.openMobileSidebar();
         }
     },
 
