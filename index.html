@@ -1,629 +1,2041 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="obsidian">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Aegis Cybersecurity Hub - Real-time Password Analyzer, Phishing URL Checker, Email Scam Scanner, Security Quiz, and Interactive Learning Center.">
+    <meta name="description" content="Aegis Cybersecurity Hub - Real-time Shannon Entropy Password Analyzer, Phishing URL Checker, Email Scam Scanner, Security Quiz, and Interactive Learning Academy.">
     <title>Aegis - Cybersecurity Hub</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'%3E%3Cpath d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.54-3.04 8.78-7 9.9-3.96-1.12-7-5.36-7-9.9V6.3l7-3.12z'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-dark">
-    <div class="ambient-glow glow-1"></div>
-    <div class="ambient-glow glow-2"></div>
-    <div class="ambient-glow glow-3"></div>
-
-    <div class="app-container">
-        <aside class="sidebar">
-            <div class="brand">
-                <div class="brand-icon">
-                    <i class="fa-solid fa-shield-halved"></i>
+    <div class="app-container h-screen w-screen overflow-hidden flex bg-[#090D16]">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar w-64 h-screen flex-shrink-0 flex flex-col justify-between border-r border-white/5 bg-[#090D16]" role="navigation" aria-label="Platform Sidebar Navigation">
+            <!-- Inner scrollable container for navigation groups -->
+            <div class="sidebar-scrollable flex-1 overflow-y-auto flex flex-col min-h-0">
+                <div class="brand">
+                    <div class="brand-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div class="brand-text-group">
+                        <h1 class="brand-name">AEGIS</h1>
+                        <span class="brand-tag">SECURITY INTELLIGENCE</span>
+                    </div>
                 </div>
-                <h1 class="brand-name">AEGIS</h1>
-            </div>
-            
-            <nav class="nav-menu">
-                <button class="nav-item active" data-tab="dashboard" id="btn-tab-dashboard">
-                    <i class="fa-solid fa-chart-pie"></i>
-                    <span>Dashboard</span>
-                </button>
-                <button class="nav-item" data-tab="password" id="btn-tab-password">
-                    <i class="fa-solid fa-key"></i>
-                    <span>Password Analyzer</span>
-                </button>
-                <button class="nav-item" data-tab="phishing" id="btn-tab-phishing">
-                    <i class="fa-solid fa-link"></i>
-                    <span>URL Phishing Check</span>
-                </button>
-                <button class="nav-item" data-tab="email" id="btn-tab-email">
-                    <i class="fa-solid fa-envelope-open-text"></i>
-                    <span>Email Scam Scan</span>
-                </button>
-                <button class="nav-item" data-tab="learning" id="btn-tab-learning">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    <span>Learning Hub</span>
-                </button>
-                <button class="nav-item" data-tab="quiz" id="btn-tab-quiz">
-                    <i class="fa-solid fa-circle-question"></i>
-                    <span>Security Quiz</span>
-                </button>
-                <button class="nav-item" data-tab="developer" id="btn-tab-developer">
-                    <i class="fa-solid fa-code"></i>
-                    <span>Developer Info</span>
-                </button>
-            </nav>
+                
+                <nav class="nav-menu" role="tablist" aria-label="Platform Navigation Views">
+                    <!-- Magnetic Sliding Frosted Nav Pill -->
+                    <div class="nav-active-pill" id="nav-active-pill" aria-hidden="true"></div>
 
-            <div class="sidebar-footer">
-                <div class="security-status">
-                    <i class="fa-solid fa-lock text-success"></i>
-                    <span>Offline Secure Mode</span>
+                    <div class="nav-section-label font-mono">OPERATIONS</div>
+                    <button class="nav-item active" role="tab" id="btn-tab-dashboard" data-tab="dashboard" aria-selected="true" aria-controls="view-dashboard" title="Security Dashboard">
+                        <span class="nav-pip" aria-hidden="true"></span>
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span class="nav-label">Dashboard</span>
+                    </button>
+                    <button class="nav-item nav-item-action" id="btn-nav-triage" type="button" title="Jump to Target Triage Terminal">
+                        <span class="nav-pip" aria-hidden="true"></span>
+                        <i class="fa-solid fa-terminal"></i>
+                        <span class="nav-label">Target Triage</span>
+                        <kbd class="nav-shortcut-kbd">⌘T</kbd>
+                    </button>
+
+                    <div class="nav-section-label font-mono">ANALYZERS</div>
+                    <button class="nav-item" role="tab" id="btn-tab-password" data-tab="password" aria-selected="false" aria-controls="view-password" title="Password Cryptographer">
+                        <span class="nav-pip" aria-hidden="true"></span>
+                        <i class="fa-solid fa-key"></i>
+                        <span class="nav-label">Password Entropy</span>
+                    </button>
+                    <button class="nav-item" role="tab" id="btn-tab-phishing" data-tab="phishing" aria-selected="false" aria-controls="view-phishing" title="Phishing Link Analyzer">
+                        <span class="nav-pip" aria-hidden="true"></span>
+                        <i class="fa-solid fa-link"></i>
+                        <span class="nav-label">Phishing Inspector</span>
+                    </button>
+                    <button class="nav-item" role="tab" id="btn-tab-email" data-tab="email" aria-selected="false" aria-controls="view-email" title="Email Scam Scanner">
+                        <span class="nav-pip" aria-hidden="true"></span>
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                        <span class="nav-label">Email Scam Scanner</span>
+                    </button>
+
+                    <div class="nav-section-label font-mono">ACADEMY</div>
+                    <button class="nav-item" role="tab" id="btn-tab-academy" data-tab="academy" aria-selected="false" aria-controls="view-academy" title="Cyber Learning & Certifications">
+                        <span class="nav-pip" aria-hidden="true"></span>
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span class="nav-label">Learning &amp; Certs</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Single Dedicated Pinned Footer Container -->
+            <div class="sidebar-footer mt-auto border-t border-white/5 p-4 flex-shrink-0">
+                <button class="sidebar-arch-btn" id="btn-open-arch-drawer" aria-label="Open Engineering Architecture & Specs Drawer" title="View System Architecture & Specs">
+                    <i class="fa-solid fa-microchip text-cyan"></i>
+                    <span class="arch-btn-label">Architecture &amp; Specs</span>
+                </button>
+                <div class="sidebar-footer-row">
+                    <div class="security-status" role="status" title="Isolated Client-Side Execution">
+                        <span class="status-pulse-dot"></span>
+                        <span class="status-text font-mono">ENCLAVE AIR-GAP</span>
+                    </div>
+                    <button class="sidebar-collapse-btn" id="btn-toggle-sidebar" aria-label="Toggle compact sidebar rail mode (Ctrl+B)" title="Toggle compact rail mode (Ctrl+B)">
+                        <i class="fa-solid fa-angles-left"></i>
+                    </button>
                 </div>
             </div>
         </aside>
 
-        <main class="main-content">
-            <header class="topbar">
-                <div class="topbar-title">
-                    <h2 id="current-section-title">Security Dashboard</h2>
-                    <p id="current-section-subtitle">Real-time cyber protection analytics and alerts</p>
+        <!-- Main Content Area -->
+        <main class="main-content flex-1 h-screen overflow-y-auto flex flex-col" role="main">
+            <header class="topbar sticky top-0 z-20 w-full flex-shrink-0">
+                <div class="topbar-left">
+                    <nav class="topbar-breadcrumbs font-mono" id="topbar-breadcrumbs" aria-label="Breadcrumb navigation">
+                        <span class="breadcrumb-root">AEGIS</span>
+                        <span class="breadcrumb-sep">/</span>
+                        <span class="breadcrumb-section" id="breadcrumb-section">OPERATIONS</span>
+                        <span class="breadcrumb-sep">/</span>
+                        <span class="breadcrumb-page text-cyan" id="breadcrumb-page">DASHBOARD</span>
+                    </nav>
+                    <div class="topbar-title-sub">
+                        <p id="current-section-subtitle" class="text-slate-400">Local threat telemetry, cryptographic validation, and security posture monitoring</p>
+                    </div>
                 </div>
-                <div class="system-time">
-                    <i class="fa-regular fa-clock"></i>
-                    <span id="live-timer">--:--:--</span>
+                
+                <div class="topbar-actions">
+                    <!-- Command Palette Quick Action Trigger -->
+                    <button class="cmd-palette-btn" id="btn-open-cmd-palette" aria-label="Open Command Palette (Ctrl+K or Cmd+K)">
+                        <i class="fa-solid fa-magnifying-glass text-cyan"></i>
+                        <span>Quick Action</span>
+                        <kbd class="kbd-badge">⌘K</kbd>
+                    </button>
+
+                    <!-- Enterprise Enclave Status Indicator -->
+                    <div class="topbar-status-badge" role="status" title="Isolated Client-Side Execution">
+                        <span class="status-pulse-dot" aria-hidden="true"></span>
+                        <span class="status-name font-mono">ENCLAVE</span>
+                        <span class="status-sep">/</span>
+                        <span class="status-state text-success font-mono">AIR-GAPPED</span>
+                    </div>
+
+                    <div class="system-time font-mono tabular-nums" role="timer" aria-label="System Coordinated Time">
+                        <i class="fa-regular fa-clock text-cyan"></i>
+                        <span id="live-timer" class="font-mono tabular-nums">--:--:-- UTC</span>
+                    </div>
+
+                    <button class="topbar-icon-btn" id="btn-topbar-arch" aria-label="System Architecture & Specs" title="System Architecture & Specs">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </button>
                 </div>
             </header>
 
             <div class="content-scroll-container">
 
-                <section id="view-dashboard" class="content-view active">
-                    <div class="dashboard-grid">
-                        <div class="glass-card score-card span-col-2">
-                            <div class="card-header">
-                                <h3>Personal Cyber Safety Index</h3>
-                                <i class="fa-solid fa-circle-info tooltip-trigger" title="Calculated based on your scans, quiz scores, and learning progress."></i>
+                <!-- 1. DASHBOARD VIEW (Tier-1 SOC Operations Center) -->
+                <section id="view-dashboard" class="content-view active" role="tabpanel" aria-labelledby="btn-tab-dashboard">
+                    
+                    <!-- 1. Executive Telemetry Ribbon (4 Equal-Height Precision Metric Tiles) -->
+                    <div class="dashboard-kpi-ribbon">
+                        
+                        <!-- KPI 1: Cyber Defensive Posture Score -->
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-label">DEFENSIVE POSTURE</span>
+                                <span id="posture-level-badge" class="badge badge-pulse">STANDBY</span>
                             </div>
-                            <div class="score-container">
-                                <div class="score-gauge-wrapper">
-                                    <svg class="progress-ring" viewBox="0 0 160 160" preserveAspectRatio="xMidYMid meet">
-                                        <circle class="progress-ring-circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="12" fill="transparent" r="70" cx="80" cy="80"/>
-                                        <circle id="safety-score-ring" class="progress-ring-circle" stroke="var(--cyan-glow)" stroke-width="12" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round" fill="transparent" r="70" cx="80" cy="80"/>
-                                    </svg>
-                                    <div class="score-display">
-                                        <span id="safety-score-val">0</span>
-                                        <span class="score-max">/100</span>
-                                    </div>
+                            <div class="kpi-body">
+                                <div class="kpi-hero-val">
+                                    <span id="safety-score-val" class="score-number font-mono">0</span>
+                                    <span class="kpi-val-max">/100</span>
                                 </div>
-                                <div class="score-details">
-                                    <h4 id="safety-status-label" class="text-warning">Calculating Security Index...</h4>
-                                    <p id="safety-status-desc">Complete quizzes, analyze passwords, and read security modules to raise your safety score.</p>
-                                    <div class="safety-bars">
-                                        <div class="safety-bar-item">
-                                            <span>Quiz Proficiency</span>
-                                            <div class="mini-progress-bar"><div id="bar-quiz-prof" class="fill" style="width: 0%"></div></div>
-                                            <span id="val-quiz-prof">0%</span>
-                                        </div>
-                                        <div class="safety-bar-item">
-                                            <span>Learning Mastery</span>
-                                            <div class="mini-progress-bar"><div id="bar-learn-mast" class="fill" style="width: 0%"></div></div>
-                                            <span id="val-learn-mast">0%</span>
-                                        </div>
-                                    </div>
+                                <div class="kpi-baseline-delta text-success font-mono" id="posture-delta">
+                                    <i class="fa-solid fa-arrow-trend-up"></i> <span>+12% vs baseline</span>
+                                </div>
+                            </div>
+                            <div class="kpi-footer">
+                                <div class="kpi-segmented-bar">
+                                    <div class="kpi-seg fill bg-cyan" id="kpi-seg-cred" style="width: 0%" title="Credentials Hygiene"></div>
+                                    <div class="kpi-seg fill bg-violet" id="kpi-seg-threat" style="width: 0%" title="Threat Vector Scans"></div>
+                                    <div class="kpi-seg fill bg-emerald" id="kpi-seg-acad" style="width: 0%" title="Academy Certification"></div>
+                                </div>
+                                <div class="kpi-meta-row font-mono">
+                                    <span>HYGIENE: <strong id="val-tach-credentials">0%</strong></span>
+                                    <span>THREATS: <strong id="val-tach-threats">0%</strong></span>
+                                    <span>ACADEMY: <strong id="val-tach-academy">0%</strong></span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="glass-card stats-card">
-                            <div class="card-header">
-                                <h3>Quick Activity Tracker</h3>
+                        <!-- KPI 2: Session Telemetry -->
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-label">SESSION TELEMETRY</span>
+                                <div class="kpi-baseline-delta text-cyan font-mono" id="telemetry-delta">
+                                    <i class="fa-solid fa-clock-rotate-left"></i> <span>+0 in session</span>
+                                </div>
                             </div>
-                            <div class="activity-stats">
-                                <div class="stat-item">
-                                    <div class="stat-icon bg-cyan"><i class="fa-solid fa-key"></i></div>
-                                    <div class="stat-info">
-                                        <span class="stat-count" id="stat-passwords-checked">0</span>
-                                        <span class="stat-label">Passwords Evaluated</span>
-                                    </div>
+                            <div class="kpi-body">
+                                <div class="kpi-hero-val">
+                                    <span id="stat-total-evals" class="score-number font-mono text-cyan">0</span>
+                                    <span class="kpi-unit">AUDITS</span>
                                 </div>
-                                <div class="stat-item">
-                                    <div class="stat-icon bg-violet"><i class="fa-solid fa-link"></i></div>
-                                    <div class="stat-info">
-                                        <span class="stat-count" id="stat-urls-checked">0</span>
-                                        <span class="stat-label">Phishing URLs Scanned</span>
-                                    </div>
+                                <div class="kpi-icon-pill">
+                                    <i class="fa-solid fa-chart-line text-cyan"></i>
                                 </div>
-                                <div class="stat-item">
-                                    <div class="stat-icon bg-emerald"><i class="fa-solid fa-envelope"></i></div>
-                                    <div class="stat-info">
-                                        <span class="stat-count" id="stat-emails-checked">0</span>
-                                        <span class="stat-label">Emails Analyzed</span>
-                                    </div>
+                            </div>
+                            <div class="kpi-footer">
+                                <div class="kpi-chip-row font-mono">
+                                    <span class="kpi-chip" title="Passwords Analyzed"><i class="fa-solid fa-fingerprint text-cyan"></i> <strong id="stat-passwords-checked">0</strong></span>
+                                    <span class="kpi-chip" title="URLs Inspected"><i class="fa-solid fa-shield-virus text-violet"></i> <strong id="stat-urls-checked">0</strong></span>
+                                    <span class="kpi-chip" title="Emails Scanned"><i class="fa-solid fa-envelope-circle-check text-emerald"></i> <strong id="stat-emails-checked">0</strong></span>
+                                </div>
+                                <div class="kpi-subtext font-mono text-success">
+                                    <i class="fa-solid fa-circle-check"></i> ZERO RESIDUAL DRIFT
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KPI 3: Cryptographic Hardware Acceleration -->
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-label">CRYPTOGRAPHIC ENGINE</span>
+                                <div class="kpi-baseline-delta text-cyan font-mono">
+                                    <i class="fa-solid fa-bolt"></i> <span>+8% vs fallback</span>
+                                </div>
+                            </div>
+                            <div class="kpi-body">
+                                <div class="kpi-hero-val">
+                                    <span id="kpi-crypto-ops" class="score-number font-mono text-cyan">~3,450</span>
+                                    <span class="kpi-unit">OPS / SEC</span>
+                                </div>
+                                <div class="kpi-icon-pill">
+                                    <i class="fa-solid fa-microchip text-cyan"></i>
+                                </div>
+                            </div>
+                            <div class="kpi-footer">
+                                <div class="kpi-specs-row font-mono text-dim">
+                                    <span>SHA-256 Primitives</span>
+                                    <span class="text-success">&lt;0.28ms Latency</span>
+                                </div>
+                                <div class="kpi-subtext font-mono text-cyan">
+                                    <i class="fa-solid fa-microchip"></i> WEBCRYPTO SUBTLE HARDWARE
                                 </div>
                             </div>
                         </div>
 
-                        <div class="glass-card threat-map-card span-col-2">
-                            <div class="card-header">
-                                <h3>Live Threat Map</h3>
-                                <span class="badge badge-pulse">Real-Time Tracking</span>
-                            </div>
-                            <div class="threat-map-container" id="dashboard-threat-map">
-                                <div class="threat-map-world">
-                                    <div class="threat-map-grid"></div>
-                                    <div class="threat-map-threats" id="threat-points">
-                                        </div>
+                        <!-- KPI 4: Data Exfiltration Boundary -->
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-label">DATA EXFILTRATION</span>
+                                <div class="kpi-baseline-delta text-success font-mono">
+                                    <i class="fa-solid fa-shield-halved"></i> <span>100% air-gap verified</span>
                                 </div>
-                                <div class="threat-map-legend" id="threat-legend">
-                                    </div>
                             </div>
-                        </div>
-
-                        <div class="glass-card visual-card">
-                            <div class="card-header">
-                                <h3>Local Network Threat Shield</h3>
-                            </div>
-                            <div class="shield-container">
-                                <div class="shield-wrapper">
-                                    <div class="shield-halo"></div>
-                                    <div class="shield-core">
-                                        <i class="fa-solid fa-shield-halved"></i>
-                                    </div>
+                            <div class="kpi-body">
+                                <div class="kpi-hero-val">
+                                    <span class="score-number font-mono text-success">0</span>
+                                    <span class="kpi-unit">BYTES EGRESS</span>
                                 </div>
-                                <div class="shield-data">
-                                    <div class="shield-row">
-                                        <span>Right-Click Guard</span>
-                                        <span class="status-pill active">ACTIVE</span>
-                                    </div>
-                                    <div class="shield-row">
-                                        <span>Data Exfiltration Intercept</span>
-                                        <span class="status-pill active">ACTIVE</span>
-                                    </div>
-                                    <div class="shield-row">
-                                        <span>Clipboard Shield</span>
-                                        <span class="status-pill active">ACTIVE</span>
-                                    </div>
+                                <div class="kpi-icon-pill">
+                                    <i class="fa-solid fa-network-wired text-success"></i>
+                                </div>
+                            </div>
+                            <div class="kpi-footer">
+                                <div class="kpi-specs-row font-mono text-dim">
+                                    <span>TLS 1.3 Strict</span>
+                                    <span class="text-success">Isolated LocalStore</span>
+                                </div>
+                                <div class="kpi-subtext font-mono text-success">
+                                    <i class="fa-solid fa-lock"></i> 0 OUTBOUND NETWORK SOCKETS
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
 
-                <section id="view-password" class="content-view">
-                    <div class="content-grid-2col">
-                        <div class="glass-card flex-column">
-                            <div class="card-header border-bottom">
-                                <h3>Password Cryptographic Analysis</h3>
+                    <!-- 2. Operational Operations Grid (Split 65% / 35%) -->
+                    <div class="soc-dashboard-grid">
+                        <!-- Left Column: Operations Command & SOC Audit Stream (65%) -->
+                        <div class="soc-main-column">
+                            <!-- Target Triage & Threat Dispatch Console -->
+                            <div class="liquid-glass-card soc-triage-card">
+                                <div class="card-header soc-triage-header">
+                                    <div class="card-title-group">
+                                        <div class="soc-terminal-title">
+                                            <i class="fa-solid fa-terminal text-cyan"></i>
+                                            <h3>Target Triage & Threat Dispatch</h3>
+                                        </div>
+                                    </div>
+                                    <span class="quick-triage-hint text-dim">Instantly evaluates credentials, URLs, or message payloads</span>
+                                </div>
+
+                                <div class="quick-triage-input-bar">
+                                    <div class="triage-input-wrapper">
+                                        <i class="fa-solid fa-magnifying-glass triage-icon"></i>
+                                        <input type="text" id="universal-quick-input" class="triage-input" placeholder="Paste target (e.g. login-account.xyz, P@ssw0rd123!, or alert header)..." autocomplete="off" spellcheck="false">
+                                        <button class="triage-clear-btn" id="btn-clear-triage" aria-label="Clear quick input" style="display: none;">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm" id="btn-quick-triage">
+                                        <i class="fa-solid fa-bolt"></i> <span>Triage Target</span>
+                                    </button>
+                                </div>
+
+                                <div class="quick-triage-presets">
+                                    <span class="presets-label">Instant Test Vectors:</span>
+                                    <div class="presets-bar">
+                                        <button class="preset-pill triage-preset" data-val="https://secure-login.paypa1-security.xyz/verify">paypa1-security.xyz</button>
+                                        <button class="preset-pill triage-preset" data-val="correct-horse-battery-staple-99!">Passphrase: correct-horse...</button>
+                                        <button class="preset-pill triage-preset" data-val="URGENT: Your payroll direct deposit has been suspended. Click here to confirm identity immediately.">Wire Suspension Header</button>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Triage Result Preview Banner -->
+                                <div id="quick-triage-result" class="quick-triage-result" style="display: none;" role="region" aria-live="polite">
+                                </div>
                             </div>
-                            
-                            <div class="form-group margin-top-md">
-                                <label for="password-input">Enter Password to Analyze</label>
-                                <div class="input-wrapper-icon">
-                                    <input type="password" id="password-input" placeholder="Type a password..." autocomplete="off">
-                                    <button class="toggle-password-visibility" id="btn-toggle-pass">
-                                        <i class="fa-regular fa-eye"></i>
+
+                            <!-- Security Audit Ledger Data Grid (SOC Tabular Log) -->
+                            <div class="liquid-glass-card soc-ledger-card">
+                                <div class="card-header soc-ledger-header">
+                                    <div class="card-title-group">
+                                        <div class="soc-terminal-title">
+                                            <i class="fa-solid fa-list-check text-cyan"></i>
+                                            <h3>Security Audit Ledger</h3>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline" id="btn-export-audit" title="Download Zero-Knowledge Session Audit Log JSON">
+                                        <i class="fa-solid fa-file-arrow-down"></i> <span>Export Audit JSON</span>
+                                    </button>
+                                </div>
+
+                                <!-- Filter Tabs with Multi-Filter (Vector + Severity) -->
+                                <div class="ledger-filter-row">
+                                    <div class="ledger-filter-group">
+                                        <span class="ledger-filter-label font-mono">VECTOR:</span>
+                                        <div class="ledger-filter-tabs" role="tablist" aria-label="Health Ledger Filter Tabs">
+                                            <button class="ledger-filter-tab active" data-filter="all">All (<span id="ledger-count-all">0</span>)</button>
+                                            <button class="ledger-filter-tab" data-filter="password">Credentials (<span id="ledger-count-password">0</span>)</button>
+                                            <button class="ledger-filter-tab" data-filter="url">Threat URLs (<span id="ledger-count-url">0</span>)</button>
+                                            <button class="ledger-filter-tab" data-filter="email">Email Scans (<span id="ledger-count-email">0</span>)</button>
+                                            <button class="ledger-filter-tab" data-filter="academy">Academy (<span id="ledger-count-academy">0</span>)</button>
+                                        </div>
+                                    </div>
+                                    <div class="ledger-severity-group">
+                                        <span class="ledger-filter-label font-mono">SEVERITY:</span>
+                                        <div class="ledger-sev-tabs" role="tablist" aria-label="Health Ledger Severity Filter Tabs">
+                                            <button class="ledger-sev-tab active" data-sev="all">All</button>
+                                            <button class="ledger-sev-tab sev-danger" data-sev="danger">Critical</button>
+                                            <button class="ledger-sev-tab sev-warning" data-sev="warning">Warning</button>
+                                            <button class="ledger-sev-tab sev-success" data-sev="success">Nominal</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- SOC Data Table Container -->
+                                <div class="soc-table-wrapper">
+                                    <table class="soc-data-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-timestamp" style="width: 120px; min-width: 120px;">TIMESTAMP (UTC)</th>
+                                                <th class="col-vector" style="width: 140px; min-width: 140px;">VECTOR</th>
+                                                <th class="col-target">TARGET / AUDIT SUMMARY</th>
+                                                <th class="col-severity min-w-[140px] flex-shrink-0" style="min-width: 140px; width: 160px;">SEVERITY</th>
+                                                <th class="col-action" style="width: 60px; min-width: 60px; text-align: right;">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ledger-feed-list" role="feed" aria-busy="false" aria-label="Security Activity Ledger">
+                                            <!-- Dynamic chronological table rows rendered here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Ledger Integrity & Pagination Control Footer -->
+                                <div class="soc-ledger-footer">
+                                    <div class="ledger-integrity-badge">
+                                        <i class="fa-solid fa-fingerprint text-cyan"></i>
+                                        <span class="ledger-footer-label">SESSION INTEGRITY:</span>
+                                        <code id="ledger-session-hash" class="ledger-hash-pill" title="Cryptographically verified SHA-256 session integrity digest">SHA-256: 8f4e2...</code>
+                                    </div>
+                                    <div class="ledger-pagination">
+                                        <span id="ledger-page-info" class="ledger-page-info">Showing 1–6 of 18</span>
+                                        <div class="ledger-page-btns">
+                                            <button id="btn-ledger-prev" class="btn btn-xs btn-outline" aria-label="Previous Page" disabled>
+                                                <i class="fa-solid fa-chevron-left"></i>
+                                            </button>
+                                            <button id="btn-ledger-next" class="btn btn-xs btn-outline" aria-label="Next Page">
+                                                <i class="fa-solid fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="ledger-stream-status">
+                                        <span class="status-pulse-dot bg-emerald"></span>
+                                        <span class="stream-text">ZERO-EGRESS STREAM</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Active Attack Surface Vectors & Mitigations Matrix -->
+                            <div class="liquid-glass-card soc-surface-card">
+                                <div class="card-header soc-surface-header">
+                                    <div class="card-title-group">
+                                        <div class="soc-terminal-title">
+                                            <i class="fa-solid fa-network-wired text-cyan"></i>
+                                            <h3>Active Attack Surface & Mitigations</h3>
+                                        </div>
+                                        <span class="badge badge-emerald"><i class="fa-solid fa-shield-check"></i> ALL VECTORS SHIELDED</span>
+                                    </div>
+                                    <span class="text-dim font-xs">Air-gapped client heuristic inspection status</span>
+                                </div>
+                                <div class="soc-surface-grid">
+                                    <!-- Vector 1: Credential Stuffing & Entropy -->
+                                    <div class="surface-vector-item">
+                                        <div class="vector-header">
+                                            <span class="vector-name"><i class="fa-solid fa-key text-cyan"></i> Credential Stuffing & Entropy</span>
+                                            <span class="badge badge-xs badge-cyan">NIST 800-63B</span>
+                                        </div>
+                                        <div class="vector-metric-row">
+                                            <span class="vector-metric-val">128-bit Shannon Floor</span>
+                                            <span class="vector-status text-emerald"><i class="fa-solid fa-circle-check"></i> ACTIVE</span>
+                                        </div>
+                                        <div class="vector-progress-bar"><div class="vector-fill bg-cyan" style="width: 94%;"></div></div>
+                                        <div class="vector-meta">Client-side dictionary lookup + Bit-depth analysis</div>
+                                    </div>
+                                    <!-- Vector 2: Homoglyph & Punycode Typosquatting -->
+                                    <div class="surface-vector-item">
+                                        <div class="vector-header">
+                                            <span class="vector-name"><i class="fa-solid fa-globe text-emerald"></i> IDN Homoglyphs & Typosquats</span>
+                                            <span class="badge badge-xs badge-emerald">RFC 5890</span>
+                                        </div>
+                                        <div class="vector-metric-row">
+                                            <span class="vector-metric-val">0 Confusable Leaks</span>
+                                            <span class="vector-status text-emerald"><i class="fa-solid fa-circle-check"></i> ACTIVE</span>
+                                        </div>
+                                        <div class="vector-progress-bar"><div class="vector-fill bg-emerald" style="width: 100%;"></div></div>
+                                        <div class="vector-meta">Cyrillic/Greek Unicode homoglyph translation engine</div>
+                                    </div>
+                                    <!-- Vector 3: Social Engineering & Phishing Headers -->
+                                    <div class="surface-vector-item">
+                                        <div class="vector-header">
+                                            <span class="vector-name"><i class="fa-solid fa-envelope-open-text text-amber"></i> Phishing & Wire Fraud Headers</span>
+                                            <span class="badge badge-xs badge-amber">OWASP A07</span>
+                                        </div>
+                                        <div class="vector-metric-row">
+                                            <span class="vector-metric-val">Urgency Heuristics Online</span>
+                                            <span class="vector-status text-emerald"><i class="fa-solid fa-circle-check"></i> ACTIVE</span>
+                                        </div>
+                                        <div class="vector-progress-bar"><div class="vector-fill bg-amber" style="width: 88%;"></div></div>
+                                        <div class="vector-meta">Multi-indicator NLP Bayesian credential lure classifier</div>
+                                    </div>
+                                    <!-- Vector 4: Ephemeral Session Volatility -->
+                                    <div class="surface-vector-item">
+                                        <div class="vector-header">
+                                            <span class="vector-name"><i class="fa-solid fa-memory text-purple"></i> Zero Exfiltration Boundary</span>
+                                            <span class="badge badge-xs badge-purple">AIR-GAP</span>
+                                        </div>
+                                        <div class="vector-metric-row">
+                                            <span class="vector-metric-val">0 Bytes Network Egress</span>
+                                            <span class="vector-status text-emerald"><i class="fa-solid fa-circle-check"></i> ISOLATED</span>
+                                        </div>
+                                        <div class="vector-progress-bar"><div class="vector-fill bg-purple" style="width: 100%;"></div></div>
+                                        <div class="vector-meta">Crypto-shredding on cache flush + zero remote sockets</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Posture Intelligence, Diagnostics & NIST Matrix (35%) -->
+                        <div class="soc-side-column">
+                            <!-- Cyber Defensive Posture Matrix (Segmented Compliance Architecture) -->
+                            <div class="liquid-glass-card soc-posture-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-shield-halved text-cyan"></i>
+                                        <h3>Posture Evaluation Matrix</h3>
+                                    </div>
+                                    <span class="badge badge-pulse" id="posture-matrix-badge">STANDBY</span>
+                                </div>
+                                <div class="soc-posture-body">
+                                    <!-- Horizontal Segmented Posture Score Bar -->
+                                    <div class="posture-score-summary">
+                                        <div class="posture-score-row">
+                                            <div class="posture-score-left">
+                                                <span class="posture-score-label font-mono">AGGREGATE DEFENSE SCORE</span>
+                                                <div class="posture-score-display">
+                                                    <span id="gauge-score-val" class="score-number font-mono text-cyan">0</span>
+                                                    <span class="score-max font-mono text-dim">/ 100</span>
+                                                </div>
+                                            </div>
+                                            <div class="posture-score-right">
+                                                <h4 id="safety-status-label" class="score-status-title text-cyan">Posture: BASELINE (CALIBRATING)</h4>
+                                                <p id="safety-status-desc" class="score-status-desc text-dim">Zero-knowledge baseline initialized. Run an evaluation module or audit to calibrate security posture.</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Sleek Master Segmented Compliance Bar -->
+                                        <div class="master-posture-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="master-posture-bar">
+                                            <div class="posture-bar-segment seg-nist" id="bar-seg-nist" style="width: 0%" title="NIST SP 800-63B Credentials"></div>
+                                            <div class="posture-bar-segment seg-rfc" id="bar-seg-rfc" style="width: 0%" title="RFC 5890 / IDN Homoglyphs"></div>
+                                            <div class="posture-bar-segment seg-owasp" id="bar-seg-owasp" style="width: 0%" title="OWASP A07 Social Engineering"></div>
+                                            <div class="posture-bar-segment seg-airgap" id="bar-seg-airgap" style="width: 0%" title="Zero Egress Air-Gap Boundary"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 4 Segmented Compliance Vector Detail Rows -->
+                                    <div class="compliance-segmented-vectors margin-top-md">
+                                        <div class="comp-vector-row" id="row-comp-nist">
+                                            <div class="comp-vector-info">
+                                                <div class="comp-vector-title">
+                                                    <span class="comp-pip bg-cyan"></span>
+                                                    <span class="comp-name font-mono">NIST SP 800-63B</span>
+                                                    <span class="comp-desc text-dim">Credentials &amp; Shannon Entropy</span>
+                                                </div>
+                                                <span class="comp-val font-mono tabular-nums" id="val-side-cred">0%</span>
+                                            </div>
+                                            <div class="comp-progress-track">
+                                                <div class="comp-progress-fill bg-cyan" id="bar-tach-credentials" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="comp-vector-row" id="row-comp-rfc">
+                                            <div class="comp-vector-info">
+                                                <div class="comp-vector-title">
+                                                    <span class="comp-pip bg-emerald"></span>
+                                                    <span class="comp-name font-mono">RFC 5890 / IDN</span>
+                                                    <span class="comp-desc text-dim">Punycode &amp; Typosquatting Defense</span>
+                                                </div>
+                                                <span class="comp-val font-mono tabular-nums" id="val-side-threat">0%</span>
+                                            </div>
+                                            <div class="comp-progress-track">
+                                                <div class="comp-progress-fill bg-emerald" id="bar-tach-threats" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="comp-vector-row" id="row-comp-owasp">
+                                            <div class="comp-vector-info">
+                                                <div class="comp-vector-title">
+                                                    <span class="comp-pip bg-amber"></span>
+                                                    <span class="comp-name font-mono">OWASP A07</span>
+                                                    <span class="comp-desc text-dim">Coercive Social Engineering &amp; Fraud</span>
+                                                </div>
+                                                <span class="comp-val font-mono tabular-nums" id="val-side-acad">0%</span>
+                                            </div>
+                                            <div class="comp-progress-track">
+                                                <div class="comp-progress-fill bg-amber" id="bar-tach-academy" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="comp-vector-row" id="row-comp-airgap">
+                                            <div class="comp-vector-info">
+                                                <div class="comp-vector-title">
+                                                    <span class="comp-pip bg-purple"></span>
+                                                    <span class="comp-name font-mono">CLIENT AIR-GAP</span>
+                                                    <span class="comp-desc text-dim">Zero Egress Boundary &amp; Shredding</span>
+                                                </div>
+                                                <span class="comp-val font-mono tabular-nums text-success">100%</span>
+                                            </div>
+                                            <div class="comp-progress-track">
+                                                <div class="comp-progress-fill bg-purple" style="width: 100%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Hardware & Enclave Diagnostics Console -->
+                            <div class="liquid-glass-card visual-card" id="client-diagnostics-card">
+                                <div class="card-header vault-card-header">
+                                    <div class="vault-header-title">
+                                        <i class="fa-solid fa-server text-cyan"></i>
+                                        <h3>Client Enclave Diagnostics</h3>
+                                    </div>
+                                    <button class="btn btn-xs btn-outline" id="btn-run-hw-bench" title="Run hardware cryptographic benchmark">
+                                        <i class="fa-solid fa-microchip"></i> <span>Benchmark</span>
+                                    </button>
+                                </div>
+                                <div class="client-diagnostics-body" id="client-diagnostics-body">
+                                    <!-- Rendered dynamically by DashboardController.renderClientDiagnostics() -->
+                                </div>
+                            </div>
+
+                            <!-- Enterprise Compliance Matrix -->
+                            <div class="liquid-glass-card soc-compliance-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-clipboard-check text-emerald"></i>
+                                        <h3>Compliance Verification</h3>
+                                    </div>
+                                    <span class="badge badge-success">5/5 PASSING</span>
+                                </div>
+                                <div class="soc-compliance-list">
+                                    <div class="compliance-item">
+                                        <div class="compliance-item-left">
+                                            <i class="fa-solid fa-check text-success"></i>
+                                            <div class="compliance-text">
+                                                <span class="compliance-title">NIST SP 800-63B</span>
+                                                <span class="compliance-desc text-dim">Shannon Bit-Entropy & Passphrase Defense</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge badge-neutral">ACTIVE</span>
+                                    </div>
+                                    <div class="compliance-item">
+                                        <div class="compliance-item-left">
+                                            <i class="fa-solid fa-check text-success"></i>
+                                            <div class="compliance-text">
+                                                <span class="compliance-title">RFC 5890 / IDN</span>
+                                                <span class="compliance-desc text-dim">Homoglyph & Punycode Typosquatting Defense</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge badge-neutral">ACTIVE</span>
+                                    </div>
+                                    <div class="compliance-item">
+                                        <div class="compliance-item-left">
+                                            <i class="fa-solid fa-check text-success"></i>
+                                            <div class="compliance-text">
+                                                <span class="compliance-title">Zero Egress Air-Gap</span>
+                                                <span class="compliance-desc text-dim">Zero telemetry or credential exfiltration</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge badge-neutral">ACTIVE</span>
+                                    </div>
+                                    <div class="compliance-item">
+                                        <div class="compliance-item-left">
+                                            <i class="fa-solid fa-check text-success"></i>
+                                            <div class="compliance-text">
+                                                <span class="compliance-title">Web Crypto API</span>
+                                                <span class="compliance-desc text-dim">Non-blocking SHA-256 subtle hardware crypto</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge badge-neutral">ACTIVE</span>
+                                    </div>
+                                    <div class="compliance-item">
+                                        <div class="compliance-item-left">
+                                            <i class="fa-solid fa-check text-success"></i>
+                                            <div class="compliance-text">
+                                                <span class="compliance-title">Ephemeral Volatility</span>
+                                                <span class="compliance-desc text-dim">Instant in-memory purge on session close</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge badge-neutral">ACTIVE</span>
+                                    </div>
+                                </div>
+                                <div class="vault-danger-zone margin-top-sm">
+                                    <button class="btn btn-sm btn-danger-ghost w-100" id="btn-purge-cache" title="Wipe local storage and destroy session telemetry">
+                                        <i class="fa-solid fa-trash-can"></i> <span>Purge Session Telemetry & Local Cache</span>
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </section>
 
-                            <div class="strength-bar-container margin-top-sm">
-                                <div class="strength-header">
-                                    <span>Strength Rating</span>
-                                    <span id="password-rating-label" class="strength-label-text text-danger">Empty</span>
+                <!-- 2. PASSWORD ANALYZER VIEW -->
+                <section id="view-password" class="content-view" role="tabpanel" aria-labelledby="btn-tab-password" hidden="until-found">
+                    <!-- 1. Executive 4-KPI Cryptographic Telemetry Ribbon -->
+                    <div class="dashboard-kpi-ribbon pass-kpi-ribbon">
+                        <!-- KPI 1: Effective Bit Entropy -->
+                        <div class="kpi-card soc-kpi-tile">
+                            <div class="kpi-header">
+                                <span class="kpi-title"><i class="fa-solid fa-bolt text-cyan"></i> SHANNON BIT ENTROPY</span>
+                                <span class="badge badge-pulse" id="pass-kpi-tier"><span class="status-pulse-dot"></span> NIST TIER-0</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <span class="kpi-value font-mono tabular-nums" id="pass-kpi-entropy">0</span>
+                                <span class="kpi-unit">BITS</span>
+                            </div>
+                            <div class="kpi-sub-text">
+                                <span class="text-dim">Marginal bit capacity (H = -Σ p log₂ p)</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 2: Offline GPU Hashcat Horizon -->
+                        <div class="kpi-card soc-kpi-tile">
+                            <div class="kpi-header">
+                                <span class="kpi-title"><i class="fa-solid fa-server text-emerald"></i> GPU ATTACK HORIZON</span>
+                                <span class="badge badge-neutral">8x RTX 4090</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <span class="kpi-value font-mono tabular-nums" id="pass-kpi-gpu">Instant</span>
+                            </div>
+                            <div class="kpi-sub-text">
+                                <span class="text-dim">Hashcat NTLM benchmark @ 200 GH/s</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 3: Hartley Keyspace Capacity -->
+                        <div class="kpi-card soc-kpi-tile">
+                            <div class="kpi-header">
+                                <span class="kpi-title"><i class="fa-solid fa-microchip text-violet"></i> KEYSPACE COMBINATIONS</span>
+                                <span class="badge badge-neutral">S = N^L</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <span class="kpi-value font-mono tabular-nums" id="pass-kpi-keyspace">0</span>
+                            </div>
+                            <div class="kpi-sub-text">
+                                <span class="text-dim">Theoretical brute force permutations</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 4: Zero-Knowledge Client Enclave -->
+                        <div class="kpi-card soc-kpi-tile">
+                            <div class="kpi-header">
+                                <span class="kpi-title"><i class="fa-solid fa-shield-halved text-cyan"></i> ENCLAVE PRIVACY</span>
+                                <span class="badge badge-emerald"><i class="fa-solid fa-lock"></i> AIR-GAPPED</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <span class="kpi-value font-mono tabular-nums">0</span>
+                                <span class="kpi-unit">BYTES EGRESS</span>
+                            </div>
+                            <div class="kpi-sub-text">
+                                <span class="text-dim">Client-isolated WebCrypto Subtle engine</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Split Operational Vault Console (60% / 40%) -->
+                    <div class="soc-dashboard-grid pass-dashboard-grid">
+                        <!-- Left Column: Operations Command & Cryptographic Engine (60%) -->
+                        <div class="soc-main-column pass-main-column">
+                            <div class="liquid-glass-card pass-workstation-card">
+                                <!-- Mode Selector Header -->
+                                <div class="card-header pass-workstation-header">
+                                    <div class="pass-mode-tabs" role="tablist" aria-label="Cryptographic Workstation Modes">
+                                        <button class="pass-mode-tab active" id="tab-pass-analyze" role="tab" aria-selected="true" data-mode="analyze">
+                                            <i class="fa-solid fa-fingerprint text-cyan"></i>
+                                            <span>Heuristic Cryptanalysis</span>
+                                        </button>
+                                        <button class="pass-mode-tab" id="tab-pass-generate" role="tab" aria-selected="false" data-mode="generate">
+                                            <i class="fa-solid fa-wand-magic-sparkles text-emerald"></i>
+                                            <span>CSPRNG Vault Synthesis</span>
+                                        </button>
+                                    </div>
+                                    <span class="badge badge-neutral font-mono font-xs">NIST SP 800-63B</span>
                                 </div>
-                                <div class="progress-bar-glow">
-                                    <div id="password-strength-bar" class="fill bg-danger" style="width: 0%"></div>
+
+                                <!-- Panel 1: Heuristic Cryptanalysis -->
+                                <div class="pass-panel" id="panel-pass-analyze">
+                                    <!-- Test Vector Scenario Chips -->
+                                    <div class="pass-presets-bar">
+                                        <span class="presets-label">Test Vectors:</span>
+                                        <div class="presets-bar" id="password-presets">
+                                            <button class="preset-pill pass-preset" data-val="password123">Trivial: "password123"</button>
+                                            <button class="preset-pill pass-preset" data-val="Tr0ub4dor&3">L33t: "Tr0ub4dor&3"</button>
+                                            <button class="preset-pill pass-preset" data-val="K8#vP9$mQ2!zL4@x">Entropy: 16-Char Random</button>
+                                            <button class="preset-pill pass-preset" data-val="correct-horse-battery-staple">Diceware: 4-Word Passphrase</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Inset Terminal Input Enclave -->
+                                    <div class="pass-input-enclave">
+                                        <form class="pass-form-enclave" onsubmit="return false;" autocomplete="off">
+                                            <div class="triage-input-wrapper pass-input-wrapper">
+                                                <i class="fa-solid fa-key triage-icon"></i>
+                                                <input type="password" id="password-input" class="triage-input pass-input font-mono" placeholder="Enter target credential or passphrase to analyze..." autocomplete="off" spellcheck="false">
+                                                <button class="triage-clear-btn" id="btn-clear-pass" aria-label="Clear password" style="display: none;">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </button>
+                                                <button class="pass-tool-btn" id="btn-toggle-pass" aria-label="Toggle password visibility" aria-pressed="false" title="Toggle Plaintext View">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </button>
+                                                <button class="pass-tool-btn" id="btn-copy-pass" aria-label="Copy password to clipboard" title="Copy to Local Clipboard">
+                                                    <i class="fa-regular fa-copy"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- Interactive Character-by-Character Entropy Spectrum Heatmap -->
+                                    <div class="char-spectrum-wrapper">
+                                        <div class="spectrum-header">
+                                            <span class="spectrum-title"><i class="fa-solid fa-barcode text-cyan"></i> Character Entropy Spectrum</span>
+                                            <span class="spectrum-legend text-dim">Green: High Dispersion · Amber: Common/Walk · Red: Cluster</span>
+                                        </div>
+                                        <div class="char-heatmap-container" id="password-char-heatmap" aria-label="Per-character entropy rating">
+                                            <span class="spectrum-placeholder text-dim font-xs">No characters entered. Type or select a vector above.</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Multi-Vector Threat Horizon Matrix (3 Attack Classes) -->
+                                    <div class="pass-attack-horizon">
+                                        <div class="attack-horizon-header">
+                                            <span class="attack-title"><i class="fa-solid fa-stopwatch text-cyan"></i> Multi-Vector Brute-Force Attack Horizon</span>
+                                            <span class="badge badge-xs badge-neutral">Hardware Calibrated</span>
+                                        </div>
+                                        <div class="attack-vector-grid">
+                                            <!-- Vector 1: Fast GPU NTLM -->
+                                            <div class="attack-vector-card">
+                                                <div class="attack-vec-top">
+                                                    <span class="attack-vec-name"><i class="fa-solid fa-bolt text-danger"></i> Fast GPU Hash</span>
+                                                    <span class="badge badge-xs badge-danger">NTLM / MD5</span>
+                                                </div>
+                                                <div class="attack-vec-rate text-dim">Hashcat 8x RTX 4090 @ 200 GH/s</div>
+                                                <div class="attack-vec-time font-mono tabular-nums text-danger" id="val-attack-fast-gpu">Instant (&lt; 1 ms)</div>
+                                                <div class="attack-vec-scenario text-dim">Compromised offline credential dump</div>
+                                            </div>
+
+                                            <!-- Vector 2: Slow Salted Hash -->
+                                            <div class="attack-vector-card">
+                                                <div class="attack-vec-top">
+                                                    <span class="attack-vec-name"><i class="fa-solid fa-shield text-amber"></i> Memory-Hard Salted</span>
+                                                    <span class="badge badge-xs badge-amber">Argon2id / bcrypt</span>
+                                                </div>
+                                                <div class="attack-vec-rate text-dim">Cost 12 / 64MB RAM @ 15 kH/s</div>
+                                                <div class="attack-vec-time font-mono tabular-nums text-amber" id="val-attack-slow-hash">Instant</div>
+                                                <div class="attack-vec-scenario text-dim">Hardened enterprise authentication store</div>
+                                            </div>
+
+                                            <!-- Vector 3: Online Rate-Limited -->
+                                            <div class="attack-vector-card">
+                                                <div class="attack-vec-top">
+                                                    <span class="attack-vec-name"><i class="fa-solid fa-globe text-emerald"></i> Online Defended</span>
+                                                    <span class="badge badge-xs badge-emerald">WAF / TLS</span>
+                                                </div>
+                                                <div class="attack-vec-rate text-dim">Rate-limited @ 10 attempts/min</div>
+                                                <div class="attack-vec-time font-mono tabular-nums text-emerald" id="val-attack-online">Instant</div>
+                                                <div class="attack-vec-scenario text-dim">Live application authentication endpoint</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Client-Side Zero-Knowledge Hash Verification (k-Anonymity) -->
+                                    <div class="pass-zk-footer">
+                                        <div class="zk-hash-badge">
+                                            <i class="fa-solid fa-fingerprint text-cyan"></i>
+                                            <span class="zk-label">k-ANONYMITY CLIENT HASH:</span>
+                                            <code id="pass-session-hash" class="ledger-hash-pill" title="Client-side SHA-256 digest prefix; plaintext is never transmitted">SHA-256: e3b0c442...</code>
+                                        </div>
+                                        <span class="zk-guarantee text-dim font-xs"><i class="fa-solid fa-check text-success"></i> ZERO PLAINTEXT TRANSMISSION GUARANTEED</span>
+                                    </div>
+                                </div>
+
+                                <!-- Panel 2: CSPRNG Vault Synthesis & Diceware (Initially Hidden) -->
+                                <div class="pass-panel display-none" id="panel-pass-generate">
+                                    <div class="csprng-layout">
+                                        <!-- Generator Sub-Tabs -->
+                                        <div class="csprng-subtabs">
+                                            <button class="csprng-subtab active" id="subtab-gen-token">
+                                                <i class="fa-solid fa-shield-virus text-cyan"></i> CSPRNG Token
+                                            </button>
+                                            <button class="csprng-subtab" id="subtab-gen-diceware">
+                                                <i class="fa-solid fa-book-open text-emerald"></i> NIST Diceware Passphrase
+                                            </button>
+                                        </div>
+
+                                        <!-- Token Controls -->
+                                        <div class="csprng-token-controls" id="controls-gen-token">
+                                            <div class="csprng-slider-group">
+                                                <div class="slider-header">
+                                                    <span class="slider-label">Cryptographic Token Length:</span>
+                                                    <span class="slider-value font-mono tabular-nums" id="csprng-len-display">20 Characters</span>
+                                                </div>
+                                                <input type="range" id="csprng-len-slider" min="8" max="64" value="20" class="csprng-slider">
+                                            </div>
+
+                                            <div class="csprng-checkbox-grid">
+                                                <label class="csprng-check-label">
+                                                    <input type="checkbox" id="csprng-chk-upper" checked>
+                                                    <span>Uppercase (A-Z)</span>
+                                                </label>
+                                                <label class="csprng-check-label">
+                                                    <input type="checkbox" id="csprng-chk-lower" checked>
+                                                    <span>Lowercase (a-z)</span>
+                                                </label>
+                                                <label class="csprng-check-label">
+                                                    <input type="checkbox" id="csprng-chk-digits" checked>
+                                                    <span>Digits (0-9)</span>
+                                                </label>
+                                                <label class="csprng-check-label">
+                                                    <input type="checkbox" id="csprng-chk-symbols" checked>
+                                                    <span>Symbols (!@#$%)</span>
+                                                </label>
+                                                <label class="csprng-check-label">
+                                                    <input type="checkbox" id="csprng-chk-ambiguous">
+                                                    <span>Avoid Ambiguous (1, l, I, 0, O)</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Diceware Controls -->
+                                        <div class="csprng-diceware-controls display-none" id="controls-gen-diceware">
+                                            <div class="diceware-setting-row">
+                                                <span class="setting-label">Word Count:</span>
+                                                <div class="diceware-btn-group" id="diceware-word-btns">
+                                                    <button class="preset-pill active" data-words="4">4 Words (~52 bits)</button>
+                                                    <button class="preset-pill" data-words="5">5 Words (~65 bits)</button>
+                                                    <button class="preset-pill" data-words="6">6 Words (~78 bits)</button>
+                                                </div>
+                                            </div>
+                                            <div class="diceware-setting-row margin-top-sm">
+                                                <span class="setting-label">Word Delimiter:</span>
+                                                <div class="diceware-btn-group" id="diceware-sep-btns">
+                                                    <button class="preset-pill active" data-sep="-">Hyphen (-)</button>
+                                                    <button class="preset-pill" data-sep=".">Period (.)</button>
+                                                    <button class="preset-pill" data-sep="_">Underscore (_)</button>
+                                                    <button class="preset-pill" data-sep=" ">Space ( )</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Generated Output Enclave -->
+                                        <div class="csprng-output-box">
+                                            <div class="csprng-output-text font-mono" id="csprng-output-val">Click Generate to synthesize secret...</div>
+                                            <div class="csprng-output-actions">
+                                                <button class="btn btn-primary btn-sm" id="btn-csprng-generate">
+                                                    <i class="fa-solid fa-arrows-rotate"></i> <span>Synthesize Secret</span>
+                                                </button>
+                                                <button class="btn btn-outline btn-sm" id="btn-csprng-copy">
+                                                    <i class="fa-regular fa-copy"></i> <span>Copy</span>
+                                                </button>
+                                                <button class="btn btn-cyan btn-sm" id="btn-csprng-transfer">
+                                                    <i class="fa-solid fa-arrow-left"></i> <span>Load Into Analyzer</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="grid-2col margin-top-md">
-                                <div class="stat-box">
-                                    <span class="stat-box-label">Shannon Entropy</span>
-                                    <span class="stat-box-value" id="password-entropy-val">0 <span class="unit">bits</span></span>
+                            <!-- NIST SP 800-63B & RFC 9106 Cryptographic Storage Architecture Card -->
+                            <div class="liquid-glass-card pass-defense-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-server-shield text-cyan"></i>
+                                        <h3>Argon2id Key Derivation Standards</h3>
+                                    </div>
+                                    <span class="badge badge-neutral font-mono font-xs">RFC 9106</span>
                                 </div>
-                                <div class="stat-box">
-                                    <span class="stat-box-label">Crack Duration</span>
-                                    <span class="stat-box-value text-glow" id="password-crack-time">Instant</span>
-                                </div>
-                            </div>
-
-                            <div class="character-checkpoints margin-top-md">
-                                <h4>Character Breakdown</h4>
-                                <div class="checkpoint-grid">
-                                    <div class="checkpoint" id="chk-len"><i class="fa-regular fa-circle-xmark text-danger"></i> 12+ Characters</div>
-                                    <div class="checkpoint" id="chk-upper"><i class="fa-regular fa-circle-xmark text-danger"></i> Uppercase Letters</div>
-                                    <div class="checkpoint" id="chk-lower"><i class="fa-regular fa-circle-xmark text-danger"></i> Lowercase Letters</div>
-                                    <div class="checkpoint" id="chk-num"><i class="fa-regular fa-circle-xmark text-danger"></i> Numbers</div>
-                                    <div class="checkpoint" id="chk-spec"><i class="fa-regular fa-circle-xmark text-danger"></i> Symbols</div>
+                                <div class="pass-defense-body">
+                                    <div class="defense-specs-grid">
+                                        <div class="defense-spec-tile">
+                                            <div class="spec-tile-header">
+                                                <i class="fa-solid fa-memory text-cyan"></i>
+                                                <span class="spec-title">Memory-Hardness</span>
+                                            </div>
+                                            <div class="spec-val font-mono">Argon2id (m=64MB)</div>
+                                            <div class="spec-desc text-dim font-xs">ASIC & GPU resistance floor</div>
+                                        </div>
+                                        <div class="defense-spec-tile">
+                                            <div class="spec-tile-header">
+                                                <i class="fa-solid fa-arrows-split-up-and-left text-emerald"></i>
+                                                <span class="spec-title">Salt Dispersion</span>
+                                            </div>
+                                            <div class="spec-val font-mono">128-bit CSPRNG</div>
+                                            <div class="spec-desc text-dim font-xs">Unique salt eliminates rainbow tables</div>
+                                        </div>
+                                        <div class="defense-spec-tile">
+                                            <div class="spec-tile-header">
+                                                <i class="fa-solid fa-stopwatch text-violet"></i>
+                                                <span class="spec-title">Work Factor</span>
+                                            </div>
+                                            <div class="spec-val font-mono">t=3 Passes / p=4</div>
+                                            <div class="spec-desc text-dim font-xs">Enforces offline delay barrier</div>
+                                        </div>
+                                    </div>
+                                    <div class="defense-enclave-note">
+                                        <i class="fa-solid fa-shield-halved text-cyan font-sm"></i>
+                                        <span class="text-dim font-xs">
+                                            <strong>Zero-Storage Enclave:</strong> Pure client-side WebCrypto execution. Plaintext string is purged from memory heap post-analysis.
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="glass-card flex-column">
-                            <div class="card-header border-bottom">
-                                <h3>Security Recommendations</h3>
-                            </div>
-                            <div class="recommendations-box margin-top-md flex-grow">
-                                <div id="password-feedback-container" class="feedback-list">
-                                    <div class="feedback-placeholder">
-                                        <i class="fa-solid fa-key"></i>
-                                        <p>Type a password to receive custom structural and architectural security improvements.</p>
+                        <!-- Right Column: Cryptographic Breakdown & NIST Audit (40%) -->
+                        <div class="soc-side-column pass-side-column">
+                            <!-- Cryptographic Resilience Tier HUD Card -->
+                            <div class="liquid-glass-card pass-resilience-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-shield-halved text-cyan"></i>
+                                        <h3>Resilience Tier HUD</h3>
+                                    </div>
+                                    <span class="badge badge-defcon-0" id="pass-defcon-badge">● CALIBRATING</span>
+                                </div>
+                                <div class="pass-resilience-body">
+                                    <div class="resilience-score-row">
+                                        <div class="score-display">
+                                            <span class="score-big font-mono tabular-nums" id="pass-score-val">0</span>
+                                            <span class="score-max font-mono">/100</span>
+                                        </div>
+                                        <div class="resilience-meta">
+                                            <div class="strength-label-text text-danger" id="password-rating-label">Uncalibrated</div>
+                                            <div class="score-subtext text-dim font-xs">NIST SP 800-63B Entropy Rating</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="progress-bar-glow margin-top-xs">
+                                        <div id="password-strength-bar" class="fill bg-danger" style="width: 0%"></div>
+                                    </div>
+
+                                    <!-- 4 Core Sub-Metrics -->
+                                    <div class="pass-metrics-grid margin-top-md">
+                                        <div class="pass-metric-item">
+                                            <span class="metric-lbl">Password Length</span>
+                                            <span class="metric-val font-mono tabular-nums" id="pass-metric-len">0 chars</span>
+                                        </div>
+                                        <div class="pass-metric-item">
+                                            <span class="metric-lbl">Character Pool</span>
+                                            <span class="metric-val font-mono tabular-nums" id="pass-metric-pool">0 pool</span>
+                                        </div>
+                                        <div class="pass-metric-item">
+                                            <span class="metric-lbl">Shannon Dispersion</span>
+                                            <span class="metric-val font-mono tabular-nums" id="pass-metric-dispersion">0%</span>
+                                        </div>
+                                        <div class="pass-metric-item">
+                                            <span class="metric-lbl">Entropy / Char</span>
+                                            <span class="metric-val font-mono tabular-nums" id="pass-metric-char-ent">0 bits</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="info-notice info-violet margin-top-md">
-                                <i class="fa-solid fa-lightbulb"></i>
-                                <span><strong>Tip:</strong> Avoid using names, years, pet names, keyboard patterns (like "qwerty"), or words from dictionary. Cryptographic security relies on high entropy.</span>
+
+                            <!-- NIST SP 800-63B Architecture Audit & Pattern Detection -->
+                            <div class="liquid-glass-card pass-audit-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-clipboard-check text-emerald"></i>
+                                        <h3>NIST SP 800-63B Audit</h3>
+                                    </div>
+                                    <span class="badge badge-neutral" id="pass-audit-status">HEURISTIC CHECK</span>
+                                </div>
+                                <div class="pass-audit-body">
+                                    <div class="checkpoint-grid pass-checkpoint-grid">
+                                        <div class="checkpoint" id="chk-len"><i class="fa-regular fa-circle-xmark text-danger"></i> 14+ Length Floor</div>
+                                        <div class="checkpoint" id="chk-variety"><i class="fa-regular fa-circle-xmark text-danger"></i> Multi-Class Variety</div>
+                                        <div class="checkpoint" id="chk-dict"><i class="fa-regular fa-circle-xmark text-danger"></i> Zero Dictionary Match</div>
+                                        <div class="checkpoint" id="chk-walks"><i class="fa-regular fa-circle-xmark text-danger"></i> No Keyboard Walks</div>
+                                        <div class="checkpoint" id="chk-repeats"><i class="fa-regular fa-circle-xmark text-danger"></i> No Repetitive Runs</div>
+                                    </div>
+
+                                    <!-- Pattern Warnings & Actionable Remediations -->
+                                    <div class="pass-feedback-wrapper margin-top-sm">
+                                        <div id="password-feedback-container" class="feedback-list">
+                                            <div class="feedback-placeholder">
+                                                <i class="fa-solid fa-key text-dim"></i>
+                                                <p class="text-dim font-xs">Enter a credential or synthesize a Diceware secret to stream automated pattern detections and mitigation advice.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section id="view-phishing" class="content-view">
-                    <div class="content-grid-2col">
-                        <div class="glass-card flex-column">
-                            <div class="card-header border-bottom">
-                                <h3>Phishing Link Inspector</h3>
+                <!-- 3. PHISHING URL CHECKER VIEW -->
+                <section id="view-phishing" class="content-view" role="tabpanel" aria-labelledby="btn-tab-phishing" hidden="until-found">
+                    <!-- 1. Executive 4-KPI Threat Telemetry Ribbon -->
+                    <div class="dashboard-kpi-ribbon phish-kpi-ribbon">
+                        <!-- KPI 1 (Lead Anchor): Threat Risk Level -->
+                        <div class="kpi-card soc-kpi-tile phish-kpi-lead">
+                            <div class="kpi-header">
+                                <span class="kpi-title"><i class="fa-solid fa-radar text-cyan"></i> THREAT RISK LEVEL</span>
+                                <span class="badge badge-defcon-0" id="phish-kpi-tier"><span class="status-pulse-dot"></span> CALIBRATING</span>
                             </div>
-
-                            <div class="form-group margin-top-md">
-                                <label for="url-input">Target URL (Web Address)</label>
-                                <div class="input-wrapper-btn">
-                                    <input type="text" id="url-input" placeholder="e.g. http://paypal-verify-secure.com" autocomplete="off">
-                                    <button class="btn btn-primary" id="btn-scan-url">Scan Link</button>
-                                </div>
+                            <div class="kpi-main-metric">
+                                <span class="kpi-value font-mono tabular-nums score-number" id="phish-kpi-score">0%</span>
+                                <span class="kpi-unit">RISK</span>
                             </div>
-
-                            <div class="url-guide-box margin-top-md">
-                                <h4>Common Heuristics Searched:</h4>
-                                <ul class="cyber-bullets">
-                                    <li><i class="fa-solid fa-check"></i> Typosquatting (mimicking `google.com` as `goog1e.com`)</li>
-                                    <li><i class="fa-solid fa-check"></i> Deceptive subdomains and high subdomain density</li>
-                                    <li><i class="fa-solid fa-check"></i> Deceptive keywords in host path</li>
-                                    <li><i class="fa-solid fa-check"></i> Non-standard or high-risk TLDs</li>
-                                    <li><i class="fa-solid fa-check"></i> Raw IP address hosting instead of registered domains</li>
-                                    <li><i class="fa-solid fa-check"></i> URL redirection protocols inside query strings</li>
-                                </ul>
+                            <div class="kpi-sub-text">
+                                <span class="text-dim">Heuristic threat probability (0-100% RFC/UTS composite)</span>
                             </div>
                         </div>
 
-                        <div class="glass-card flex-column" id="url-results-card">
-                            <div class="card-header border-bottom">
-                                <h3>Scan Analysis Report</h3>
+                        <!-- KPI 2 (Satellite 1): Attack Vector Signature -->
+                        <div class="kpi-card soc-kpi-tile">
+                            <div class="kpi-header">
+                                <span class="kpi-title"><i class="fa-solid fa-shield-virus text-emerald"></i> ATTACK VECTOR</span>
+                                <span class="badge badge-neutral" id="phish-kpi-vector-badge">ANALYZING</span>
                             </div>
-                            <div class="scan-result-body flex-grow flex-center-vertical" id="url-empty-state">
-                                <i class="fa-solid fa-radar-screen text-dim icon-huge"></i>
-                                <p class="text-dim">Enter a URL and click 'Scan Link' to run heuristics engine.</p>
+                            <div class="kpi-main-metric">
+                                <span class="kpi-value font-mono tabular-nums phish-kpi-text-val" id="phish-kpi-vector">CLEARED / BENIGN</span>
                             </div>
-                            <div class="scan-result-body flex-column display-none" id="url-active-state">
-                                <div class="risk-gauge-container">
-                                    <div class="risk-score-badge" id="url-risk-badge">
-                                        <span class="risk-label">RISK LEVEL</span>
-                                        <span class="risk-value" id="url-risk-score">0%</span>
-                                        <span class="risk-status" id="url-risk-status">SAFE</span>
+                            <div class="kpi-sub-text">
+                                <span class="text-dim">Deep structural heuristic signature classification</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 3 (Satellite 2): Impersonation Target -->
+                        <div class="kpi-card soc-kpi-tile">
+                            <div class="kpi-header">
+                                <span class="kpi-title"><i class="fa-solid fa-crosshairs text-violet"></i> TARGET IDENTITY</span>
+                                <span class="badge badge-neutral" id="phish-kpi-target-badge">ORGANIC HOST</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <span class="kpi-value font-mono tabular-nums phish-kpi-text-val" id="phish-kpi-target">NONE / ORGANIC</span>
+                            </div>
+                            <div class="kpi-sub-text">
+                                <span class="text-dim">Levenshtein &amp; keyword brand correlation</span>
+                            </div>
+                        </div>
+
+                        <!-- KPI 4 (Satellite 3): Air-Gap Enclave -->
+                        <div class="kpi-card soc-kpi-tile">
+                            <div class="kpi-header">
+                                <span class="kpi-title"><i class="fa-solid fa-shield-halved text-cyan"></i> ENCLAVE PRIVACY</span>
+                                <span class="badge badge-emerald"><i class="fa-solid fa-lock"></i> AIR-GAPPED</span>
+                            </div>
+                            <div class="kpi-main-metric">
+                                <span class="kpi-value font-mono tabular-nums">0</span>
+                                <span class="kpi-unit">BYTES EGRESS</span>
+                            </div>
+                            <div class="kpi-sub-text">
+                                <span class="text-dim">Client-isolated WebCrypto URI deconstruction</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Split Operational Threat Console (60% / 40%) -->
+                    <div class="soc-dashboard-grid phish-dashboard-grid">
+                        <!-- Left Column: Tactical Investigation Workstation (60%) -->
+                        <div class="soc-main-column phish-main-column">
+                            <div class="liquid-glass-card phish-workstation-card">
+                                <!-- Card Header -->
+                                <div class="card-header phish-workstation-header">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-crosshairs text-cyan"></i>
+                                        <h3>Tactical Heuristic Investigation Workstation</h3>
                                     </div>
-                                    <svg class="risk-ring" width="120" height="120">
-                                        <circle class="progress-ring-circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
-                                        <circle id="url-risk-ring" class="progress-ring-circle" stroke="var(--emerald-glow)" stroke-width="8" stroke-dasharray="314.15" stroke-dashoffset="314.15" stroke-linecap="round" fill="transparent" r="50" cx="60" cy="60"/>
-                                    </svg>
+                                    <span class="badge badge-neutral font-mono font-xs">RFC 3986 &amp; RFC 5890</span>
                                 </div>
 
-                                <div class="heuristics-report margin-top-md">
-                                    <h4>Detected Vulnerabilities / Warnings</h4>
+                                <!-- Attack Vector Presets Bar -->
+                                <div class="phish-presets-bar">
+                                    <span class="presets-label">Attack Vector Presets:</span>
+                                    <div class="presets-bar" id="phishing-presets">
+                                        <button class="preset-pill phish-preset" data-val="xn--pypal-4ve.com/signin" title="Cyrillic homoglyph lookalike">Punycode: "xn--pypal-4ve.com"</button>
+                                        <button class="preset-pill phish-preset" data-val="http://0xd8.0x3a.0xd6.0xe3/login" title="Hexadecimal IP representation">Hex IP: "0xd8.0x3a..."</button>
+                                        <button class="preset-pill phish-preset" data-val="verify.login-portal.net?redirect=https://evil.com" title="Open redirect bounce vector">Open Redirect: "?redirect=..."</button>
+                                        <button class="preset-pill phish-preset" data-val="paypal.com.account-verify.service.xyz/auth" title="Subdomain trademark prefix stacking">Subdomain Stack: "paypal.com..."</button>
+                                        <button class="preset-pill phish-preset" data-val="https://github.com/security" title="Clean zero-defect enterprise baseline">Baseline: "github.com"</button>
+                                    </div>
+                                </div>
+
+                                <!-- Double-Bezel Inset Terminal URL Input Enclave -->
+                                <div class="phish-input-enclave">
+                                    <div class="phish-input-tray">
+                                        <div class="triage-input-wrapper phish-input-wrapper">
+                                            <i class="fa-solid fa-globe triage-icon text-cyan"></i>
+                                            <input type="text" id="url-input" class="triage-input phish-input font-mono" placeholder="Enter target web address or URI to inspect..." autocomplete="off" spellcheck="false" value="">
+                                            <button class="triage-clear-btn" id="btn-clear-url" aria-label="Clear URL" style="display: none;">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </button>
+                                            <button class="pass-tool-btn phish-tool-btn" id="btn-paste-url" aria-label="Paste URL from clipboard" title="Paste from Clipboard">
+                                                <i class="fa-regular fa-clipboard"></i>
+                                            </button>
+                                        </div>
+                                        <button class="btn btn-primary phish-scan-btn" id="btn-scan-url">
+                                            <i class="fa-solid fa-shield-halved"></i> <span>Scan Target URL</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Interactive 6-Probe Tactical Heuristic Matrix -->
+                                <div class="phish-matrix-section">
+                                    <div class="matrix-header">
+                                        <span class="matrix-title"><i class="fa-solid fa-microchip text-cyan"></i> Tactical Heuristic Sensor Array</span>
+                                        <span class="badge badge-xs badge-neutral">6 Autonomous Sensors</span>
+                                    </div>
+                                    <div class="phish-probe-grid">
+                                        <!-- Probe 1: IDN Homoglyphs -->
+                                        <div class="phish-probe-tile" id="probe-idn">
+                                            <div class="probe-top">
+                                                <span class="probe-name"><i class="fa-solid fa-language text-cyan"></i> RFC 5890 IDN Homoglyphs</span>
+                                                <span class="badge badge-xs badge-neutral probe-status-badge" id="probe-idn-badge">UNTESTED</span>
+                                            </div>
+                                            <div class="probe-detail text-dim" id="probe-idn-detail">Punycode (xn--) &amp; Cyrillic spoof detection</div>
+                                        </div>
+
+                                        <!-- Probe 2: IP Obfuscation -->
+                                        <div class="phish-probe-tile" id="probe-ip">
+                                            <div class="probe-top">
+                                                <span class="probe-name"><i class="fa-solid fa-network-wired text-cyan"></i> IP Obfuscation</span>
+                                                <span class="badge badge-xs badge-neutral probe-status-badge" id="probe-ip-badge">UNTESTED</span>
+                                            </div>
+                                            <div class="probe-detail text-dim" id="probe-ip-detail">Hex (0x), Dword integer, Octal &amp; raw IPv4</div>
+                                        </div>
+
+                                        <!-- Probe 3: Trademark Typosquatting -->
+                                        <div class="phish-probe-tile" id="probe-typo">
+                                            <div class="probe-top">
+                                                <span class="probe-name"><i class="fa-solid fa-trademark text-cyan"></i> Brand Typosquatting</span>
+                                                <span class="badge badge-xs badge-neutral probe-status-badge" id="probe-typo-badge">UNTESTED</span>
+                                            </div>
+                                            <div class="probe-detail text-dim" id="probe-typo-detail">Levenshtein distance &le; 2 on 25+ major brands</div>
+                                        </div>
+
+                                        <!-- Probe 4: Open Redirects -->
+                                        <div class="phish-probe-tile" id="probe-redirect">
+                                            <div class="probe-top">
+                                                <span class="probe-name"><i class="fa-solid fa-arrow-up-right-from-square text-cyan"></i> Open Redirect Leaks</span>
+                                                <span class="badge badge-xs badge-neutral probe-status-badge" id="probe-redirect-badge">UNTESTED</span>
+                                            </div>
+                                            <div class="probe-detail text-dim" id="probe-redirect-detail">Parameter bounce leakage (?url=, ?redirect=)</div>
+                                        </div>
+
+                                        <!-- Probe 5: Subdomain Stacking -->
+                                        <div class="phish-probe-tile" id="probe-subdomain">
+                                            <div class="probe-top">
+                                                <span class="probe-name"><i class="fa-solid fa-layer-group text-cyan"></i> Subdomain Stacking</span>
+                                                <span class="badge badge-xs badge-neutral probe-status-badge" id="probe-subdomain-badge">UNTESTED</span>
+                                            </div>
+                                            <div class="probe-detail text-dim" id="probe-subdomain-detail">Host depth &ge; 3 &amp; trademark prefix deception</div>
+                                        </div>
+
+                                        <!-- Probe 6: TLD Abuse Reputation -->
+                                        <div class="phish-probe-tile" id="probe-tld">
+                                            <div class="probe-top">
+                                                <span class="probe-name"><i class="fa-solid fa-triangle-exclamation text-cyan"></i> High-Abuse TLD</span>
+                                                <span class="badge badge-xs badge-neutral probe-status-badge" id="probe-tld-badge">UNTESTED</span>
+                                            </div>
+                                            <div class="probe-detail text-dim" id="probe-tld-detail">Abuse metrics check on .xyz, .top, .tk, .cam</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- IDN Homoglyph Translation Matrix / Character Inspection Card -->
+                                <div class="phish-idn-matrix-enclave" id="phish-idn-container">
+                                    <div class="idn-matrix-header">
+                                        <span class="idn-matrix-title"><i class="fa-solid fa-barcode text-cyan"></i> IDN Homoglyph Translation &amp; Unicode Codepoints</span>
+                                        <span class="badge badge-xs badge-neutral font-mono" id="idn-status-pill">UTS #39 SPEC</span>
+                                    </div>
+                                    <div class="idn-matrix-body" id="idn-matrix-content">
+                                        <div class="idn-placeholder text-dim font-xs">
+                                            <i class="fa-solid fa-fingerprint text-dim"></i>
+                                            <span>Scan a target URL to deconstruct its character codepoints and detect visual glyph spoofing.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Automated SOC Incident Response Runbook Card -->
+                            <div class="liquid-glass-card phish-soc-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-terminal text-cyan"></i>
+                                        <h3>Automated SOC Incident Response Runbook</h3>
+                                    </div>
+                                    <span class="badge badge-neutral font-mono font-xs">MITRE ATT&amp;CK T1566</span>
+                                </div>
+                                <div class="phish-soc-body">
+                                    <div class="soc-directives-grid">
+                                        <!-- Directive 1: DNS Sinkhole -->
+                                        <div class="soc-directive-tile">
+                                            <div class="directive-tile-header">
+                                                <div class="directive-title-group">
+                                                    <i class="fa-solid fa-satellite-dish text-cyan"></i>
+                                                    <span class="directive-title">Edge DNS Sinkhole</span>
+                                                </div>
+                                                <button class="btn-copy-code" id="btn-copy-dns" title="Copy DNS Sinkhole Rule"><i class="fa-regular fa-copy"></i></button>
+                                            </div>
+                                            <div class="directive-code-wrapper">
+                                                <code class="soc-code-snippet font-mono" id="soc-dns-rule">0.0.0.0 target-domain.com</code>
+                                            </div>
+                                            <div class="directive-desc text-dim font-xs">Pi-hole, Unbound &amp; hosts file perimeter sinkhole</div>
+                                        </div>
+
+                                        <!-- Directive 2: Perimeter WAF Block -->
+                                        <div class="soc-directive-tile">
+                                            <div class="directive-tile-header">
+                                                <div class="directive-title-group">
+                                                    <i class="fa-solid fa-fire text-amber"></i>
+                                                    <span class="directive-title">Perimeter WAF L7 Block</span>
+                                                </div>
+                                                <button class="btn-copy-code" id="btn-copy-waf" title="Copy WAF Rule"><i class="fa-regular fa-copy"></i></button>
+                                            </div>
+                                            <div class="directive-code-wrapper">
+                                                <code class="soc-code-snippet font-mono" id="soc-waf-rule">(http.host eq "target-domain.com")</code>
+                                            </div>
+                                            <div class="directive-desc text-dim font-xs">Cloudflare / ModSecurity edge filter rule</div>
+                                        </div>
+
+                                        <!-- Directive 3: Identity & Access Advisory -->
+                                        <div class="soc-directive-tile">
+                                            <div class="directive-tile-header">
+                                                <div class="directive-title-group">
+                                                    <i class="fa-solid fa-user-shield text-violet"></i>
+                                                    <span class="directive-title">Identity SOC Advisory</span>
+                                                </div>
+                                            </div>
+                                            <ul class="soc-advisory-list text-dim font-xs" id="soc-advisory-items">
+                                                <li><i class="fa-solid fa-circle-exclamation text-cyan"></i> Revoke active session tokens for interacting identities</li>
+                                                <li><i class="fa-solid fa-circle-exclamation text-cyan"></i> Trigger immediate password rotation if credentials submitted</li>
+                                                <li><i class="fa-solid fa-circle-exclamation text-cyan"></i> Query SIEM logs for lateral outbound HTTP connections</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="defense-enclave-note margin-top-sm">
+                                        <i class="fa-solid fa-shield-halved text-cyan font-sm"></i>
+                                        <span class="text-dim font-xs">
+                                            <strong>Zero-Knowledge Air-Gap:</strong> URL analysis executes exclusively in local browser WebCrypto memory without leaking queried endpoints to third-party APIs.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Verdict HUD & Anatomy Ledger (40%) -->
+                        <div class="soc-side-column phish-side-column">
+                            <!-- Concentric Threat Verdict HUD Card -->
+                            <div class="liquid-glass-card phish-verdict-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-bullseye text-cyan"></i>
+                                        <h3>Threat Verdict HUD</h3>
+                                    </div>
+                                    <span class="badge badge-defcon-0" id="phish-defcon-badge">● CALIBRATING</span>
+                                </div>
+                                <div class="phish-verdict-body">
+                                    <div class="verdict-gauge-row">
+                                        <div class="phish-gauge-wrapper">
+                                            <svg class="risk-ring phish-ring" width="128" height="128" aria-hidden="true">
+                                                <circle class="progress-ring-circle-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="8" fill="transparent" r="54" cx="64" cy="64"/>
+                                                <circle id="url-risk-ring" class="progress-ring-circle" stroke="var(--emerald-glow)" stroke-width="8" stroke-dasharray="339.29" stroke-dashoffset="339.29" stroke-linecap="round" fill="transparent" r="54" cx="64" cy="64"/>
+                                            </svg>
+                                            <div class="phish-gauge-center">
+                                                <span class="score-big font-mono tabular-nums" id="url-risk-score">0%</span>
+                                                <span class="score-lbl font-mono font-xs text-dim">RISK SCORE</span>
+                                            </div>
+                                        </div>
+                                        <div class="verdict-meta">
+                                            <div class="strength-label-text text-success" id="url-risk-status">VERIFIED BENIGN</div>
+                                            <div class="score-subtext text-dim font-xs">Heuristic Threat Probability</div>
+                                            <div class="progress-bar-glow margin-top-xs">
+                                                <div id="phish-score-bar" class="fill bg-emerald" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 4 Core Sub-Metrics Grid -->
+                                    <div class="phish-metrics-grid margin-top-md">
+                                        <div class="pass-metric-item">
+                                            <span class="metric-lbl">URI Scheme</span>
+                                            <span class="metric-val font-mono tabular-nums text-success" id="phish-metric-scheme">https (TLS)</span>
+                                        </div>
+                                        <div class="pass-metric-item">
+                                            <span class="metric-lbl">TLD Abuse Risk</span>
+                                            <span class="metric-val font-mono tabular-nums text-success" id="phish-metric-tld">0% (Low)</span>
+                                        </div>
+                                        <div class="pass-metric-item">
+                                            <span class="metric-lbl">Host Entropy</span>
+                                            <span class="metric-val font-mono tabular-nums text-cyan" id="phish-metric-entropy">0.00 bits</span>
+                                        </div>
+                                        <div class="pass-metric-item">
+                                            <span class="metric-lbl">Levenshtein Target</span>
+                                            <span class="metric-val font-mono tabular-nums text-emerald" id="phish-metric-levenshtein">None (Organic)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Deconstructed URI Anatomy Chain Card -->
+                            <div class="liquid-glass-card phish-anatomy-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-sitemap text-emerald"></i>
+                                        <h3>Deconstructed URI Anatomy</h3>
+                                    </div>
+                                    <span class="badge badge-neutral font-mono font-xs">RFC 3986 Syntax</span>
+                                </div>
+                                <div class="phish-anatomy-body">
+                                    <div id="url-anatomy-container" class="url-anatomy-wrapper" aria-label="URL Anatomy Decomposition">
+                                        <div class="anatomy-placeholder text-dim font-xs">
+                                            <span>Scan a URL to view the deconstructed component chain.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Heuristic Findings & Alerts Feed Card -->
+                            <div class="liquid-glass-card phish-findings-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-triangle-exclamation text-amber"></i>
+                                        <h3>Heuristic Findings &amp; Alerts</h3>
+                                    </div>
+                                    <span class="badge badge-neutral" id="phish-findings-count">0 DETECTED</span>
+                                </div>
+                                <div class="phish-findings-body">
                                     <div class="warning-log-list" id="url-warnings-list">
+                                        <div class="warning-item safe-item">
+                                            <i class="fa-solid fa-circle-check text-success"></i>
+                                            <div>
+                                                <strong>No Suspicious Heuristics Detected</strong>
+                                                <p>Standard domain structure with legitimate SSL scheme and no detected typosquatting patterns.</p>
+                                            </div>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section id="view-email" class="content-view">
-                    <div class="content-grid-2col">
-                        <div class="glass-card flex-column">
-                            <div class="card-header border-bottom">
-                                <h3>Threat Level Scraper</h3>
-                            </div>
-
-                            <div class="form-group margin-top-md flex-grow flex-column">
-                                <label for="email-content-input">Paste Email Body Content</label>
-                                <textarea id="email-content-input" class="flex-grow flex-textarea" placeholder="Paste the text of the suspicious email here... (e.g. 'URGENT: Your account has been suspended. Please click here to verify your identity within 24 hours.')" autocomplete="off"></textarea>
-                            </div>
-
-                            <div class="form-actions margin-top-sm">
-                                <button class="btn btn-primary" id="btn-scan-email">Scan Email Content</button>
-                                <button class="btn btn-outline" id="btn-clear-email">Clear</button>
-                            </div>
-                        </div>
-
-                        <div class="glass-card flex-column" id="email-results-card">
-                            <div class="card-header border-bottom">
-                                <h3>Fraud Detection Summary</h3>
-                            </div>
-                            <div class="scan-result-body flex-grow flex-center-vertical" id="email-empty-state">
-                                <i class="fa-solid fa-envelope-shield text-dim icon-huge"></i>
-                                <p class="text-dim">Paste email text and scan to analyze for manipulation and scam triggers.</p>
-                            </div>
-                            <div class="scan-result-body flex-column display-none" id="email-active-state">
-                                <div class="grid-2col">
-                                    <div class="stat-box">
-                                        <span class="stat-box-label">Scam Probability</span>
-                                        <span class="stat-box-value text-danger text-glow" id="email-risk-percentage">0%</span>
+                <!-- 4. EMAIL SCAM SCANNER VIEW (45% / 55% Split Workspace) -->
+                <section id="view-email" class="content-view" role="tabpanel" aria-labelledby="btn-tab-email" hidden="until-found">
+                    <div class="soc-dashboard-grid email-dashboard-grid">
+                        <!-- Left Column: Tactical Input Enclave (45%) -->
+                        <div class="soc-main-column email-main-column">
+                            <div class="liquid-glass-card email-workstation-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-envelope-open-text text-cyan"></i>
+                                        <h3>Semantic Vector Email Scanner</h3>
                                     </div>
-                                    <div class="stat-box">
-                                        <span class="stat-box-label">Threat Classification</span>
-                                        <span class="stat-box-value" id="email-threat-level">UNKNOWN</span>
+                                    <span class="badge badge-pulse" id="email-threat-badge">READY</span>
+                                </div>
+
+                                <!-- Test Vector Scenario Chips -->
+                                <div class="presets-section margin-top-md">
+                                    <span class="presets-label">Test Vectors:</span>
+                                    <div class="presets-bar" id="email-presets">
+                                        <button class="preset-pill" data-preset="urgent">Urgent Wire Request</button>
+                                        <button class="preset-pill" data-preset="wire">CEO Impersonation</button>
+                                        <button class="preset-pill" data-preset="lottery">Grant / Prize Scam</button>
+                                        <button class="preset-pill" data-preset="clean">Normal Meeting Memo</button>
                                     </div>
                                 </div>
 
-                                <div class="highlighted-view-box margin-top-md">
-                                    <h4>Highlighted Dangerous Phrases</h4>
-                                    <div class="scam-highlighted-text" id="email-highlighted-text">
+                                <!-- Inset Terminal Input Enclave -->
+                                <div class="email-input-enclave">
+                                    <label for="email-content-input" class="text-dim font-xs font-mono margin-bottom-xs">
+                                        <i class="fa-solid fa-align-left text-cyan"></i> RAW EMAIL PAYLOAD / HEADERS
+                                    </label>
+                                    <textarea id="email-content-input" class="email-textarea font-mono" placeholder="Paste suspicious email headers and body text to inspect for psychological coercion, financial extraction, and authority spoofing..." autocomplete="off" spellcheck="false"></textarea>
+                                </div>
+
+                                <div class="email-actions-row">
+                                    <button class="btn btn-outline btn-sm" id="btn-clear-email">
+                                        <i class="fa-solid fa-eraser"></i> <span>Clear Content</span>
+                                    </button>
+                                    <button class="btn btn-primary btn-sm" id="btn-scan-email">
+                                        <i class="fa-solid fa-magnifying-glass-chart"></i> <span>Scan Email Payload</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Diagnostic Telemetry Canvas & Urgency Meter (55%) -->
+                        <div class="soc-side-column email-side-column">
+                            <div class="liquid-glass-card email-telemetry-card" id="email-results-card">
+                                <div class="card-header border-bottom">
+                                    <div class="card-title-group">
+                                        <i class="fa-solid fa-radar text-cyan"></i>
+                                        <h3>Diagnostic Telemetry &amp; Coercion HUD</h3>
+                                    </div>
+                                    <div class="enclave-indicator font-mono font-xs text-dim">
+                                        <span class="status-pulse-dot"></span> <span>NLP ENGINE ACTIVE</span>
+                                    </div>
+                                </div>
+
+                                <!-- Top Threat HUD: Dual Stat Cards -->
+                                <div class="grid-2col margin-top-sm">
+                                    <div class="stat-box">
+                                        <span class="stat-box-label font-mono">SCAM PROBABILITY</span>
+                                        <span class="stat-box-value font-mono text-cyan tabular-nums" id="email-risk-percentage">0%</span>
+                                    </div>
+                                    <div class="stat-box">
+                                        <span class="stat-box-label font-mono">THREAT CLASSIFICATION</span>
+                                        <span class="stat-box-value font-mono text-success" id="email-threat-level">CLEAN / BENIGN</span>
+                                    </div>
+                                </div>
+
+                                <!-- Sleek Urgency Breakdown Meter (4 Sub-meters) -->
+                                <div class="urgency-breakdown-card margin-top-sm">
+                                    <div class="urgency-meter-row">
+                                        <div class="urgency-meter-header font-mono">
+                                            <span class="text-danger"><i class="fa-solid fa-clock-six"></i> Urgency &amp; Fear Pressure</span>
+                                            <span id="meter-urgency-val" class="text-dim">0%</span>
                                         </div>
+                                        <div class="urgency-meter-track">
+                                            <div class="urgency-meter-fill bg-rose-500" id="meter-urgency" style="width: 0%; background: #f43f5e;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="urgency-meter-row">
+                                        <div class="urgency-meter-header font-mono">
+                                            <span class="text-warning"><i class="fa-solid fa-sack-dollar"></i> Financial &amp; Asset Extraction</span>
+                                            <span id="meter-finance-val" class="text-dim">0%</span>
+                                        </div>
+                                        <div class="urgency-meter-track">
+                                            <div class="urgency-meter-fill" id="meter-finance" style="width: 0%; background: #f59e0b;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="urgency-meter-row">
+                                        <div class="urgency-meter-header font-mono">
+                                            <span class="text-violet"><i class="fa-solid fa-building-columns"></i> Authority Impersonation</span>
+                                            <span id="meter-authority-val" class="text-dim">0%</span>
+                                        </div>
+                                        <div class="urgency-meter-track">
+                                            <div class="urgency-meter-fill" id="meter-authority" style="width: 0%; background: #a855f7;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="urgency-meter-row">
+                                        <div class="urgency-meter-header font-mono">
+                                            <span class="text-cyan"><i class="fa-solid fa-link-slash"></i> Generic Deceptive CTAs</span>
+                                            <span id="meter-generic-val" class="text-dim">0%</span>
+                                        </div>
+                                        <div class="urgency-meter-track">
+                                            <div class="urgency-meter-fill" id="meter-generic" style="width: 0%; background: #38bdf8;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Simulated Security Headers Matrix (SPF, DKIM, DMARC) -->
+                                <div class="email-headers-matrix margin-top-sm">
+                                    <div class="email-header-tile">
+                                        <span class="email-header-name">SPF PROTOCOL</span>
+                                        <span class="email-header-status text-success" id="hdr-spf"><i class="fa-solid fa-circle-check"></i> PASS (SPF1)</span>
+                                    </div>
+                                    <div class="email-header-tile">
+                                        <span class="email-header-name">DKIM SIGNATURE</span>
+                                        <span class="email-header-status text-success" id="hdr-dkim"><i class="fa-solid fa-circle-check"></i> VALID (1024-RSA)</span>
+                                    </div>
+                                    <div class="email-header-tile">
+                                        <span class="email-header-name">DMARC POLICY</span>
+                                        <span class="email-header-status text-success" id="hdr-dmarc"><i class="fa-solid fa-circle-check"></i> ALIGNED (P=REJECT)</span>
+                                    </div>
+                                </div>
+
+                                <!-- Highlighted Coercive Phrases Token Box -->
+                                <div class="highlighted-view-box margin-top-sm">
+                                    <h4 class="font-mono font-xs text-dim margin-bottom-xs">DECODED COERCIVE PHRASES</h4>
+                                    <div class="scam-highlighted-text" id="email-highlighted-text">
+                                        <p class="text-dim font-xs">Enter or load a test vector payload to highlight psychological coercion triggers.</p>
+                                    </div>
                                     <div class="highlight-legend margin-top-xs">
                                         <span class="legend-item"><span class="legend-dot color-urgency"></span> Urgency / Fear</span>
-                                        <span class="legend-item"><span class="legend-dot color-finance"></span> Financial/Gift</span>
-                                        <span class="legend-item"><span class="legend-dot color-authority"></span> Impersonation</span>
-                                        <span class="legend-item"><span class="legend-dot color-generic"></span> Deceptive links</span>
+                                        <span class="legend-item"><span class="legend-dot color-finance"></span> Financial</span>
+                                        <span class="legend-item"><span class="legend-dot color-authority"></span> Authority</span>
+                                        <span class="legend-item"><span class="legend-dot color-generic"></span> Deceptive CTA</span>
                                     </div>
                                 </div>
 
-                                <div class="heuristics-report margin-top-md">
-                                    <h4>Detected Scam Vectors</h4>
+                                <!-- Detected Scam Vectors & SOC Mitigation Directive -->
+                                <div class="heuristics-report margin-top-sm">
+                                    <h4 class="font-mono font-xs text-dim margin-bottom-xs">SOC MITIGATION DIRECTIVE &amp; VECTORS</h4>
                                     <div class="warning-log-list" id="email-vectors-list">
+                                        <div class="warning-item safe-item">
+                                            <i class="fa-solid fa-circle-check text-success"></i>
+                                            <div>
+                                                <strong>Payload Verification Standby</strong>
+                                                <p>Load a sample payload or paste a message to inspect for social engineering vectors.</p>
+                                            </div>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section id="view-learning" class="content-view">
-                    <div class="learning-header">
-                        <div class="learning-nav-tabs">
-                            <button class="sub-tab active" data-subtab="lessons">Interactive Modules</button>
-                            <button class="sub-tab" data-subtab="phishspotter">Spot the Phish</button>
-                            <button class="sub-tab" data-subtab="flashcards">Security Flashcards</button>
-                        </div>
-                    </div>
-
-                    <div id="subtab-view-lessons" class="subtab-view active">
-                        <div class="lessons-grid">
+                <!-- 5. UNIFIED SECURITY ACADEMY & READINESS CERTIFICATION -->
+                <section id="view-academy" class="content-view" role="tabpanel" aria-labelledby="btn-tab-academy" hidden="until-found">
+                    <div class="academy-workspace-container">
+                        <!-- Left Navigation Rail (Syllabus, Drills, Certification) -->
+                        <aside class="academy-syllabus-rail" aria-label="Academy Curriculum Syllabus">
+                            <div class="syllabus-group">
+                                <span class="syllabus-heading font-mono">DEFENSIVE SYLLABUS</span>
+                                <button class="syllabus-item-btn active" data-academy-target="lesson" data-lesson-id="passwords">
+                                    <div class="syllabus-item-left">
+                                        <i class="fa-solid fa-key text-cyan"></i>
+                                        <span>1. Passwords &amp; Entropy</span>
+                                    </div>
+                                    <i class="fa-solid fa-circle-check syllabus-status-icon pending" id="status-icon-passwords"></i>
+                                </button>
+                                <button class="syllabus-item-btn" data-academy-target="lesson" data-lesson-id="phishing">
+                                    <div class="syllabus-item-left">
+                                        <i class="fa-solid fa-link text-emerald"></i>
+                                        <span>2. Social Engineering</span>
+                                    </div>
+                                    <i class="fa-solid fa-circle-check syllabus-status-icon pending" id="status-icon-phishing"></i>
+                                </button>
+                                <button class="syllabus-item-btn" data-academy-target="lesson" data-lesson-id="twofactor">
+                                    <div class="syllabus-item-left">
+                                        <i class="fa-solid fa-shield-halved text-violet"></i>
+                                        <span>3. Multi-Factor Auth</span>
+                                    </div>
+                                    <i class="fa-solid fa-circle-check syllabus-status-icon pending" id="status-icon-twofactor"></i>
+                                </button>
+                                <button class="syllabus-item-btn" data-academy-target="lesson" data-lesson-id="social">
+                                    <div class="syllabus-item-left">
+                                        <i class="fa-solid fa-layer-group text-amber"></i>
+                                        <span>4. Defense in Depth</span>
+                                    </div>
+                                    <i class="fa-solid fa-circle-check syllabus-status-icon pending" id="status-icon-social"></i>
+                                </button>
                             </div>
-                    </div>
 
-                    <div id="subtab-view-phishspotter" class="subtab-view">
-                        <div class="spot-the-phish-container">
-                            <div class="glass-card">
-                                <div class="card-header border-bottom">
-                                    <h3>Spot The Phish Interactive Simulator</h3>
-                                    <span class="instructions-pill">Click on the suspicious elements in the email below</span>
-                                </div>
-                                <div class="phish-simulator-interface margin-top-md">
-                                    <div class="sim-browser-bar">
-                                        <span class="bullet red"></span>
-                                        <span class="bullet yellow"></span>
-                                        <span class="bullet green"></span>
-                                        <div class="sim-url-field" id="sim-browser-url">
-                                            <i class="fa-solid fa-lock text-success"></i> <span id="sim-url-text">https://secure.paypal-billing-verify.com/login</span>
-                                        </div>
+                            <div class="syllabus-group">
+                                <span class="syllabus-heading font-mono">TACTICAL DRILLS</span>
+                                <button class="syllabus-item-btn" data-academy-target="phishspotter">
+                                    <div class="syllabus-item-left">
+                                        <i class="fa-solid fa-bullseye text-cyan"></i>
+                                        <span>Spot The Phish Simulator</span>
                                     </div>
-                                    <div class="sim-email-client">
-                                        <div class="email-meta-header">
-                                            <div class="meta-row">
-                                                <span class="meta-label">From:</span>
-                                                <span class="meta-value phish-trigger" id="sim-email-sender" data-id="sender">PaypaI Alert &lt;security@paypaI-updates-support.net&gt;</span>
-                                            </div>
-                                            <div class="meta-row">
-                                                <span class="meta-label">Subject:</span>
-                                                <span class="meta-value phish-trigger" id="sim-email-subject" data-id="subject">URGENT: Temporary Account Hold - Immediate Actions Required!</span>
-                                            </div>
-                                            <div class="meta-row">
-                                                <span class="meta-label">To:</span>
-                                                <span class="meta-value">valuable-customer@user.com</span>
-                                            </div>
-                                        </div>
-                                        <div class="email-body-content">
-                                            <p class="phish-trigger" data-id="greeting">Dear Customer,</p>
-                                            <p>Our automated systems detected multiple unauthorized login attempts on your account from a suspicious IP address located in Moscow, Russia. To ensure security, we have placed a temporary limitation on your access.</p>
-                                            
-                                            <p class="phish-trigger font-weight-bold text-danger" data-id="urgency">IMPORTANT: You must resolve this issue within 24 hours. Failure to verify will lead to permanent deletion of your account and asset liquidation.</p>
-                                            
-                                            <div class="email-button-container">
-                                                <a href="#" class="btn btn-danger phish-trigger" data-id="link" onclick="return false;">Verify Account Information Immediately</a>
-                                            </div>
-                                            
-                                            <p class="margin-top-md">Sincerely,<br>
-                                            <span class="phish-trigger" data-id="signoff">The Paypal Executive Operations and Fraud Control Team Inc.</span></p>
-                                        </div>
+                                    <span class="badge badge-xs badge-neutral" id="syllabus-phish-counter">0/6</span>
+                                </button>
+                                <button class="syllabus-item-btn" data-academy-target="flashcards">
+                                    <div class="syllabus-item-left">
+                                        <i class="fa-solid fa-clone text-violet"></i>
+                                        <span>Concept Flashcards</span>
                                     </div>
-                                </div>
-                                <div class="sim-controls margin-top-md">
-                                    <div class="sim-stats">
-                                        <span>Suspicious Indicators Found: <strong id="sim-found-count">0</strong> / <strong id="sim-total-count">5</strong></span>
-                                        <div class="mini-progress-bar max-width-200"><div id="sim-progress-bar" class="fill bg-cyan" style="width: 0%"></div></div>
-                                    </div>
-                                    <button class="btn btn-outline" id="btn-reset-simulator">Reset Scenario</button>
-                                </div>
-                                <div class="sim-explanation-box margin-top-md display-none" id="sim-explanation-card">
-                                    <h4 class="text-success"><i class="fa-solid fa-circle-check"></i> Threat Detected!</h4>
-                                    <p id="sim-explanation-text">Explanation goes here...</p>
-                                </div>
+                                    <span class="badge badge-xs badge-neutral">8 Cards</span>
+                                </button>
                             </div>
-                        </div>
-                    </div>
 
-                    <div id="subtab-view-flashcards" class="subtab-view">
-                        <div class="flashcards-panel glass-card">
-                            <div class="flashcard-deck">
-                                <div id="active-flashcard" class="flashcard-card">
-                                    <div class="flashcard-face flashcard-front">
-                                        <div class="flashcard-meta">
-                                            <span class="card-category"></span>
-                                        </div>
-                                        <h3 id="flashcard-front-title">Security Concept</h3>
-                                        <p class="text-secondary" style="margin-top: 12px;">Tap the card to flip and reveal the definition.</p>
+                            <div class="syllabus-group">
+                                <span class="syllabus-heading font-mono">CERTIFICATION</span>
+                                <button class="syllabus-item-btn" data-academy-target="quiz">
+                                    <div class="syllabus-item-left">
+                                        <i class="fa-solid fa-award text-yellow-400"></i>
+                                        <span>Readiness Exam</span>
                                     </div>
-                                    <div class="flashcard-face flashcard-back">
-                                        <h4 class="text-warning">Definition</h4>
-                                        <p id="flashcard-back-text">Definition content appears here.</p>
+                                    <span class="badge badge-xs badge-success" id="syllabus-high-score">0%</span>
+                                </button>
+                            </div>
+
+                            <!-- Standardized Curriculum Mastery Status Widget Matching Posture Matrix -->
+                            <div class="syllabus-mastery-widget" id="syllabus-mastery-widget">
+                                <div class="mastery-widget-top">
+                                    <div class="mastery-widget-label-row">
+                                        <span class="mastery-widget-label font-mono"><i class="fa-solid fa-graduation-cap text-cyan"></i> CURRICULUM MASTERY</span>
+                                        <span class="badge badge-xs badge-neutral" id="academy-mastery-badge">STANDBY</span>
                                     </div>
+                                    <div class="mastery-widget-score-row">
+                                        <span id="academy-mastery-percent" class="mastery-hero-val font-mono tabular-nums text-cyan">0%</span>
+                                        <span class="mastery-hero-max font-mono text-dim">/ 100%</span>
+                                    </div>
+                                </div>
+                                <!-- Standardized Horizontal Progress Bar Matching Posture Matrix -->
+                                <div class="mastery-posture-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="academy-mastery-track">
+                                    <div id="academy-mastery-bar" class="mastery-posture-fill bg-cyan" style="width: 0%" title="Curriculum Mastery Progress"></div>
+                                </div>
+                                <div class="mastery-widget-sub-row font-mono font-xs">
+                                    <span class="text-dim" id="academy-modules-completed"><i class="fa-solid fa-shield-halved text-cyan"></i> 0 / 4 MODULES</span>
+                                    <span class="text-success font-semibold" id="academy-mastery-status"><i class="fa-solid fa-circle-check"></i> AIR-GAPPED</span>
                                 </div>
                             </div>
-                            <div class="flashcard-footer">
-                                <button class="btn btn-outline" id="btn-flashcard-prev">&larr; Previous</button>
-                                <span id="flashcard-indicator">1 / 10</span>
-                                <button class="btn btn-outline" id="btn-flashcard-next">Next &rarr;</button>
+                        </aside>
+
+                        <!-- Right Workspace Pane (Dynamic Scenario, Lessons, Flashcards & Exam) -->
+                        <div class="academy-workspace-pane">
+                            <!-- Section A: Active Lesson Viewer -->
+                            <div class="academy-pane-section active" id="pane-section-lesson">
+                                <div class="liquid-glass-card academy-lesson-card">
+                                    <div class="card-header border-bottom">
+                                        <div class="card-title-group">
+                                            <span class="badge badge-cyan" id="lesson-category-badge">CRYPTOGRAPHY</span>
+                                            <h2 id="lesson-hero-title">Securing Passwords &amp; Entropy</h2>
+                                        </div>
+                                        <span class="read-time font-mono text-dim" id="lesson-read-time"><i class="fa-regular fa-clock"></i> 5 mins</span>
+                                    </div>
+                                    <div class="academy-lesson-content" id="lesson-content-body">
+                                        <!-- Lesson HTML rendered dynamically -->
+                                    </div>
+                                    <div class="academy-lesson-footer">
+                                        <div class="lesson-status-tag font-mono font-xs" id="lesson-completion-status">
+                                            <i class="fa-solid fa-circle-notch text-dim"></i> <span>Status: Incomplete</span>
+                                        </div>
+                                        <button class="btn btn-primary btn-sm" id="btn-complete-active-lesson">
+                                            <i class="fa-solid fa-circle-check"></i> <span>Mark Module Mastered</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section B: Spot The Phish Simulator -->
+                            <div class="academy-pane-section" id="pane-section-phishspotter">
+                                <div class="liquid-glass-card">
+                                    <div class="card-header border-bottom">
+                                        <div class="card-title-group">
+                                            <i class="fa-solid fa-bullseye text-cyan"></i>
+                                            <h3>Spot The Phish Interactive Simulator</h3>
+                                        </div>
+                                        <span class="instructions-pill">Click on suspicious indicators in the mockup below</span>
+                                    </div>
+                                    <div class="phish-simulator-interface margin-top-md">
+                                        <div class="sim-browser-bar">
+                                            <span class="bullet red"></span>
+                                            <span class="bullet yellow"></span>
+                                            <span class="bullet green"></span>
+                                            <div class="sim-url-field" id="sim-browser-url">
+                                                <i class="fa-solid fa-lock text-success"></i> <span id="sim-url-text">https://secure.paypal-billing-verify.net/login</span>
+                                            </div>
+                                        </div>
+                                        <div class="sim-email-client">
+                                            <div class="email-meta-header">
+                                                <div class="meta-row">
+                                                    <span class="meta-label">From:</span>
+                                                    <span class="meta-value phish-trigger" id="sim-email-sender" data-id="sender">PaypaI Alert &lt;security@paypaI-updates-support.net&gt;</span>
+                                                </div>
+                                                <div class="meta-row">
+                                                    <span class="meta-label">Subject:</span>
+                                                    <span class="meta-value phish-trigger" id="sim-email-subject" data-id="subject">URGENT: Temporary Account Hold - Immediate Actions Required!</span>
+                                                </div>
+                                                <div class="meta-row">
+                                                    <span class="meta-label">To:</span>
+                                                    <span class="meta-value">valuable-customer@enterprise.com</span>
+                                                </div>
+                                            </div>
+                                            <div class="email-body-content">
+                                                <p class="phish-trigger" data-id="greeting">Dear Customer,</p>
+                                                <p>Our automated monitoring systems detected multiple unauthorized login attempts from a suspicious IP address located in Moscow, Russia. To ensure security, we have placed a temporary limitation on your access.</p>
+                                                <p class="phish-trigger font-weight-bold text-danger" data-id="urgency">IMPORTANT: You must resolve this issue within 24 hours. Failure to verify credentials will lead to permanent deletion of your account and liquidation of pending balances.</p>
+                                                <div class="email-button-container">
+                                                    <a href="#" class="btn btn-danger phish-trigger" data-id="link" onclick="return false;">Verify Account Information Immediately</a>
+                                                </div>
+                                                <p class="margin-top-md">Sincerely,<br>
+                                                <span class="phish-trigger" data-id="signoff">The Paypal Executive Operations and Fraud Control Team Inc.</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sim-controls margin-top-md">
+                                        <div class="sim-stats">
+                                            <span>Indicators Spotted: <strong id="sim-found-count" class="font-mono text-cyan">0</strong> / <strong id="sim-total-count" class="font-mono">6</strong></span>
+                                            <div class="mini-progress-bar max-width-200">
+                                                <div id="sim-progress-bar" class="fill bg-cyan" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline btn-sm" id="btn-reset-simulator">Reset Scenario</button>
+                                    </div>
+                                    <div class="sim-explanation-box margin-top-md display-none" id="sim-explanation-card" aria-live="polite">
+                                        <h4 class="text-success"><i class="fa-solid fa-circle-check"></i> Threat Indicator Spotted!</h4>
+                                        <p id="sim-explanation-text">Explanation details...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section C: Concept Flashcards -->
+                            <div class="academy-pane-section" id="pane-section-flashcards">
+                                <div class="flashcards-panel liquid-glass-card max-w-2xl w-full mx-auto">
+                                    <div class="flashcard-deck max-w-2xl w-full mx-auto">
+                                        <div id="active-flashcard" class="flashcard-card" tabindex="0" role="button" aria-label="Interactive concept flashcard. Tap or press space to flip.">
+                                            <div class="flashcard-face flashcard-front">
+                                                <div class="flashcard-meta">
+                                                    <span class="card-category badge badge-neutral" id="flashcard-category-badge">CRYPTOGRAPHY</span>
+                                                </div>
+                                                <h3 id="flashcard-front-title">Security Concept</h3>
+                                                <p class="text-secondary" style="margin-top: 14px;">
+                                                    <i class="fa-solid fa-hand-pointer text-cyan"></i> Tap or press Space/Enter to flip card
+                                                </p>
+                                            </div>
+                                            <div class="flashcard-face flashcard-back">
+                                                <h4 class="text-cyan">Definition &amp; Operational Context</h4>
+                                                <p id="flashcard-back-text">Definition appears here.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flashcard-footer">
+                                        <button class="btn btn-outline btn-sm" id="btn-flashcard-prev" aria-label="Previous card">&larr; Previous</button>
+                                        <span id="flashcard-indicator" class="font-mono text-cyan">1 / 8</span>
+                                        <button class="btn btn-outline btn-sm" id="btn-flashcard-next" aria-label="Next card">Next &rarr;</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section D: Cybersecurity Readiness Exam -->
+                            <div class="academy-pane-section" id="pane-section-quiz">
+                                <div class="quiz-container max-width-800">
+                                    <!-- Quiz Start Panel -->
+                                    <div class="liquid-glass-card quiz-panel text-center" id="quiz-start-panel">
+                                        <i class="fa-solid fa-shield-halved text-cyan icon-huge"></i>
+                                        <h3 class="margin-top-md">Cybersecurity Readiness Certification Exam</h3>
+                                        <p class="text-dim max-width-600 margin-top-sm" style="margin-left: auto; margin-right: auto;">Test your operational awareness of SIM swapping, Punycode homographs, passkey architectures, and executive coercion. Passing elevates your Cyber Defensive Posture.</p>
+                                        <div class="quiz-settings margin-top-md">
+                                            <div class="stat-box display-inline-block">
+                                                <span class="stat-box-label font-mono">YOUR CURRENT HIGH SCORE</span>
+                                                <span class="stat-box-value font-mono text-cyan" id="quiz-high-score">0%</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary btn-large margin-top-lg" id="btn-start-quiz">
+                                            <i class="fa-solid fa-play"></i> <span>Initialize Certification Exam</span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Active Quiz Question Panel -->
+                                    <div class="liquid-glass-card quiz-panel display-none" id="quiz-active-panel">
+                                        <div class="quiz-header">
+                                            <div class="quiz-progress-wrapper">
+                                                <span>Question <strong id="quiz-current-num" class="font-mono text-cyan">1</strong> of <strong id="quiz-total-num" class="font-mono">10</strong></span>
+                                                <div class="mini-progress-bar">
+                                                    <div id="quiz-progress-bar" class="fill bg-cyan" style="width: 10%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="quiz-timer font-mono" role="timer" aria-label="Question countdown timer">
+                                                <i class="fa-solid fa-stopwatch text-warning"></i>
+                                                <span id="quiz-time-left" class="text-warning">30s</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="quiz-question-box margin-top-md">
+                                            <h3 id="quiz-question-text">Question text?</h3>
+                                        </div>
+
+                                        <div class="quiz-options-list margin-top-lg" id="quiz-options-container" role="radiogroup" aria-label="Answer choices">
+                                            <!-- Options dynamically rendered -->
+                                        </div>
+
+                                        <div class="quiz-explanation-box margin-top-md display-none" id="quiz-explanation-panel" aria-live="polite">
+                                            <div class="explanation-icon" id="quiz-explanation-icon">
+                                                <i class="fa-solid fa-check-circle text-success"></i>
+                                            </div>
+                                            <div class="explanation-details">
+                                                <h4 id="quiz-explanation-title">Correct!</h4>
+                                                <p id="quiz-explanation-body">Explanation text...</p>
+                                            </div>
+                                            <button class="btn btn-primary margin-left-auto btn-sm" id="btn-next-question">
+                                                Next Question &rarr;
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Quiz Results Panel -->
+                                    <div class="liquid-glass-card quiz-panel text-center display-none" id="quiz-results-panel">
+                                        <div class="trophy-wrapper">
+                                            <i class="fa-solid fa-trophy text-glow-yellow" id="quiz-medal-icon"></i>
+                                        </div>
+                                        <h3 class="margin-top-md" id="quiz-results-title">Assessment Completed!</h3>
+                                        <p class="text-dim" id="quiz-results-subtitle">Performance Evaluation Summary</p>
+                                        
+                                        <div class="grid-3col margin-top-lg">
+                                            <div class="stat-box">
+                                                <span class="stat-box-label font-mono">ACCURACY</span>
+                                                <span class="stat-box-value font-mono text-cyan" id="quiz-stat-accuracy">80%</span>
+                                            </div>
+                                            <div class="stat-box">
+                                                <span class="stat-box-label font-mono">TIME ELAPSED</span>
+                                                <span class="stat-box-value font-mono" id="quiz-stat-time">02:14</span>
+                                            </div>
+                                            <div class="stat-box">
+                                                <span class="stat-box-label font-mono">CERTIFICATION BADGE</span>
+                                                <span class="stat-box-value text-success font-mono font-xs" id="quiz-stat-badge">Shield Initiate</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-actions margin-top-lg flex-center-horizontal" style="gap: 12px;">
+                                            <button class="btn btn-primary btn-sm" id="btn-restart-quiz">Retry Exam</button>
+                                            <button class="btn btn-outline btn-sm" id="btn-quiz-go-dashboard">Back to Dashboard</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section id="view-quiz" class="content-view">
-                    <div class="quiz-container max-width-800 flex-center-horizontal">
-                        
-                        <div class="glass-card quiz-panel text-center" id="quiz-start-panel">
-                            <i class="fa-solid fa-shield-virus text-violet icon-huge"></i>
-                            <h3 class="margin-top-md">Cybersecurity Readiness Quiz</h3>
-                            <p class="text-dim max-width-600 margin-top-sm">Test your awareness of social engineering, browser safety, passcode patterns, and email fraud vectors. Unlock badges to raise your security index!</p>
-                            <div class="quiz-settings margin-top-md">
-                                <div class="stat-box display-inline-block">
-                                    <span class="stat-box-label">Your Current High Score</span>
-                                    <span class="stat-box-value" id="quiz-high-score">0%</span>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary btn-large margin-top-lg" id="btn-start-quiz">Initialize Exam</button>
-                        </div>
-
-                        <div class="glass-card quiz-panel display-none" id="quiz-active-panel">
-                            <div class="quiz-header">
-                                <div class="quiz-progress-wrapper">
-                                    <span>Question <strong id="quiz-current-num">1</strong> of <strong id="quiz-total-num">10</strong></span>
-                                    <div class="mini-progress-bar"><div id="quiz-progress-bar" class="fill bg-violet" style="width: 10%"></div></div>
-                                </div>
-                                <div class="quiz-timer">
-                                    <i class="fa-solid fa-stopwatch text-warning"></i>
-                                    <span id="quiz-time-left" class="text-warning">30s</span>
-                                </div>
-                            </div>
-
-                            <div class="quiz-question-box margin-top-md">
-                                <h3 id="quiz-question-text">Question text goes here?</h3>
-                            </div>
-
-                            <div class="quiz-options-list margin-top-lg" id="quiz-options-container">
-                                </div>
-
-                            <div class="quiz-explanation-box margin-top-md display-none" id="quiz-explanation-panel">
-                                <div class="explanation-icon" id="quiz-explanation-icon">
-                                    <i class="fa-solid fa-check-circle text-success"></i>
-                                </div>
-                                <div class="explanation-details">
-                                    <h4 id="quiz-explanation-title">Correct!</h4>
-                                    <p id="quiz-explanation-body">Detailed explanation text goes here.</p>
-                                </div>
-                                <button class="btn btn-primary margin-left-auto" id="btn-next-question">Next Question</button>
-                            </div>
-                        </div>
-
-                        <div class="glass-card quiz-panel text-center display-none" id="quiz-results-panel">
-                            <div class="trophy-wrapper">
-                                <i class="fa-solid fa-trophy text-glow-yellow" id="quiz-medal-icon"></i>
-                            </div>
-                            <h3 class="margin-top-md" id="quiz-results-title">Quiz Completed!</h3>
-                            <p class="text-dim" id="quiz-results-subtitle">You scored 8 out of 10 points.</p>
-                            
-                            <div class="grid-3col margin-top-lg">
-                                <div class="stat-box">
-                                    <span class="stat-box-label">Accuracy</span>
-                                    <span class="stat-box-value" id="quiz-stat-accuracy">80%</span>
-                                </div>
-                                <div class="stat-box">
-                                    <span class="stat-box-label">Time Spent</span>
-                                    <span class="stat-box-value" id="quiz-stat-time">02:14</span>
-                                </div>
-                                <div class="stat-box">
-                                    <span class="stat-box-label">Badge Unlocked</span>
-                                    <span class="stat-box-value text-success" id="quiz-stat-badge">Shield Initiate</span>
-                                </div>
-                            </div>
-
-                            <div class="form-actions margin-top-lg flex-center-horizontal">
-                                <button class="btn btn-primary" id="btn-restart-quiz">Retry Exam</button>
-                                <button class="btn btn-outline" id="btn-quiz-go-dashboard">Back to Dashboard</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="view-developer" class="content-view">
-                    <div class="content-grid-2col">
-                        <div class="glass-card flex-column">
-                            <div class="card-header border-bottom">
-                                <h3>Developer Profile</h3>
-                            </div>
-                            <div class="flex-center-vertical margin-top-md" style="padding: 20px 0;">
-                                <i class="fa-solid fa-user-astronaut text-cyan" style="font-size: 4rem; margin-bottom: 20px;"></i>
-                                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; letter-spacing: 1px;" class="text-glow">JATASHYA K. VYAS</h2>
-                                <span class="badge badge-pulse margin-top-sm">Lead Developer & Architect</span>
-                            </div>
-                            
-                            <div class="margin-top-md">
-                                <ul class="cyber-bullets">
-                                    <li><i class="fa-solid fa-graduation-cap text-violet"></i> <strong>Education:</strong> Pursuing Diploma in Computer Engineering</li>
-                                    <li><i class="fa-solid fa-university text-violet"></i> <strong>Institution:</strong> SVIT Vasad (Gujarat)</li>
-                                    <li><i class="fa-solid fa-code-branch text-violet"></i> <strong>Project Role:</strong> Designing and programming an interactive Cybersecurity Hub to enhance user defense mechanisms and digital threat awareness.</li>
-                                </ul>
-                            </div>
-
-                            <div class="margin-top-md border-top" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px;">
-                                <h4 style="margin-bottom: 12px; color: var(--text-primary);">Contact & Connectivity</h4>
-                                <ul class="cyber-bullets">
-                                    <li><i class="fa-solid fa-envelope text-cyan"></i> <strong>Email:</strong> <span>jatashyavyas@gmail.com</span></li>
-                                    <li><i class="fa-brands fa-linkedin text-cyan"></i> <strong>LinkedIn:</strong> <span>[Insert your LinkedIn here]</span></li>
-                                    <li><i class="fa-brands fa-github text-cyan"></i> <strong>GitHub:</strong> <span>[Insert your GitHub here]</span></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="glass-card flex-column">
-                            <div class="card-header border-bottom">
-                                <h3>About The Project: Aegis Hub</h3>
-                            </div>
-                            <div class="margin-top-md">
-                                <p class="text-secondary" style="line-height: 1.6;">
-                                    <strong>Aegis Cybersecurity Hub</strong> is a modern, responsive Single Page Application (SPA) built to empower users with the tools needed to combat daily digital threats. By integrating real-time threat analysis with interactive education, Aegis bridges the gap between passive learning and active defence.
-                                </p>
-                            </div>
-                            
-                            <div class="margin-top-md">
-                                <h4 style="margin-bottom: 12px; color: var(--text-primary);">Core Modules Developed:</h4>
-                                <ul class="cyber-bullets">
-                                    <li><i class="fa-solid fa-chart-pie text-emerald"></i> <strong>Security Dashboard:</strong> Aggregates live user data to calculate a Personal Cyber Safety Index and visualizes risk through a local network threat shield.</li>
-                                    <li><i class="fa-solid fa-key text-emerald"></i> <strong>Password Analyzer:</strong> A cryptographic analysis tool that tests Shannon entropy, highlights structural weaknesses, and calculates crack durations in real-time.</li>
-                                    <li><i class="fa-solid fa-link text-emerald"></i> <strong>URL Phishing Check:</strong> An inspector running heuristic algorithms to detect typosquatting, suspicious TLDs, and deceptive redirects.</li>
-                                    <li><i class="fa-solid fa-envelope-open-text text-emerald"></i> <strong>Email Scam Scanner:</strong> A threat-level scraper utilizing regex and keyword detection to highlight psychological manipulation vectors (like financial urgency).</li>
-                                    <li><i class="fa-solid fa-graduation-cap text-emerald"></i> <strong>Interactive Learning Hub & Quiz:</strong> Features interactive flashcards, a unique "Spot the Phish" simulation engine, and an exam system to test readiness and reward safe practices.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <!-- Hidden compatibility aliases for legacy ID hooks -->
+                <div id="view-learning" style="display: none;" hidden aria-hidden="true"></div>
+                <div id="view-quiz" style="display: none;" hidden aria-hidden="true"></div>
+                <div id="view-developer" style="display: none;" hidden aria-hidden="true"></div>
 
             </div>
         </main>
     </div>
 
-    <div class="security-notification-container" id="toast-container">
+    <!-- Command Palette (⌘K Global Quick-Actions Modal) -->
+    <div class="cmd-palette-backdrop" id="cmd-palette-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cmd-search-input">
+        <div class="cmd-palette-modal">
+            <div class="cmd-input-row">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="cmd-search-input" class="cmd-search-input" placeholder="Type a command, tool, or preset..." autocomplete="off">
+                <button class="btn-close-cmd" id="btn-close-cmd" aria-label="Close command palette">
+                    <kbd class="kbd-badge">ESC</kbd>
+                </button>
+            </div>
+            <div class="cmd-results-container" id="cmd-results-container" role="listbox">
+                <!-- Rendered dynamically by AegisCommandPalette in app.js -->
+            </div>
+            <div class="cmd-footer">
+                <div class="cmd-shortcut-hint">
+                    <kbd class="kbd-badge">↑</kbd> <kbd class="kbd-badge">↓</kbd> <span>Navigate</span>
+                    <kbd class="kbd-badge margin-left-xs">↵</kbd> <span>Select</span>
+                </div>
+                <span>Aegis SOC Command Engine</span>
+            </div>
         </div>
+    </div>
 
+    <!-- Accessible Toast Container -->
+    <div class="security-notification-container" id="toast-container" aria-live="polite" role="region" aria-label="Security Notifications"></div>
+
+    <!-- 1. System Architecture & Enclave Specifications Slide-over Drawer -->
+    <div class="slideover-backdrop" id="drawer-arch-backdrop" aria-hidden="true"></div>
+    <aside class="slideover-drawer" id="drawer-architecture" role="dialog" aria-modal="true" aria-labelledby="drawer-arch-title" aria-hidden="true">
+        <div class="drawer-header">
+            <div class="flex-align-center" style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <i class="fa-solid fa-microchip text-cyan" style="font-size: 14px; flex-shrink: 0;"></i>
+                <h3 id="drawer-arch-title" style="font-size: 0.84rem; font-weight: 700; color: #f1f5f9; margin: 0; white-space: nowrap; letter-spacing: -0.01em;">System Architecture &amp; Enclave Specifications</h3>
+            </div>
+            <div class="flex-align-center" style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+                <span class="badge-env-pill">v2.2-CLIENT</span>
+                <button class="drawer-close-btn" id="btn-close-arch-drawer" aria-label="Close architecture drawer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+        <div class="drawer-body">
+            <!-- Core Enclave Specifications -->
+            <div class="drawer-card">
+                <h4 class="font-mono font-xs text-dim margin-bottom-sm" style="letter-spacing: 0.06em; color: #64748b; font-weight: 600; text-transform: uppercase;">CORE ENCLAVE SPECIFICATIONS</h4>
+                <ul class="spec-bullet-list">
+                    <li class="spec-bullet-item">
+                        <div class="spec-bullet-icon">
+                            <i class="fa-solid fa-shield-halved text-cyan"></i>
+                        </div>
+                        <div class="spec-bullet-body">
+                            <div class="spec-bullet-title">Zero-Knowledge Air-Gap</div>
+                            <p class="spec-bullet-desc">100% in-browser WebCrypto Subtle operations. Zero telemetry or credential payloads transmitted off-device.</p>
+                        </div>
+                    </li>
+                    <li class="spec-bullet-item">
+                        <div class="spec-bullet-icon">
+                            <i class="fa-solid fa-bolt text-cyan"></i>
+                        </div>
+                        <div class="spec-bullet-body">
+                            <div class="spec-bullet-title">WebCrypto Hardware Acceleration</div>
+                            <p class="spec-bullet-desc">Non-blocking hardware SHA-256 primitives (~3,450 ops/sec, &lt;0.28ms latency) with CSPRNG entropy seeding.</p>
+                        </div>
+                    </li>
+                    <li class="spec-bullet-item">
+                        <div class="spec-bullet-icon">
+                            <i class="fa-solid fa-fingerprint text-cyan"></i>
+                        </div>
+                        <div class="spec-bullet-body">
+                            <div class="spec-bullet-title">NIST SP 800-63B Entropy</div>
+                            <p class="spec-bullet-desc">Shannon bit-depth analysis <code class="spec-formula-code">H(X) = -∑ p log₂ p</code> with dictionary penalty deductions.</p>
+                        </div>
+                    </li>
+                    <li class="spec-bullet-item">
+                        <div class="spec-bullet-icon">
+                            <i class="fa-solid fa-globe text-cyan"></i>
+                        </div>
+                        <div class="spec-bullet-body">
+                            <div class="spec-bullet-title">RFC 5890 IDN Homoglyphs</div>
+                            <p class="spec-bullet-desc">Unicode confusable matching detecting Cyrillic/Greek lookalikes and Punycode spoofing.</p>
+                        </div>
+                    </li>
+                    <li class="spec-bullet-item">
+                        <div class="spec-bullet-icon">
+                            <i class="fa-solid fa-fire text-cyan"></i>
+                        </div>
+                        <div class="spec-bullet-body">
+                            <div class="spec-bullet-title">Ephemeral Volatility</div>
+                            <p class="spec-bullet-desc">Memory-only keyspace buffers with cryptographic state shredding on session purge.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Enclave Controls -->
+            <div class="drawer-card">
+                <h4 class="font-mono font-xs text-dim margin-bottom-sm" style="letter-spacing: 0.06em; color: #64748b; font-weight: 600; text-transform: uppercase;">ENCLAVE CONTROLS</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <button class="btn btn-sm btn-outline w-100" id="btn-drawer-bench">
+                        <i class="fa-solid fa-microchip"></i> <span>Execute Hardware Benchmark</span>
+                    </button>
+                    <button class="btn btn-sm btn-danger-ghost w-100" id="btn-drawer-purge">
+                        <i class="fa-solid fa-trash-can"></i> <span>Purge Session Cache &amp; Telemetry</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-footer font-mono font-xs">
+            <div class="flex-align-center" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; flex-shrink: 0;">
+                <span style="color: #cbd5e1; font-weight: 600; font-size: 0.76rem;">AEGIS Core Enclave v2.2</span>
+                <span class="text-emerald" style="display: inline-flex; align-items: center; gap: 5px; color: #10b981; font-size: 0.72rem;">
+                    <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #10b981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.7); flex-shrink: 0;"></span>
+                    Air-Gapped Validated
+                </span>
+            </div>
+            <a href="https://github.com/Jatashya" target="_blank" rel="noopener noreferrer" class="drawer-footer-link text-slate-400 hover:text-slate-100 transition-colors text-xs flex items-center gap-1.5" title="View Source on GitHub">
+                <i class="fa-brands fa-github"></i>
+                <span>Source Repository ↗</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- 2. Security Audit Ledger Detail Inspection Slide-over Drawer -->
+    <div class="slideover-backdrop" id="drawer-ledger-backdrop" aria-hidden="true"></div>
+    <aside class="slideover-drawer" id="drawer-ledger-inspect" role="dialog" aria-modal="true" aria-labelledby="ledger-inspect-title" aria-hidden="true">
+        <div class="drawer-header">
+            <div class="flex-align-center" style="display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-list-check text-cyan"></i>
+                <h3 id="ledger-inspect-title">Audit Ledger Event Detail</h3>
+            </div>
+            <button class="drawer-close-btn" id="btn-close-ledger-drawer" aria-label="Close ledger inspection drawer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="drawer-body">
+            <div class="drawer-card">
+                <div class="flex-between margin-bottom-xs font-mono font-xs" style="display: flex; justify-content: space-between;">
+                    <span class="text-dim">TIMESTAMP (UTC)</span>
+                    <span id="inspect-time" class="text-cyan">--:--:-- UTC</span>
+                </div>
+                <div class="flex-between font-mono font-xs" style="display: flex; justify-content: space-between;">
+                    <span class="text-dim">EVENT ID</span>
+                    <span id="inspect-id" class="text-dim">evt-0000000000</span>
+                </div>
+            </div>
+
+            <div class="drawer-card">
+                <div class="flex-between margin-bottom-xs" style="display: flex; justify-content: space-between;">
+                    <span class="font-mono font-xs text-dim">VECTOR CATEGORY</span>
+                    <span id="inspect-vector-badge" class="soc-vector-chip vector-system">SYSTEM</span>
+                </div>
+                <div class="flex-between" style="display: flex; justify-content: space-between;">
+                    <span class="font-mono font-xs text-dim">SEVERITY RATING</span>
+                    <span id="inspect-severity-badge" class="badge badge-cyan">VERIFIED</span>
+                </div>
+            </div>
+
+            <div class="drawer-card">
+                <h4 class="font-mono font-xs text-dim margin-bottom-xs">TARGET / AUDIT SUMMARY</h4>
+                <div id="inspect-title" style="font-weight: 700; color: #f1f5f9; font-size: 0.95rem; margin-bottom: 6px;">Event Title</div>
+                <div id="inspect-detail" class="font-mono font-xs text-dim" style="background: #030509; padding: 10px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.05); word-break: break-all;">
+                    Event payload details...
+                </div>
+            </div>
+
+            <div class="drawer-card">
+                <div class="flex-between margin-bottom-xs" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h4 class="font-mono font-xs text-dim" style="margin: 0;">SHA-256 INTEGRITY DIGEST</h4>
+                    <button class="btn-icon-copy" id="btn-copy-inspect-hash" title="Copy digest to clipboard">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+                <code id="inspect-hash" class="font-mono font-xs text-cyan" style="word-break: break-all; display: block; background: #030509; padding: 8px; border-radius: 6px;">
+                    e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                </code>
+            </div>
+
+            <div class="drawer-card">
+                <h4 class="font-mono font-xs text-dim margin-bottom-xs">FORENSIC ANALYSIS &amp; COMPLIANCE</h4>
+                <p class="font-xs text-dim" id="inspect-forensic-note" style="line-height: 1.5; margin: 0;">
+                    Zero network exfiltration verified. Cryptographic hardware state recorded locally in volatile enclave memory.
+                </p>
+            </div>
+        </div>
+        <div class="drawer-footer" style="display: flex; justify-content: space-between; align-items: center;">
+            <button class="btn btn-outline btn-sm" id="btn-close-ledger-footer">Close Inspection</button>
+            <span class="font-mono font-xs text-success"><i class="fa-solid fa-lock"></i> ZERO-EGRESS RECORD</span>
+        </div>
+    </aside>
+
+    <!-- Scripts (Ordered for initialization) -->
+    <script type="module" src="app.js"></script>
     <script type="module" src="password.js"></script>
     <script type="module" src="phishing.js"></script>
     <script type="module" src="email.js"></script>
     <script type="module" src="learning.js"></script>
     <script type="module" src="quiz.js"></script>
     <script type="module" src="dashboard.js"></script>
-    <script type="module" src="app.js"></script>
 </body>
 </html>

@@ -219,6 +219,10 @@ const QuizController = {
         }
     },
 
+    updateHighScoreView() {
+        this.renderHighScore();
+    },
+
     renderHighScore() {
         if (!this.highScoreLabel) return;
         let score = 0;

@@ -1,20 +1,26 @@
 {
   "name": "aegis-cybersecurity-hub",
-  "version": "1.0.0",
-  "description": "A dynamic cybersecurity analyzer and learning SPA with strict security restrictions.",
+  "version": "2.2.0",
+  "description": "Enterprise-grade air-gapped client-side cybersecurity operations platform and defense enclave.",
   "main": "index.html",
+  "type": "module",
   "scripts": {
     "dev": "vite",
+    "serve": "node serve.js",
     "build": "vite build",
     "preview": "vite preview"
   },
   "keywords": [
     "cybersecurity",
+    "soc-platform",
+    "air-gapped",
+    "webcrypto",
+    "shannon-entropy",
     "password-analyzer",
     "phishing-url-checker",
     "email-scam-analyzer"
   ],
-  "author": "Aegis Security",
+  "author": "Jatashya K. Vyas",
   "license": "ISC",
   "devDependencies": {
     "vite": "^5.2.0"
